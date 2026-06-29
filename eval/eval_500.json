@@ -1,0 +1,6477 @@
+[
+  {
+    "id": "L1_0001",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Giá vé vào cổng bao nhiêu?",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0002",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé người lớn giá mấy?",
+    "must_contain": [
+      "người lớn",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0003",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé trẻ em bao nhiêu tiền?",
+    "must_contain": [
+      "trẻ em",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0004",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Phí vào cổng là bao nhiêu?",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0005",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "gia ve vao cong bao nhieu",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0006",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "ve vao cong het bao nhieu tien",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0007",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Mua vé hết bao nhiêu?",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0008",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vào Suối Tiên tốn bao nhiêu?",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0009",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Combo gia đình giá bao nhiêu?",
+    "must_contain": [
+      "combo",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0010",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé học sinh có không?",
+    "must_contain": [
+      "học sinh",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0011",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Có vé giảm giá không?",
+    "must_contain": [
+      "vé",
+      "giảm"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0012",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Trẻ em mấy tuổi thì miễn phí?",
+    "must_contain": [
+      "miễn phí",
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0013",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé khu nước giá bao nhiêu?",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0014",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé khu khô bao nhiêu tiền?",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0015",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Có combo 2 khu không?",
+    "must_contain": [
+      "combo",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0016",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "ticket price",
+    "must_contain": [
+      "ticket",
+      "price"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0017",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "how much is the entrance fee",
+    "must_contain": [
+      "ticket",
+      "price"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0018",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Giá vé có bao gồm tất cả trò không?",
+    "must_contain": [
+      "vé",
+      "bao gồm"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0019",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé online rẻ hơn vé tại cổng không?",
+    "must_contain": [
+      "vé",
+      "online"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0020",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Có vé tháng hoặc vé năm không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0021",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé nhóm đoàn có giảm không?",
+    "must_contain": [
+      "vé",
+      "đoàn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0022",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé ưu đãi cho người cao tuổi không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0023",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Mua vé ở đâu?",
+    "must_contain": [
+      "vé",
+      "mua"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0024",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Đặt vé online ở đâu?",
+    "must_contain": [
+      "vé",
+      "online",
+      "suoitien.vn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0025",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "book ve o dau",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0026",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Mấy giờ mở cửa?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0027",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Mấy giờ đóng cửa?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0028",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "may gio mo cua",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0029",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "may gio dong cua",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0030",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Giờ hoạt động Suối Tiên?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0031",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Cuối tuần mở cửa mấy giờ?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0032",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Chủ nhật có mở cửa không?",
+    "must_contain": [
+      "mở"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0033",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Ngày lễ có mở cửa không?",
+    "must_contain": [
+      "mở"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0034",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "gio mo cua suoi tien",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0035",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "open time",
+    "must_contain": [
+      "open",
+      "time"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0036",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "what time does it open",
+    "must_contain": [
+      "open",
+      "time"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0037",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Mở cửa từ mấy giờ đến mấy giờ?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0038",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Buổi tối có mở không?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0039",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Sáng sớm mấy giờ vào được?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0040",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Đến lúc mấy giờ thì vào không được?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0041",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Hôm nay mở cửa không?",
+    "must_contain": [
+      "mở"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0042",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Thứ 2 có mở cửa không?",
+    "must_contain": [
+      "mở"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0043",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "Giờ bán vé?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0044",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "gio hoat dong",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0045",
+    "level": "L1",
+    "category": "gio_mo_cua",
+    "query": "closing time",
+    "must_contain": [
+      "time",
+      "close"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0046",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Suối Tiên ở đâu?",
+    "must_contain": [
+      "Xa Lộ",
+      "Thủ Đức"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0047",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Địa chỉ Suối Tiên?",
+    "must_contain": [
+      "Xa Lộ",
+      "120"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0048",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Suối Tiên ở quận mấy?",
+    "must_contain": [
+      "Thủ Đức"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0049",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "dia chi suoi tien",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0050",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "suoi tien o dau",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0051",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Công viên nằm ở đâu?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0052",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Suối Tiên cách trung tâm bao xa?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0053",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Địa điểm Suối Tiên?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0054",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Where is Suoi Tien?",
+    "must_contain": [
+      "Xa Lộ",
+      "Ho Chi Minh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0055",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "location of Suoi Tien park",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0056",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Suối Tiên ở TP.HCM không?",
+    "must_contain": [
+      "Thủ Đức",
+      "HCM"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0057",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Cách quận 1 bao xa?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0058",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Ở đường nào?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0059",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "Số nhà bao nhiêu?",
+    "must_contain": [
+      "120"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0060",
+    "level": "L1",
+    "category": "dia_chi",
+    "query": "cho nao",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0061",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Hotline Suối Tiên?",
+    "must_contain": [
+      "1900",
+      "636"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0062",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Số điện thoại liên hệ?",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0063",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "so dien thoai suoi tien",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0064",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Email Suối Tiên?",
+    "must_contain": [
+      "suoitien",
+      "@"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0065",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Gọi cho Suối Tiên số nào?",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0066",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "hotline",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0067",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "lien he",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0068",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Contact Suoi Tien?",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0069",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "phone number",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0070",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Liên hệ đặt vé?",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0071",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Liên hệ teambuilding?",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0072",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Website Suối Tiên?",
+    "must_contain": [
+      "suoitien.vn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0073",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "so dt suoi tien",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0074",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Fanpage Suối Tiên?",
+    "must_contain": [
+      "suoitien"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0075",
+    "level": "L1",
+    "category": "lien_he",
+    "query": "Zalo Suối Tiên?",
+    "must_contain": [
+      "1900",
+      "suoitien"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0076",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Đi metro đến Suối Tiên được không?",
+    "must_contain": [
+      "metro"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0077",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Xe buýt nào đến Suối Tiên?",
+    "must_contain": [
+      "xe buýt",
+      "tuyến"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0078",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "xe buyt den suoi tien",
+    "must_contain": [
+      "xe buýt"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0079",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Từ quận 1 đi Suối Tiên bao lâu?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0080",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Đi Grab đến Suối Tiên được không?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0081",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Bãi giữ xe ở đâu?",
+    "must_contain": [
+      "xe",
+      "bãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0082",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "gui xe o dau",
+    "must_contain": [
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0083",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Có bãi đỗ xe ô tô không?",
+    "must_contain": [
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0084",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Phí giữ xe bao nhiêu?",
+    "must_contain": [
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0085",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Metro số mấy đến Suối Tiên?",
+    "must_contain": [
+      "metro"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0086",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "duong di den suoi tien",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0087",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "How to get to Suoi Tien?",
+    "must_contain": [
+      "Xa Lộ",
+      "metro"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0088",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "directions to Suoi Tien",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0089",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Cách đi từ sân bay Tân Sơn Nhất?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0090",
+    "level": "L1",
+    "category": "duong_di",
+    "query": "Chạy xe máy đến Suối Tiên đường nào?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0091",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Chơi Bí Mật Rừng Phù Thủy có phải trả thêm tiền không?",
+    "must_contain": [
+      "Bí Mật Rừng Phù Thủy"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0092",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Mega Central là trò chơi gì?",
+    "must_contain": [
+      "Mega Central"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0093",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Chơi Vườn Sung Mỹ có phải trả thêm tiền không?",
+    "must_contain": [
+      "Vườn Sung Mỹ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0094",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "EDM Ocean Electronia ở khu nào?",
+    "must_contain": [
+      "EDM Ocean Electronia"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0095",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Chơi Khám phá vũ trụ huyền bí - VR GAME có phải trả thêm tiền không?",
+    "must_contain": [
+      "Khám phá vũ trụ huyền bí - VR GAME"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0096",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Trò Sky Bounder – Người Chinh Phục Bầu Trời dành cho ai?",
+    "must_contain": [
+      "Sky Bounder – Người Chinh Phục Bầu Trời"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0097",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Sky Bounder – Người chinh phục bầu trời ở khu nào?",
+    "must_contain": [
+      "Sky Bounder – Người chinh phục bầu trời"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0098",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Trò Đường Hầm Xuyên Lòng Đất dành cho ai?",
+    "must_contain": [
+      "Đường Hầm Xuyên Lòng Đất"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0099",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Chơi Vũ điệu tagada - phi cơ - ghế bay có phải trả thêm tiền không?",
+    "must_contain": [
+      "Vũ điệu tagada - phi cơ - ghế bay"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0100",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Suối Tiên Farm - Vườn Trái Cây có cảm giác mạnh không?",
+    "must_contain": [
+      "Suối Tiên Farm - Vườn Trái Cây"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0101",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Massage Cá là trò chơi gì?",
+    "must_contain": [
+      "Massage Cá"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0102",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Vương quốc Cá Sấu - Câu Cá Sấu ở khu nào?",
+    "must_contain": [
+      "Vương quốc Cá Sấu - Câu Cá Sấu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0103",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Trò Vương Quốc Cá Sấu - Giang Sơn Bách Thú dành cho ai?",
+    "must_contain": [
+      "Vương Quốc Cá Sấu - Giang Sơn Bách Thú"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0104",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Sung Mỹ Camy - Vườn Trái Cây Suối Tiên Farm có cảm giác mạnh không?",
+    "must_contain": [
+      "Sung Mỹ Camy - Vườn Trái Cây Suối Tiên Farm"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0105",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Lâu Đài Tuyết có cảm giác mạnh không?",
+    "must_contain": [
+      "Lâu Đài Tuyết"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0106",
+    "level": "L2",
+    "category": "tro_choi_specific",
+    "query": "Động Hương Tích & Bích Động ở khu nào?",
+    "must_contain": [
+      "Động Hương Tích & Bích Động"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0107",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Trò chơi cảm giác mạnh có gì?",
+    "must_contain": [
+      "cảm giác mạnh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0108",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Khu vui chơi trẻ em có gì?",
+    "must_contain": [
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0109",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Có trò chơi nào cho người già không?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0110",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Trò chơi nào không cần trả thêm tiền?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0111",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Khu nước có gì chơi?",
+    "must_contain": [
+      "khu nước"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0112",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Khu khô có gì chơi?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0113",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Infinity Slide là gì?",
+    "must_contain": [
+      "Infinity Slide"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0114",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Go Kart ở đâu?",
+    "must_contain": [
+      "Go Kart"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0115",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Twin Race như thế nào?",
+    "must_contain": [
+      "Twin Race"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0116",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Xe Tăng ở khu nào?",
+    "must_contain": [
+      "Xe Tăng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0117",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Có trò chơi VR không?",
+    "must_contain": [
+      "VR"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0118",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Phim 12D là gì?",
+    "must_contain": [
+      "12D"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0119",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Vương quốc cá sấu có gì?",
+    "must_contain": [
+      "cá sấu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0120",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Khu văn hóa tâm linh có gì?",
+    "must_contain": [
+      "văn hóa"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0121",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Có bao nhiêu trò chơi cảm giác mạnh?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0122",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Trò chơi nào phù hợp cả gia đình?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0123",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Co tro choi gi vui",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0124",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "tro choi manh nhat la gi",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0125",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Khu Mega Zone có gì?",
+    "must_contain": [
+      "Mega Zone"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0126",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "tiNiWorld là gì?",
+    "must_contain": [
+      "tiNiWorld"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0127",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Suối Tiên Farm có gì tham quan?",
+    "must_contain": [
+      "Farm"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0128",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Vườn nho ở đâu?",
+    "must_contain": [
+      "vườn nho"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0129",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Có hái trái cây không?",
+    "must_contain": [
+      "trái cây",
+      "hái"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0130",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Câu cá sấu được không?",
+    "must_contain": [
+      "cá sấu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0131",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Đình thần ở đâu?",
+    "must_contain": [
+      "đình"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0132",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Chùa trong Suối Tiên?",
+    "must_contain": [
+      "chùa"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0133",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Tượng Quan Thế Âm ở đâu?",
+    "must_contain": [
+      "Quan Thế Âm"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0134",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Đền Hùng Vương ở đâu?",
+    "must_contain": [
+      "Hùng Vương"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0135",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Có show diễn không?",
+    "must_contain": [
+      "diễn",
+      "biểu diễn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0136",
+    "level": "L2",
+    "category": "tro_choi",
+    "query": "Có diễu hành không?",
+    "must_contain": [
+      "diễu hành"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0137",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Nhà hàng Phố Lẩu có gì ăn?",
+    "must_contain": [
+      "Phố Lẩu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0138",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Giá ăn ở Nhà hàng Phù Đổng 4 khoảng bao nhiêu?",
+    "must_contain": [
+      "Nhà hàng Phù Đổng 4"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0139",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Nhà hàng Diamond Palace Suối Tiên có gì ăn?",
+    "must_contain": [
+      "Diamond Palace Suối Tiên"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0140",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Giá ăn ở Phố lẩu khoảng bao nhiêu?",
+    "must_contain": [
+      "Phố lẩu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0141",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Nhà hàng Phố Ẩm thực có gì ăn?",
+    "must_contain": [
+      "Phố Ẩm thực"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0142",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Cung Đình Tửu có đặt bàn trước không?",
+    "must_contain": [
+      "Cung Đình Tửu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0143",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Nhà hàng Hùng Vương (Phù Đổng 5) có đặt bàn trước không?",
+    "must_contain": [
+      "Nhà hàng Hùng Vương (Phù Đổng 5)"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0144",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Lẩu phụng ô trái dừa trường thọ ở đâu trong công viên?",
+    "must_contain": [
+      "Lẩu phụng ô trái dừa trường thọ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0145",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Nhà hàng Âm Cung Đệ Nhất Cung Đình Tửu có gì ăn?",
+    "must_contain": [
+      "Âm Cung Đệ Nhất Cung Đình Tửu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0146",
+    "level": "L2",
+    "category": "nha_hang_specific",
+    "query": "Nhà hàng Nhà Hàng Bát Giác có gì ăn?",
+    "must_contain": [
+      "Nhà Hàng Bát Giác"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0147",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Có nhà hàng nào trong công viên không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0148",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Ăn trưa ở Suối Tiên ở đâu?",
+    "must_contain": [
+      "nhà hàng",
+      "ăn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0149",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Có buffet không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0150",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Nhà hàng nào ngon nhất?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0151",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Cung Đình Tửu có gì ăn?",
+    "must_contain": [
+      "Cung Đình Tửu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0152",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Có nhà hàng hải sản không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0153",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Ăn chay được không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0154",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Giá ăn khoảng bao nhiêu?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0155",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Có quán ăn nhanh không?",
+    "must_contain": [
+      "nhà hàng",
+      "ăn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0156",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "nha hang Phu Dong co gi",
+    "must_contain": [
+      "Phù Đổng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0157",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Đặt bàn trước được không?",
+    "must_contain": [
+      "nhà hàng",
+      "đặt"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0158",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Nhà hàng mở cửa đến mấy giờ?",
+    "must_contain": [
+      "nhà hàng",
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0159",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Có phục vụ tiệc cưới không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0160",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Nhà hàng nổi có không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0161",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Biển Tiên Đồng Ngọc Nữ có gì?",
+    "must_contain": [
+      "Biển Tiên"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0162",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "nha hang nao vua tui",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0163",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "an uong o suoi tien",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0164",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Có nước ép sung mỹ không?",
+    "must_contain": [
+      "sung mỹ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0165",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Có thức ăn chay không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0166",
+    "level": "L2",
+    "category": "nha_hang",
+    "query": "Phố ẩm thực ở đâu?",
+    "must_contain": [
+      "ẩm thực"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0167",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Có sự kiện gì sắp tới không?",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0168",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Hiện tại có chương trình gì không?",
+    "must_contain": [
+      "sự kiện",
+      "chương trình"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0169",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Lễ hội hè có gì?",
+    "must_contain": [
+      "lễ hội"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0170",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Có khuyến mãi vé không?",
+    "must_contain": [
+      "khuyến mãi",
+      "ưu đãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0171",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Ưu đãi tháng này là gì?",
+    "must_contain": [
+      "ưu đãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0172",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Bốn Mùa Lễ Hội là gì?",
+    "must_contain": [
+      "Bốn Mùa Lễ Hội"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0173",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Friendship Festival là gì?",
+    "must_contain": [
+      "Friendship Festival"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0174",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Có sự kiện cuối tuần không?",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0175",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Lễ hội mùa hè 2025?",
+    "must_contain": [
+      "lễ hội"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0176",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Có show âm nhạc không?",
+    "must_contain": [
+      "sự kiện",
+      "show"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0177",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "su kien sap toi",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0178",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "co khuyen mai gi ko",
+    "must_contain": [
+      "khuyến mãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0179",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Trung Thu Suối Tiên có gì?",
+    "must_contain": [
+      "Trung Thu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0180",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Tết Suối Tiên có gì?",
+    "must_contain": [
+      "lễ hội"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0181",
+    "level": "L2",
+    "category": "su_kien",
+    "query": "Hè này Suối Tiên có gì đặc biệt?",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0182",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Teambuilding 50 người giá bao nhiêu?",
+    "must_contain": [
+      "người",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0183",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Có gói cắm trại không?",
+    "must_contain": [
+      "cắm trại"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0184",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Tổ chức hội nghị được không?",
+    "must_contain": [
+      "hội nghị"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0185",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Gói team building 1 ngày?",
+    "must_contain": [
+      "team building"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0186",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "team building 100 nguoi co goi nao",
+    "must_contain": [
+      "người"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0187",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Cắm trại 2 ngày 1 đêm giá bao nhiêu?",
+    "must_contain": [
+      "cắm trại",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0188",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Có tổ chức tiệc cưới không?",
+    "must_contain": [
+      "tiệc cưới"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0189",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Sảnh hội nghị sức chứa bao nhiêu?",
+    "must_contain": [
+      "hội nghị",
+      "người"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0190",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Teambuilding cho trường học?",
+    "must_contain": [
+      "team building"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0191",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Gala dinner ở Suối Tiên?",
+    "must_contain": [
+      "gala"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0192",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Dịch vụ âm thanh ánh sáng có không?",
+    "must_contain": [
+      "âm thanh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0193",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Thuê phòng hội thảo?",
+    "must_contain": [
+      "hội thảo"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0194",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Diamond Palace sức chứa bao nhiêu?",
+    "must_contain": [
+      "Diamond"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0195",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Có tổ chức sinh nhật công ty không?",
+    "must_contain": [
+      "team building"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0196",
+    "level": "L2",
+    "category": "teambuilding",
+    "query": "Liên hệ đặt teambuilding?",
+    "must_contain": [
+      "1900",
+      "teambuilding"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0197",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé combo Kỳ Quan gồm những gì?",
+    "must_contain": [
+      "combo",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0198",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé siêu trải nghiệm bao gồm gì?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0199",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé học sinh giỏi được giảm bao nhiêu?",
+    "must_contain": [
+      "học sinh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0200",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé miễn phí trẻ em ngày nào?",
+    "must_contain": [
+      "miễn phí",
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0201",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé vào khu nước riêng có không?",
+    "must_contain": [
+      "vé",
+      "khu nước"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0202",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé tháng 6 có ưu đãi không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0203",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Combo Suối Tiên + Bình Quới?",
+    "must_contain": [
+      "combo"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0204",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé taxi nội khu là gì?",
+    "must_contain": [
+      "taxi",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0205",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé có hiệu lực bao lâu?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0206",
+    "level": "L2",
+    "category": "gia_ve_specific",
+    "query": "Vé mua online có được hoàn không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0207",
+    "level": "L3",
+    "category": "tong_hop",
+    "query": "Giá vé bao nhiêu và mấy giờ mở cửa?",
+    "must_contain": [
+      "vé",
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0208",
+    "level": "L3",
+    "category": "tong_hop",
+    "query": "2 người lớn 1 trẻ em tốn bao nhiêu và đi xe buýt được không?",
+    "must_contain": [
+      "người lớn",
+      "xe buýt"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0209",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có trò chơi gì và nhà hàng nào ngon?",
+    "must_contain": [
+      "trò chơi",
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0210",
+    "level": "L3",
+    "category": "lich_trinh",
+    "query": "Teambuilding 30 người và cần đặt trước không?",
+    "must_contain": [
+      "người",
+      "đặt"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0211",
+    "level": "L3",
+    "category": "complex",
+    "query": "Giờ mở cửa và bãi giữ xe ở đâu?",
+    "must_contain": [
+      "giờ",
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0212",
+    "level": "L3",
+    "category": "tong_hop",
+    "query": "Vé combo có gì và giá bao nhiêu?",
+    "must_contain": [
+      "combo",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0213",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có sự kiện gì và thời tiết thế nào?",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0214",
+    "level": "L3",
+    "category": "complex",
+    "query": "Ăn ở đâu và có trò chơi trẻ em không?",
+    "must_contain": [
+      "nhà hàng",
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0215",
+    "level": "L3",
+    "category": "complex",
+    "query": "Đường đi và giá vé?",
+    "must_contain": [
+      "Xa Lộ",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0216",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có khuyến mãi và mấy giờ bán vé?",
+    "must_contain": [
+      "khuyến mãi",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0217",
+    "level": "L3",
+    "category": "so_sanh",
+    "query": "Go Kart với Tàu Lượn cái nào mạnh hơn?",
+    "must_contain": [
+      "Go Kart",
+      "Tàu Lượn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0218",
+    "level": "L3",
+    "category": "so_sanh",
+    "query": "Vé người lớn và vé học sinh khác nhau thế nào?",
+    "must_contain": [
+      "người lớn",
+      "học sinh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0219",
+    "level": "L3",
+    "category": "so_sanh",
+    "query": "Khu khô và khu nước có gì khác nhau?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0220",
+    "level": "L3",
+    "category": "so_sanh",
+    "query": "Infinity Slide và Twin Race cái nào hơn?",
+    "must_contain": [
+      "Infinity Slide",
+      "Twin Race"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0221",
+    "level": "L3",
+    "category": "so_sanh",
+    "query": "Cắm trại 1 ngày và 2 ngày giá khác nhau thế nào?",
+    "must_contain": [
+      "cắm trại"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0222",
+    "level": "L3",
+    "category": "so_sanh",
+    "query": "Mua vé online và tại cổng khác nhau gì?",
+    "must_contain": [
+      "vé",
+      "online"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0223",
+    "level": "L3",
+    "category": "so_sanh",
+    "query": "Khu farm và khu văn hóa tâm linh khác nhau gì?",
+    "must_contain": [
+      "farm",
+      "văn hóa"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0224",
+    "level": "L3",
+    "category": "so_sanh",
+    "query": "Gói TB 20 người và 50 người giá khác nhau?",
+    "must_contain": [
+      "người"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0225",
+    "level": "L3",
+    "category": "tong_hop",
+    "query": "Có bao nhiêu khu vui chơi trong công viên?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0226",
+    "level": "L3",
+    "category": "tong_hop",
+    "query": "Liệt kê tất cả trò chơi cảm giác mạnh",
+    "must_contain": [
+      "Go Kart",
+      "Infinity Slide"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0227",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có những loại vé nào?",
+    "must_contain": [
+      "vé",
+      "người lớn",
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0228",
+    "level": "L3",
+    "category": "complex",
+    "query": "Tất cả nhà hàng trong Suối Tiên?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0229",
+    "level": "L3",
+    "category": "tong_hop",
+    "query": "Có bao nhiêu gói teambuilding?",
+    "must_contain": [
+      "gói"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0230",
+    "level": "L3",
+    "category": "complex",
+    "query": "Liệt kê các sự kiện đang diễn ra",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0231",
+    "level": "L3",
+    "category": "complex",
+    "query": "Tất cả khu tham quan?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0232",
+    "level": "L3",
+    "category": "tong_hop",
+    "query": "Có bao nhiêu nhà hàng?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0233",
+    "level": "L3",
+    "category": "lich_trinh",
+    "query": "Gia đình 2 người lớn 2 trẻ em nên đi khu nào?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0234",
+    "level": "L3",
+    "category": "complex",
+    "query": "Đi Suối Tiên 1 ngày thì đủ không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0235",
+    "level": "L3",
+    "category": "complex",
+    "query": "Trẻ 3 tuổi cao 95cm chơi được gì?",
+    "must_contain": [
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0236",
+    "level": "L3",
+    "category": "complex",
+    "query": "Nên đi Suối Tiên vào ngày nào?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0237",
+    "level": "L3",
+    "category": "complex",
+    "query": "Buổi sáng nên tham quan khu nào?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0238",
+    "level": "L3",
+    "category": "complex",
+    "query": "Lịch trình 1 ngày lý tưởng tại Suối Tiên?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0239",
+    "level": "L3",
+    "category": "complex",
+    "query": "Trẻ 10 tuổi thích gì ở Suối Tiên?",
+    "must_contain": [
+      "trẻ em",
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0240",
+    "level": "L3",
+    "category": "complex",
+    "query": "Người cao tuổi nên tham quan khu nào?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0241",
+    "level": "L3",
+    "category": "lich_trinh",
+    "query": "Mua vé xong thì nên đi đâu trước?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0242",
+    "level": "L3",
+    "category": "complex",
+    "query": "Sau khi chơi Go Kart thì gần đó có gì?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0243",
+    "level": "L3",
+    "category": "complex",
+    "query": "Ăn trưa xong nên làm gì?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0244",
+    "level": "L3",
+    "category": "complex",
+    "query": "Nếu trời mưa thì chơi ở đâu?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0245",
+    "level": "L3",
+    "category": "complex",
+    "query": "Buổi tối còn gì chơi không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0246",
+    "level": "L3",
+    "category": "complex",
+    "query": "Đi xe máy có vào được không?",
+    "must_contain": [
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0247",
+    "level": "L3",
+    "category": "complex",
+    "query": "Trò chơi nào không cần trả thêm tiền?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0248",
+    "level": "L3",
+    "category": "complex",
+    "query": "Trò chơi nào phù hợp cả gia đình?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0249",
+    "level": "L3",
+    "category": "complex",
+    "query": "Khu nào phù hợp người sợ độ cao?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0250",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có trò chơi cho người khuyết tật không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0251",
+    "level": "L3",
+    "category": "complex",
+    "query": "Trò chơi nào mở cả ngày?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0252",
+    "level": "L3",
+    "category": "complex",
+    "query": "Nhà hàng nào có chỗ ngồi ngoài trời?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0253",
+    "level": "L3",
+    "category": "complex",
+    "query": "Gói teambuilding nào phù hợp công ty 200 người?",
+    "must_contain": [
+      "người"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0254",
+    "level": "L3",
+    "category": "complex",
+    "query": "Vé nào rẻ nhất?",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0255",
+    "level": "L3",
+    "category": "complex",
+    "query": "Từ Đà Nẵng vào Suối Tiên đi như thế nào?",
+    "must_contain": [
+      "Suối Tiên"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0256",
+    "level": "L3",
+    "category": "complex",
+    "query": "Từ Hà Nội đến Suối Tiên?",
+    "must_contain": [
+      "Suối Tiên"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0257",
+    "level": "L3",
+    "category": "complex",
+    "query": "Từ sân bay đến Suối Tiên bao lâu?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0258",
+    "level": "L3",
+    "category": "complex",
+    "query": "Từ Bình Dương đi Suối Tiên?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0259",
+    "level": "L3",
+    "category": "complex",
+    "query": "Từ quận 7 đến Suối Tiên?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0260",
+    "level": "L3",
+    "category": "complex",
+    "query": "Chính sách hoàn vé như thế nào?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0261",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có được mang thức ăn vào không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0262",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có được mang pet vào không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0263",
+    "level": "L3",
+    "category": "complex",
+    "query": "Quy định ăn mặc vào công viên?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0264",
+    "level": "L3",
+    "category": "complex",
+    "query": "Vé mua rồi có đổi không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0265",
+    "level": "L3",
+    "category": "complex",
+    "query": "Thời tiết hôm nay thế nào?",
+    "must_contain": [
+      "thời tiết"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0266",
+    "level": "L3",
+    "category": "complex",
+    "query": "Trời có mưa không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0267",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có nên mang áo mưa không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0268",
+    "level": "L3",
+    "category": "complex",
+    "query": "Nên đi ngày nào đẹp trời?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0269",
+    "level": "L3",
+    "category": "complex",
+    "query": "Bạn là ai?",
+    "must_contain": [
+      "Tiên",
+      "em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0270",
+    "level": "L3",
+    "category": "complex",
+    "query": "Tên bạn là gì?",
+    "must_contain": [
+      "Tiên"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0271",
+    "level": "L3",
+    "category": "complex",
+    "query": "Bot này làm được gì?",
+    "must_contain": [
+      "em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0272",
+    "level": "L3",
+    "category": "complex",
+    "query": "Can I bring food inside?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0273",
+    "level": "L3",
+    "category": "complex",
+    "query": "Is there a kids zone?",
+    "must_contain": [
+      "kids",
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0274",
+    "level": "L3",
+    "category": "complex",
+    "query": "How many restaurants are there?",
+    "must_contain": [
+      "restaurant"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0275",
+    "level": "L3",
+    "category": "complex",
+    "query": "What rides are available?",
+    "must_contain": [
+      "ride",
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0276",
+    "level": "L3",
+    "category": "complex",
+    "query": "Is teambuilding available?",
+    "must_contain": [
+      "team"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0277",
+    "level": "L3",
+    "category": "complex",
+    "query": "Do you have combo tickets?",
+    "must_contain": [
+      "combo",
+      "ticket"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0278",
+    "level": "L3",
+    "category": "complex",
+    "query": "Suối Tiên có nuôi gấu không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0279",
+    "level": "L3",
+    "category": "complex",
+    "query": "Có khách sạn gần Suối Tiên không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0280",
+    "level": "L3",
+    "category": "complex",
+    "query": "Vé máy bay đi Suối Tiên?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0281",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "gia ve vao cong bao nhieu tien",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0282",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "mk mun bit gia ve",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0283",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "suoi tien o dau z",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0284",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "co tro choi j k",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0285",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "nha hang ngon ko",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0286",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "may gio mo cua vay",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0287",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "xe buyt so may den suoi tien",
+    "must_contain": [
+      "xe buýt"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0288",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "co khuyen mai ve ko",
+    "must_contain": [
+      "khuyến mãi",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0289",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "dich vu team building",
+    "must_contain": [
+      "team building"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0290",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "co su kien gi k",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0291",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "gui xe o dau",
+    "must_contain": [
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0292",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "duong di den suoi tien",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0293",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "dat ve o dau",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0294",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "ve tre em bao nhieu",
+    "must_contain": [
+      "trẻ em",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0295",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "an uong o suoi tien",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0296",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "tro choi cam giac manh",
+    "must_contain": [
+      "cảm giác mạnh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0297",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "gio dong cua la may gio",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0298",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "so dt suoi tien la bao nhieu",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0299",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "co nhieu khu choi ko",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0300",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "vao cong mat bao nhiu",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0301",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "go kart o khu nao vay",
+    "must_contain": [
+      "Go Kart"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0302",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "co buffet k",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0303",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "cam trai qua dem duoc ko",
+    "must_contain": [
+      "cắm trại"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0304",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "tren web mua ve duoc k",
+    "must_contain": [
+      "vé",
+      "online"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0305",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "may gio ban ve",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0306",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "thoi tiet hom nay",
+    "must_contain": [
+      "thời tiết"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0307",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "co giam gia cho hoc sinh k",
+    "must_contain": [
+      "học sinh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0308",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "co cho oto khong",
+    "must_contain": [
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0309",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "farm o dau",
+    "must_contain": [
+      "farm"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0310",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "van hoa tam linh khu nao",
+    "must_contain": [
+      "văn hóa"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0311",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "gia veee bao nhiu",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0312",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "suoii tien o dauuu",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0313",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "co tro chioi gi vii",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0314",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "nha haang nao ngon",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0315",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "may giooo mo cua",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0316",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "ve nguoi lon gia la",
+    "must_contain": [
+      "người lớn",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0317",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "combo gia dinh",
+    "must_contain": [
+      "combo"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0318",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "taxi noi khu la gi",
+    "must_contain": [
+      "taxi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0319",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "khu nuoc co gi",
+    "must_contain": [
+      "khu nước"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0320",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "di metro duoc k",
+    "must_contain": [
+      "metro"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0321",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "gia ve vao coong",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0322",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "may gio` mo? cua?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0323",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "dia chi? suoi tien",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0324",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "so dt lien he",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0325",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "go kart la gi",
+    "must_contain": [
+      "Go Kart"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0326",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "vé",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0327",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "giờ",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0328",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "địa chỉ",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0329",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "hotline",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0330",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "trò chơi",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0331",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "nhà hàng",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0332",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "teambuilding",
+    "must_contain": [
+      "team building"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0333",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "sự kiện",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0334",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "farm",
+    "must_contain": [
+      "farm"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0335",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "combo",
+    "must_contain": [
+      "combo"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0336",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "parking",
+    "must_contain": [
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0337",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "metro",
+    "must_contain": [
+      "metro"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0338",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "bus",
+    "must_contain": [
+      "xe buýt"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0339",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "map",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0340",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "wifi",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0341",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "toilet",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0342",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "atm",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0343",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "voucher",
+    "must_contain": [
+      "vé",
+      "khuyến mãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0344",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "refund",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0345",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "discount",
+    "must_contain": [
+      "giảm",
+      "ưu đãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0346",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "family package",
+    "must_contain": [
+      "combo"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0347",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "kids",
+    "must_contain": [
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0348",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "senior",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0349",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "student",
+    "must_contain": [
+      "học sinh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0350",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "group",
+    "must_contain": [
+      "đoàn",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0351",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "overnight",
+    "must_contain": [
+      "cắm trại"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0352",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "wedding",
+    "must_contain": [
+      "tiệc cưới"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0353",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "conference",
+    "must_contain": [
+      "hội nghị"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0354",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "restaurant",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0355",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "food",
+    "must_contain": [
+      "nhà hàng",
+      "ăn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0356",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "ride",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0357",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "show",
+    "must_contain": [
+      "sự kiện",
+      "biểu diễn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0358",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "ticket",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0359",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "open",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0360",
+    "level": "L4",
+    "category": "typo_edge",
+    "query": "close",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0361",
+    "level": "L4",
+    "category": "multilang",
+    "query": "How much is the entrance ticket?",
+    "must_contain": [
+      "ticket",
+      "price"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0362",
+    "level": "L4",
+    "category": "multilang",
+    "query": "What time does the park open?",
+    "must_contain": [
+      "open",
+      "time"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0363",
+    "level": "L4",
+    "category": "multilang",
+    "query": "Is there a kids zone?",
+    "must_contain": [
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0364",
+    "level": "L4",
+    "category": "multilang",
+    "query": "How to get there?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0365",
+    "level": "L4",
+    "category": "multilang",
+    "query": "Any promotions?",
+    "must_contain": [
+      "ưu đãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0366",
+    "level": "L4",
+    "category": "multilang",
+    "query": "What rides are available?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0367",
+    "level": "L4",
+    "category": "multilang",
+    "query": "Is there a restaurant?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0368",
+    "level": "L4",
+    "category": "multilang",
+    "query": "Can I book online?",
+    "must_contain": [
+      "vé",
+      "online"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0369",
+    "level": "L4",
+    "category": "multilang",
+    "query": "Is teambuilding available?",
+    "must_contain": [
+      "team"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0370",
+    "level": "L4",
+    "category": "multilang",
+    "query": "What is the address?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0371",
+    "level": "L4",
+    "category": "multilang",
+    "query": "门票多少钱？",
+    "must_contain": [
+      "票"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0372",
+    "level": "L4",
+    "category": "multilang",
+    "query": "几点开门？",
+    "must_contain": [
+      "点"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0373",
+    "level": "L4",
+    "category": "multilang",
+    "query": "有什么好玩的？",
+    "must_contain": [
+      "游"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0374",
+    "level": "L4",
+    "category": "multilang",
+    "query": "怎么去水仙公园？",
+    "must_contain": [
+      "路"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0375",
+    "level": "L4",
+    "category": "multilang",
+    "query": "有餐厅吗？",
+    "must_contain": [
+      "餐"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0376",
+    "level": "L4",
+    "category": "multilang",
+    "query": "입장료가 얼마예요?",
+    "must_contain": [
+      "티켓"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0377",
+    "level": "L4",
+    "category": "multilang",
+    "query": "몇 시에 문을 열어요?",
+    "must_contain": [
+      "시"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0378",
+    "level": "L4",
+    "category": "multilang",
+    "query": "어떻게 가요?",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0379",
+    "level": "L4",
+    "category": "multilang",
+    "query": "놀이 기구가 있어요?",
+    "must_contain": [
+      "놀이"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0380",
+    "level": "L4",
+    "category": "multilang",
+    "query": "식당이 있어요?",
+    "must_contain": [
+      "식당"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0381",
+    "level": "L4",
+    "category": "multilang",
+    "query": "入場料はいくらですか？",
+    "must_contain": [
+      "チケット"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0382",
+    "level": "L4",
+    "category": "multilang",
+    "query": "何時に開きますか？",
+    "must_contain": [
+      "時"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0383",
+    "level": "L4",
+    "category": "multilang",
+    "query": "どうやって行きますか？",
+    "must_contain": [
+      "Xa Lộ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0384",
+    "level": "L4",
+    "category": "multilang",
+    "query": "アトラクションは何がありますか？",
+    "must_contain": [
+      "アトラクション"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0385",
+    "level": "L4",
+    "category": "multilang",
+    "query": "レストランはありますか？",
+    "must_contain": [
+      "レストラン"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0386",
+    "level": "L4",
+    "category": "multilang",
+    "query": "ticket giá bao nhiêu",
+    "must_contain": [
+      "vé",
+      "đ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0387",
+    "level": "L4",
+    "category": "multilang",
+    "query": "open mấy giờ",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0388",
+    "level": "L4",
+    "category": "multilang",
+    "query": "combo price",
+    "must_contain": [
+      "combo"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0389",
+    "level": "L4",
+    "category": "multilang",
+    "query": "family ticket",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0390",
+    "level": "L4",
+    "category": "multilang",
+    "query": "kids playground",
+    "must_contain": [
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0391",
+    "level": "L4",
+    "category": "multilang",
+    "query": "parking lot",
+    "must_contain": [
+      "xe"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0392",
+    "level": "L4",
+    "category": "multilang",
+    "query": "food court",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0393",
+    "level": "L4",
+    "category": "multilang",
+    "query": "water park",
+    "must_contain": [
+      "khu nước"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0394",
+    "level": "L4",
+    "category": "multilang",
+    "query": "thrill rides",
+    "must_contain": [
+      "cảm giác mạnh"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0395",
+    "level": "L4",
+    "category": "multilang",
+    "query": "wedding venue",
+    "must_contain": [
+      "tiệc cưới"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0396",
+    "level": "L4",
+    "category": "multilang",
+    "query": "team building package",
+    "must_contain": [
+      "team building"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0397",
+    "level": "L4",
+    "category": "multilang",
+    "query": "discount voucher",
+    "must_contain": [
+      "ưu đãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0398",
+    "level": "L4",
+    "category": "multilang",
+    "query": "group booking",
+    "must_contain": [
+      "đoàn",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0399",
+    "level": "L4",
+    "category": "multilang",
+    "query": "overnight camping",
+    "must_contain": [
+      "cắm trại"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0400",
+    "level": "L4",
+    "category": "multilang",
+    "query": "cultural tour",
+    "must_contain": [
+      "văn hóa"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0401",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Có vé VIP không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0402",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé tặng kèm gì không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0403",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé nhóm từ bao nhiêu người?",
+    "must_contain": [
+      "vé",
+      "người"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0404",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Có vé dành cho em bé không?",
+    "must_contain": [
+      "vé",
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0405",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé sử dụng trong bao lâu?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0406",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Mua vé trực tiếp tại cổng được không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0407",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Có app mua vé không?",
+    "must_contain": [
+      "vé",
+      "app"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0408",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Vé điện tử hay vé giấy?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0409",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Có thẻ thành viên không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0410",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Giá vé ngày thường và cuối tuần khác không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0411",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Last entry mấy giờ?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0412",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Mấy giờ bán vé cuối?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0413",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Có mở cửa 365 ngày không?",
+    "must_contain": [
+      "mở"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0414",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Tết có mở cửa không?",
+    "must_contain": [
+      "mở"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L1_0415",
+    "level": "L1",
+    "category": "gia_ve",
+    "query": "Giờ cao điểm là lúc nào?",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0416",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có trò chơi nào cho người mang thai không?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0417",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Trò chơi nào có giới hạn cân nặng?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0418",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Xe tăng chạy ở đâu?",
+    "must_contain": [
+      "Xe Tăng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0419",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Đĩa xoáy thiên hà là gì?",
+    "must_contain": [
+      "Đĩa xoáy"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0420",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Ngôi nhà ma có đáng sợ không?",
+    "must_contain": [
+      "Ngôi nhà ma"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0421",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Phim 9D khác phim 12D như thế nào?",
+    "must_contain": [
+      "phim"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0422",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Kỳ Lân Cung là gì?",
+    "must_contain": [
+      "Kỳ Lân"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0423",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có khu nước trượt không?",
+    "must_contain": [
+      "khu nước"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0424",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "EDM Ocean là gì?",
+    "must_contain": [
+      "EDM"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0425",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Đu dây qua hồ có nguy hiểm không?",
+    "must_contain": [
+      "đu dây"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0426",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Gói 1 ngày teambuilding bao nhiêu tiền?",
+    "must_contain": [
+      "đ",
+      "team building"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0427",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có cho thuê địa điểm tổ chức sự kiện không?",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0428",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Sức chứa tối đa Diamond Palace?",
+    "must_contain": [
+      "Diamond"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0429",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có phục vụ tiệc tất niên không?",
+    "must_contain": [
+      "tiệc"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0430",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Liên hệ bộ phận sự kiện?",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0431",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có sự kiện nào cho trẻ em không?",
+    "must_contain": [
+      "sự kiện",
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0432",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Lịch sự kiện tháng 7?",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0433",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có ưu đãi sinh nhật không?",
+    "must_contain": [
+      "ưu đãi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0434",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Chương trình nào đang diễn ra?",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0435",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có sự kiện âm nhạc không?",
+    "must_contain": [
+      "sự kiện"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0436",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Cung Đình Tửu chuyên món gì?",
+    "must_contain": [
+      "Cung Đình Tửu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0437",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Nhà hàng Tiên Ngư có gì?",
+    "must_contain": [
+      "Tiên Ngư"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0438",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Phố ẩm thực có món gì đặc trưng?",
+    "must_contain": [
+      "ẩm thực"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0439",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có quán cà phê trong công viên không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0440",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có bán đồ lưu niệm không?",
+    "must_contain": [
+      "nhà hàng"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0441",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Đi với nhóm bạn 10 người nên làm gì?",
+    "must_contain": [
+      "khu",
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0442",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Học sinh đi dã ngoại thì có gói nào?",
+    "must_contain": [
+      "team building",
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0443",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Cặp đôi nên đi khu nào?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0444",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Người sợ nước có gì chơi?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0445",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Đi Suối Tiên buổi sáng hay chiều?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0446",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có cần đặt vé trước không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0447",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Vào cổng rồi có thể ra ngoài ăn được không?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0448",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Đi một mình có vui không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0449",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Nên mặc gì khi đi Suối Tiên?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0450",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Mang theo tiền mặt hay thẻ?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0451",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có wifi trong công viên không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0452",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có cho thuê áo phao không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0453",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có dịch vụ chụp ảnh không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0454",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có xe điện trong công viên không?",
+    "must_contain": [
+      "taxi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0455",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Mất đồ thì liên hệ ai?",
+    "must_contain": [
+      "1900"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0456",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có phòng thay đồ không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0457",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có tủ khóa để đồ không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0458",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Trẻ em bao nhiêu tuổi chơi được Go Kart?",
+    "must_contain": [
+      "Go Kart"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0459",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Người cao bao nhiêu mới được chơi Tàu Lượn?",
+    "must_contain": [
+      "Tàu Lượn"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0460",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có hướng dẫn viên tiếng Anh không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0461",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Bản đồ công viên ở đâu?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0462",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Có ứng dụng điện thoại không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0463",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Bao lâu thì tham quan hết?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0464",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Nên bắt đầu từ khu nào?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0465",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Khu nào đông nhất?",
+    "must_contain": [
+      "khu"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0466",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Trò nào cần xếp hàng lâu nhất?",
+    "must_contain": [
+      "trò chơi"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0467",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "ve may gio choi duoc",
+    "must_contain": [
+      "giờ"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0468",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "co cho thue ao phao k",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0469",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "wifi free ko",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0470",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "locker co k",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0471",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "dich vu chup anh",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0472",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "map cua cong vien",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0473",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "huong dan vien tieng anh",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0474",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "cho thue xe day tre em",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0475",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "nha ve sinh o dau",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0476",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "cay ATM o dau",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0477",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "有寄存柜吗？",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0478",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "有地图吗？",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0479",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "有英文导游吗？",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0480",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "화장실이 어디예요?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0481",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "짐을 맡길 수 있어요?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0482",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "コインロッカーはありますか？",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0483",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "地図はありますか？",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0484",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Is there free wifi?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0485",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Where is the toilet?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0486",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Can I rent a stroller?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0487",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Is there an ATM?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0488",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Do you have a map?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0489",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Any English speaking guide?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0490",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Can I re-enter?",
+    "must_contain": [
+      "vé"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0491",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Is photography allowed?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0492",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Có nhà vệ sinh trong công viên không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0493",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Trẻ sơ sinh vào được không?",
+    "must_contain": [
+      "trẻ em"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L2_0494",
+    "level": "L2",
+    "category": "schema_extra",
+    "query": "Có xe lăn cho người khuyết tật không?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0495",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Suối Tiên có bao nhiêu hecta?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0496",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Lịch sử Suối Tiên?",
+    "must_contain": [
+      "Suối Tiên"
+    ],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0497",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Ai là chủ Suối Tiên?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L3_0498",
+    "level": "L3",
+    "category": "complex_extra",
+    "query": "Suối Tiên thành lập năm nào?",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0499",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "Co cho thue xe dap khong",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  },
+  {
+    "id": "L4_0500",
+    "level": "L4",
+    "category": "edge_extra",
+    "query": "ban do cong vien o dau",
+    "must_contain": [],
+    "must_not_contain": [
+      "xin lỗi, không tìm thấy",
+      "lỗi hệ thống"
+    ]
+  }
+]

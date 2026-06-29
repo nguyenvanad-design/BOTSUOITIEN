@@ -1,0 +1,209 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "created": "2026-06-01",
+    "total_source_docs": 385,
+    "entities": 6
+  },
+
+  "tickets": {
+    "_description": "Giá vé vào cổng, combo, ưu đãi đặc biệt",
+    "_source_categories": ["tickets"],
+    "_source_doc_count": 32,
+    "fields": {
+      "ticket_id": "string (unique, e.g. VE_CONG_KHO_001)",
+      "name": "string (tên loại vé)",
+      "zone": "enum: khu_kho | khu_nuoc | combo | farm | special",
+      "price_adult": "number (VND) | null",
+      "price_child": "number (VND) | null",
+      "price_senior": "number (VND) | null",
+      "height_restriction": "string | null (e.g. 'trẻ dưới 1m miễn phí')",
+      "includes": ["array of strings - những gì vé bao gồm"],
+      "excludes": ["array of strings - những gì KHÔNG bao gồm"],
+      "valid_for": "string (mô tả đối tượng áp dụng)",
+      "booking_url": "string | null",
+      "notes": "string | null (lưu ý quan trọng)",
+      "source_slugs": ["array of source doc slugs"]
+    },
+    "_example": {
+      "ticket_id": "VE_CONG_KHO_001",
+      "name": "Vé cổng khu khô Suối Tiên",
+      "zone": "khu_kho",
+      "price_adult": 150000,
+      "price_child": 80000,
+      "price_senior": null,
+      "height_restriction": "Trẻ em dưới 1m miễn phí",
+      "includes": ["Vào cổng khu khô", "Xem biểu diễn sân khấu", "Tham quan công trình văn hóa"],
+      "excludes": ["Trò chơi riêng lẻ có thu phí thêm", "Khu công viên nước Kỳ Quan"],
+      "valid_for": "Tất cả khách tham quan",
+      "notes": "Cổng vào: Cổng Thiên Tiên Môn – 120 Xa lộ Hà Nội, P. Tân Phú, TP.HCM",
+      "source_slugs": ["chi-tiet-ve", "bang-gia"]
+    }
+  },
+
+  "attractions": {
+    "_description": "Trò chơi, điểm tham quan, khu vui chơi trong công viên",
+    "_source_categories": ["attractions", "culture", "farm", "kids"],
+    "_source_doc_count": 117,
+    "fields": {
+      "attraction_id": "string (unique, e.g. ATT_GOKART_001)",
+      "name": "string",
+      "type": "enum: tro_choi | cong_trinh_van_hoa | bieu_dien | khu_tham_quan | farm | tre_em",
+      "zone": "enum: khu_kho | khu_nuoc | farm | van_hoa_tam_linh | giai_tri",
+      "description": "string (mô tả ngắn 1-2 câu)",
+      "thrill_level": "enum: nhe | trung_binh | manh | null (nếu không phải trò chơi)",
+      "age_min": "number | null (tuổi tối thiểu)",
+      "height_min_cm": "number | null (chiều cao tối thiểu cm)",
+      "duration_minutes": "number | null",
+      "extra_fee": "boolean (có thu phí riêng không)",
+      "extra_fee_amount": "number | null (VND)",
+      "highlights": ["array of strings - điểm nổi bật"],
+      "source_slugs": ["array"]
+    },
+    "_example": {
+      "attraction_id": "ATT_GOKART_001",
+      "name": "Go Kart – Đường Đua Tốc Độ",
+      "type": "tro_choi",
+      "zone": "khu_kho",
+      "description": "Đường đua Go Kart chuyên nghiệp dành cho người yêu tốc độ, phù hợp cả người lớn và trẻ em.",
+      "thrill_level": "trung_binh",
+      "age_min": 8,
+      "height_min_cm": 120,
+      "duration_minutes": 10,
+      "extra_fee": true,
+      "extra_fee_amount": null,
+      "highlights": ["Đường đua chuẩn quốc tế", "Xe đua mini tốc độ cao"],
+      "source_slugs": ["go-kart-duong-dua-toc-do"]
+    }
+  },
+
+  "events": {
+    "_description": "Sự kiện, lễ hội, chương trình ưu đãi theo thời gian",
+    "_source_categories": ["events"],
+    "_source_doc_count": 92,
+    "fields": {
+      "event_id": "string (unique)",
+      "name": "string",
+      "type": "enum: le_hoi | uu_dai | bieu_dien | su_kien_dac_biet | hoat_dong_cong_dong",
+      "status": "enum: upcoming | ongoing | past",
+      "date_start": "string | null (YYYY-MM-DD)",
+      "date_end": "string | null (YYYY-MM-DD)",
+      "description": "string",
+      "special_offers": ["array of strings - ưu đãi cụ thể"],
+      "target_audience": "string | null",
+      "highlights": ["array of strings"],
+      "source_slugs": ["array"]
+    },
+    "_example": {
+      "event_id": "EVT_LEHOI_TRAICAY_2026",
+      "name": "Lễ hội trái cây Nam Bộ 2026",
+      "type": "le_hoi",
+      "status": "upcoming",
+      "date_start": "2026-06-01",
+      "date_end": null,
+      "description": "Lễ hội trái cây Nam Bộ thường niên với hàng chục loại trái cây đặc sản miền Nam.",
+      "special_offers": ["Giảm 20% giá vé trong dịp lễ hội"],
+      "target_audience": "Gia đình, trẻ em",
+      "highlights": ["Trải nghiệm hái trái cây", "Triển lãm trái cây Nam Bộ"],
+      "source_slugs": ["suoi-tien-khoi-dong-he-ruc-ro-voi-loat-uu-dai-hap-dan-cung-le-hoi-trai-cay-nam-bo-2026"]
+    }
+  },
+
+  "teambuilding": {
+    "_description": "Gói teambuilding, cắm trại, ngoại khóa, sự kiện doanh nghiệp",
+    "_source_categories": ["teambuilding", "tours"],
+    "_source_doc_count": 35,
+    "fields": {
+      "package_id": "string (unique)",
+      "name": "string",
+      "type": "enum: teambuilding | cam_trai | ngoai_khoa | hoi_nghi | tiec_cuoi | gala_dinner",
+      "capacity_min": "number | null",
+      "capacity_max": "number | null",
+      "duration": "string | null (e.g. '1 ngày', '2 ngày 1 đêm')",
+      "price_per_person": "number | null (VND)",
+      "price_package": "number | null (VND, nếu giá trọn gói)",
+      "includes": ["array of strings"],
+      "activities": ["array of strings - hoạt động trong gói"],
+      "contact": "string | null",
+      "source_slugs": ["array"]
+    },
+    "_example": {
+      "package_id": "TB_CAMTRAI_2N1D",
+      "name": "Cắm trại 2 ngày 1 đêm trọn gói",
+      "type": "cam_trai",
+      "capacity_min": 10,
+      "capacity_max": null,
+      "duration": "2 ngày 1 đêm",
+      "price_per_person": 820000,
+      "price_package": null,
+      "includes": ["Lều trại", "Ăn uống", "Vé vào cổng", "Hướng dẫn viên"],
+      "activities": ["Cắm trại ngoài trời", "Trò chơi tập thể", "Tham quan công viên"],
+      "contact": "phongkinhdoanh@suoitien.com | 1900 636 787",
+      "source_slugs": ["cam-trai-2-ngay-1-dem-tron-goi-voi-gia-chi-tu-820-canh"]
+    }
+  },
+
+  "restaurant": {
+    "_description": "Nhà hàng, khu ẩm thực, dịch vụ ăn uống trong công viên",
+    "_source_categories": ["restaurant"],
+    "_source_doc_count": 33,
+    "fields": {
+      "restaurant_id": "string (unique)",
+      "name": "string",
+      "type": "enum: nha_hang | quan_an | khu_am_thuc | tram_dung_chan | sieu_thi | luu_niem",
+      "location_in_park": "string | null (vị trí trong công viên)",
+      "cuisine_type": "string | null (e.g. 'Lẩu', 'Buffet', 'Ẩm thực Việt')",
+      "capacity_pax": "number | null",
+      "price_range": "string | null (e.g. '100k-300k/người')",
+      "signature_dishes": ["array of strings - món đặc trưng"],
+      "opening_hours": "string | null",
+      "suitable_for": ["array: gia_dinh | nhom_ban | doanh_nghiep | tiec_cuoi"],
+      "booking_required": "boolean",
+      "source_slugs": ["array"]
+    },
+    "_example": {
+      "restaurant_id": "REST_CUNGDINHTUU_001",
+      "name": "Cung Đình Tửu",
+      "type": "nha_hang",
+      "location_in_park": "Khu ẩm thực cung đình trong công viên",
+      "cuisine_type": "Ẩm thực cung đình Việt Nam",
+      "capacity_pax": null,
+      "price_range": null,
+      "signature_dishes": ["Lẩu phụng ô trái dừa trường thọ", "Các món ẩm thực cung đình"],
+      "opening_hours": null,
+      "suitable_for": ["gia_dinh", "nhom_ban", "doanh_nghiep"],
+      "booking_required": false,
+      "source_slugs": ["cung-dinh-tuu", "am-cung-de-nhat-cung-dinh-tuu"]
+    }
+  },
+
+  "info": {
+    "_description": "Thông tin chung: địa chỉ, giờ mở cửa, đường đi, liên hệ, chính sách",
+    "_source_categories": ["info", "policy"],
+    "_source_doc_count": 33,
+    "fields": {
+      "info_id": "string (unique)",
+      "topic": "enum: gio_mo_cua | dia_chi | duong_di | lien_he | chinh_sach | quy_dinh | tien_ich | faq",
+      "title": "string",
+      "content": "string (nội dung chính)",
+      "last_updated": "string | null (YYYY-MM-DD)",
+      "source_slugs": ["array"]
+    },
+    "_examples": [
+      {
+        "info_id": "INFO_GIO_MO_CUA",
+        "topic": "gio_mo_cua",
+        "title": "Giờ mở cửa Suối Tiên",
+        "content": "...",
+        "source_slugs": ["tuyen-dung-lien-he"]
+      },
+      {
+        "info_id": "INFO_DIA_CHI",
+        "topic": "dia_chi",
+        "title": "Địa chỉ và liên hệ",
+        "content": "120 Xa Lộ Hà Nội, P. Tăng Nhơn Phú, TP.HCM. Hotline: 1900 636 787",
+        "source_slugs": ["tuyen-dung-lien-he"]
+      }
+    ]
+  }
+}
