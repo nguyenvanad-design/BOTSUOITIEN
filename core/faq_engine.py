@@ -145,8 +145,19 @@ def _ans_gia_ve(m, lang="vi"):
                       and t.get("price_adult") and t["price_adult"] > 10000), None)
     std_child = next((t for t in tickets if "trẻ em" in t["name"].lower()
                       and t.get("price_child") and t["price_child"] > 10000), None)
-    combo = [t for t in tickets if "combo" in t["name"].lower()
-             and (t.get("price_adult") or t.get("price_child"))]
+    # Combo là GIÁ CHIẾN DỊCH, đổi liên tục. FAQ là câu trả lời soạn sẵn gửi
+    # thẳng cho khách (17% lưu lượng), không qua LLM và không qua tầng ưu tiên
+    # nội dung web — nên nó từng công bố combo 220.000đ trong khi website đang
+    # bán 240.000đ. Chỉ liệt kê combo CHỨNG MINH ĐƯỢC còn hiệu lực; combo không
+    # có ngày thì dẫn khách sang trang chính thức thay vì đọc giá có thể sai.
+    _combo_all = [t for t in tickets if "combo" in t["name"].lower()
+                  and (t.get("price_adult") or t.get("price_child"))]
+    try:
+        from content_lifecycle import is_confidently_current
+        combo = [t for t in _combo_all if is_confidently_current(t, "tickets")]
+    except Exception:
+        combo = []
+    combo_uncertain = bool(_combo_all) and not combo
 
     # Data không khớp format mong đợi → đừng trả câu rỗng, để Planner lo
     if not std_adult and not std_child and not combo:
@@ -190,6 +201,22 @@ def _ans_gia_ve(m, lang="vi"):
             pa = _format_price(c.get("price_adult"))
             pc = _format_price(c.get("price_child"))
             lines.append(f"• {c['name']}: {ca} {pa} / {cc} {pc}")
+    elif combo_uncertain:
+        # Có combo trong dữ liệu nhưng không xác minh được còn hiệu lực →
+        # dẫn sang trang chính thức, KHÔNG đọc giá có thể đã cũ.
+        _combo_note = {
+            "vi": "\n🎁 **Combo ưu đãi** thay đổi theo từng đợt — anh/chị xem giá "
+                  "mới nhất tại **suoitien.vn/bang-gia** hoặc gọi **1900 636 787** nhé!",
+            "en": "\n🎁 **Combo deals** change seasonally — please check "
+                  "**suoitien.vn/bang-gia** or call **1900 636 787** for current prices.",
+            "zh": "\n🎁 **套票优惠**会不定期调整，请查看 **suoitien.vn/bang-gia** "
+                  "或致电 **1900 636 787** 获取最新价格。",
+            "ko": "\n🎁 **콤보 할인**은 시기별로 변경됩니다. **suoitien.vn/bang-gia** "
+                  "또는 **1900 636 787**로 최신 가격을 확인해 주세요.",
+            "ja": "\n🎁 **コンボ割引**は時期により変わります。**suoitien.vn/bang-gia** "
+                  "または **1900 636 787** で最新価格をご確認ください。",
+        }
+        lines.append(_combo_note.get(lang, _combo_note["vi"]))
     tips = {
         "vi": "\n💡 Đặt vé online tại **suoitien.vn** để nhận ưu đãi tốt nhất!",
         "en": "\n💡 Book online at **suoitien.vn** for the best deals!",

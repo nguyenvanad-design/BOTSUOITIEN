@@ -162,7 +162,17 @@ var TID=(function(){try{var s=localStorage.getItem('st_sid');if(!s){s='user_'+Ma
 var LG=document.getElementById('logo').src;
 /* giữ ngữ cảnh khi F5 — không xóa session lúc tải trang */
 function gt(){return new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})}
+/* Escape HTML TRƯỚC mọi thao tác dựng markup.
+   fmt() dựng chuỗi rồi gán vào innerHTML, nên nếu không escape thì mọi thẻ HTML
+   trong văn bản đều được trình duyệt thực thi — kể cả tin nhắn do khách gõ
+   (vd <img src=x onerror=...>) lẫn nội dung bot lấy từ website. Escape ở đây
+   rồi mới áp các luật markdown bên dưới; các luật đó chỉ sinh thẻ do mình
+   kiểm soát nên vẫn hoạt động bình thường. */
+function esc(s){return String(s==null?'':s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function fmt(t){
+  t=esc(t);
   var wm=t.match(/([\u2600-\u27BF\u1F300-\u1F9FF]|[☀️☁️🌧️🌦️⛈️🌫️🌤️❄️💨🌪️])\s*\*\*Thời tiết.*?\*\*[:\s]*([^,*]+),?\s*\*\*(\d+)°C\*\*\s*\(cảm giác (\d+)°C\)/);
   if(wm){var hm=t.match(/Độ ẩm:\s*(\d+)%/),wn=t.match(/Gió:\s*(\d+)/),tip='';
     if(t.match(/Trời nóng/))tip='☀️ Trời nóng — nhớ mang nón, kem chống nắng nhé!';
@@ -173,7 +183,10 @@ function fmt(t){
   t=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
   t=t.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
   t=t.replace(/^[\*\-]\s+/gm,'• ');t=t.replace(/\n/g,'<br>');t=t.replace(/(<br>){3,}/g,'<br><br>');return t}
-function renderSources(s){if(!s||!s.length)return'';var h='<div class="src-box"><div class="src-label">Nguồn tham khảo</div>';for(var i=0;i<s.length&&i<3;i++){var u=s[i],l=u.replace('https://suoitien.vn/','').replace(/-/g,' ');if(l.length>50)l=l.substring(0,47)+'...';h+='<a class="src-link" href="'+u+'" target="_blank" rel="noopener">🔗 '+l+'</a>'}return h+'</div>'}
+/* URL đến từ server nên vẫn phải escape trước khi ghép vào innerHTML, và chỉ
+   nhận http/https — chặn javascript: trong thuộc tính href. */
+function safeUrl(u){u=String(u||'');return /^https?:\/\//i.test(u)?u:'#'}
+function renderSources(s){if(!s||!s.length)return'';var h='<div class="src-box"><div class="src-label">Nguồn tham khảo</div>';for(var i=0;i<s.length&&i<3;i++){var u=safeUrl(s[i]),l=u.replace('https://suoitien.vn/','').replace(/-/g,' ');if(l.length>50)l=l.substring(0,47)+'...';h+='<a class="src-link" href="'+esc(u)+'" target="_blank" rel="noopener">🔗 '+esc(l)+'</a>'}return h+'</div>'}
 function am(txt,isu,sources){var c=document.getElementById('chat'),q=document.getElementById('qbs');if(q&&isu)q.style.display='none';var r=document.createElement('div');r.className='row'+(isu?' u':'');var av=document.createElement('div');if(isu){av.className='avu';av.textContent='B'}else{av.className='av';av.innerHTML='<img src="'+LG+'" alt="ST">'}var mw=document.createElement('div');mw.className='mw';var bb=document.createElement('div');bb.className='bb '+(isu?'u':'b');bb.innerHTML=fmt(txt);mw.appendChild(bb);if(!isu&&sources&&sources.length){var sd=document.createElement('div');sd.innerHTML=renderSources(sources);if(sd.firstChild)mw.appendChild(sd.firstChild)}var bt=document.createElement('div');bt.className='bt';bt.textContent=gt();mw.appendChild(bt);if(!isu){var fbr=document.createElement('div');fbr.className='fbr';var g=document.createElement('button');g.className='fb';g.textContent='👍';var b=document.createElement('button');b.className='fb';b.textContent='👎';g.onclick=function(){g.classList.add('on');b.disabled=true;sf(lastQuestion,txt,1)};b.onclick=function(){b.classList.add('on');g.disabled=true;sf(lastQuestion,txt,0)};fbr.appendChild(g);fbr.appendChild(b);mw.appendChild(fbr)}r.appendChild(av);r.appendChild(mw);c.appendChild(r);c.scrollTop=c.scrollHeight}
 function st(){var c=document.getElementById('chat'),r=document.createElement('div');r.className='row';r.id='typ';var av=document.createElement('div');av.className='av';av.innerHTML='<img src="'+LG+'" alt="ST">';var bb=document.createElement('div');bb.className='typb';bb.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';r.appendChild(av);r.appendChild(bb);c.appendChild(r);c.scrollTop=c.scrollHeight}
 function rt(){var t=document.getElementById('typ');if(t)t.remove()}

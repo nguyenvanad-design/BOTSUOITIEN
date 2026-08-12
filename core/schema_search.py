@@ -180,15 +180,33 @@ def _infer_get_all(query: str) -> bool:
 
 
 # ── Chốt chặn vòng đời lúc truy vấn ──────────────────────────────────────────
-def _lifecycle_ok(record: dict, bucket: str) -> bool:
+_RE_ASK_CURRENT = re.compile(
+    r"(hiện tại|hien tai|đang diễn ra|dang dien ra|đang có|dang co|"
+    r"bây giờ|bay gio|hôm nay|hom nay|tháng này|thang nay|tuần này|tuan nay|"
+    r"sắp tới|sap toi|cuối tuần|cuoi tuan|đang áp dụng|dang ap dung|"
+    r"current|right now|today|this month|this week|ongoing)", re.IGNORECASE)
+
+
+def _asks_current(query: str) -> bool:
+    """Khách đang hỏi 'ĐANG có gì' — mức khẳng định phải cao hơn bình thường."""
+    return bool(query) and bool(_RE_ASK_CURRENT.search(query))
+
+
+def _lifecycle_ok(record: dict, bucket: str, strict: bool = False) -> bool:
     """
     Nội dung động còn được phép trả cho khách không? Đánh giá theo THỜI ĐIỂM
     HIỆN TẠI, không dựa vào cờ is_active đã ghi sẵn.
+
+    strict=True: chỉ nhận nội dung CHỨNG MINH ĐƯỢC còn hạn (loại cả nhóm không
+    xác định được ngày). Dùng cho câu hỏi "hiện tại đang có gì" — nói sai ở đây
+    là khách tới nơi mới biết. Không có mức này thì sự kiện không ngày như
+    "Year End Party" vẫn được giới thiệu như đang diễn ra.
+
     Lỗi bất kỳ → cho qua, tuyệt đối không để chốt chặn này làm câm bot.
     """
     try:
-        from content_lifecycle import is_current
-        return is_current(record, bucket)
+        from content_lifecycle import is_current, is_confidently_current
+        return (is_confidently_current if strict else is_current)(record, bucket)
     except Exception:
         return True
 
@@ -448,11 +466,12 @@ def search_events(
     ghi hôm nay hợp lệ thì 45 ngày nữa đã cũ. Nếu chỉ tin cờ tĩnh thì giữa hai
     lần quét bot vẫn nói "đang diễn ra" về chương trình đã kết thúc.
     """
+    strict = _asks_current(query)
     results = []
     for e in _DB["events"]:
         if not include_inactive and e.get("is_active") is False:
             continue
-        if not include_inactive and not _lifecycle_ok(e, "events"):
+        if not include_inactive and not _lifecycle_ok(e, "events", strict=strict):
             continue
         if status and e.get("status") != status:
             continue

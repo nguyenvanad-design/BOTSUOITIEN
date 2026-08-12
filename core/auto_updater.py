@@ -267,8 +267,16 @@ _CAMPAIGN_SLUG = (
     "mua-thu", "mua-he", "mua-xuan", "he-ruc-ro", "phu-nu", "8-3", "20-10",
 )
 
-# Trang DANH MỤC vé thật sự — bảng giá, không phải bài viết chiến dịch
-_TICKET_CATALOG = ("bang-gia", "chi-tiet-ve", "gia-ve", "mua-ve-online", "chon-ve")
+# Trang DANH MỤC SẢN PHẨM có giá — bảng giá và combo. Đây là nơi giá phải được
+# trích ra thành bản ghi VÉ, vì câu hỏi "Combo Trải Nghiệm giá bao nhiêu?" đi
+# vào search_tickets chứ không vào search_events.
+#
+# "combo" bắt buộc phải có: thiếu nó thì slug `combo`, `combo-ky-quan`,
+# `san-combo-suoi-tien-2026` rơi hết xuống nhánh cuối → "info", mà `info` KHÔNG
+# nằm trong EXTRACT_CATS ⇒ trang combo chính thức không bao giờ được trích xuất.
+# Đây chính là lý do combo 240k không bao giờ về tới bảng vé.
+_TICKET_CATALOG = ("bang-gia", "chi-tiet-ve", "gia-ve", "mua-ve-online",
+                   "chon-ve", "combo")
 
 
 def _guess_category(slug: str, title: str, text: str) -> str:
@@ -283,7 +291,7 @@ def _guess_category(slug: str, title: str, text: str) -> str:
     rules = [
         # "ve-" quá rộng: bắt nhầm "ve-tranh" (vẽ tranh), "ve-dep"... → dùng
         # tiền tố cụ thể hơn
-        (["bang-gia","chi-tiet-ve","mua-ve","combo-ve",
+        (["bang-gia","chi-tiet-ve","mua-ve","combo",
           "ve-cong","ve-vao","ve-tron-goi","ve-doan","gia-ve"], "tickets"),
         (["go-kart","infinity","twin-race","xe-tang","sky-bounder",
           "bien-tien","thuyen","phim-","nha-ma","tagada","dia-xoay",

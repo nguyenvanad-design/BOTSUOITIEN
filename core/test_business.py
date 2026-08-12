@@ -554,11 +554,18 @@ import auto_updater as _au   # noqa: E402
 # Bài chiến dịch có chữ "ve-cong"/"combo-ve" trong slug từng bị luật tickets
 # (xét trước) cướp mất → tin tặng vé Quốc khánh rơi vào bucket vé, không bao
 # giờ xuất hiện khi khách hỏi sự kiện.
+#
+# Trang COMBO phải về bucket `tickets`, KHÔNG phải `events`: câu hỏi hỏng là
+# "Combo Trải Nghiệm giá bao nhiêu?" — nó đi vào search_tickets. Trước đó slug
+# `combo` trơn rơi xuống nhánh cuối thành `info`, mà `info` không nằm trong
+# EXTRACT_CATS ⇒ trang combo chính thức không bao giờ được trích xuất.
 for _slug, _want in [
     ("suoi-tien-tang-2000-ve-cong-mung-quoc-khanh-2-9-2026", "events"),
     ("mua-ve-uu-dai-quoc-khanh", "events"),
-    ("combo-ve-mua-thu-2026", "events"),
     ("chuong-trinh-nghe-thuat-chao-mung-quoc-khanh", "events"),
+    ("combo", "tickets"), ("combo-ky-quan", "tickets"),
+    ("san-combo-suoi-tien-2026-vui-choi-tha-ga", "tickets"),
+    ("combo-ve-mua-thu-2026", "tickets"),
     ("bang-gia", "tickets"), ("chi-tiet-ve", "tickets"),
     ("go-kart", "attractions"), ("nha-hang-cung-dinh", "restaurant"),
 ]:
@@ -625,6 +632,82 @@ check("/chat/stream có xử lý use_llm (endpoint UI thật sự gọi)",
       "req.use_llm" in _stream_fn)
 check("use_llm=False trên stream đi đường FAQ, không gọi LLM",
       "use_llm=False" in _stream_fn)
+
+
+# ── 20. FAQ KHÔNG CÔNG BỐ GIÁ CHIẾN DỊCH KHÔNG XÁC MINH ĐƯỢC ──────────────────
+section("FAQ & GIÁ CHIẾN DỊCH")
+
+_faq_ans = (_fe.faq_match("giá vé bao nhiêu", lang="vi") or {}).get("answer", "")
+check("FAQ vẫn nêu giá niêm yết 180.000đ", "180,000đ" in _faq_ans or "180.000đ" in _faq_ans)
+check("FAQ KHÔNG công bố combo cũ 220.000đ",
+      "220,000đ" not in _faq_ans and "220.000đ" not in _faq_ans)
+check("FAQ KHÔNG công bố combo cũ 229.000đ",
+      "229,000đ" not in _faq_ans and "229.000đ" not in _faq_ans)
+check("FAQ dẫn khách sang nguồn chính thức cho combo",
+      "bang-gia" in _faq_ans or "1900 636 787" in _faq_ans)
+
+_faq_src = (BASE / "faq_engine.py").read_text(encoding="utf-8")
+check("FAQ lọc combo qua is_confidently_current",
+      "is_confidently_current" in _faq_src)
+
+
+# ── 21. CÂU HỎI "HIỆN TẠI" DÙNG MỨC KHẲNG ĐỊNH CAO ───────────────────────────
+section("BỘ LỌC 'HIỆN TẠI'")
+
+for _q in ["hiện tại có sự kiện gì", "đang có chương trình nào",
+           "sự kiện tháng này", "what's ongoing right now"]:
+    check(f"Nhận diện câu hỏi 'hiện tại': {_q[:34]}", _ss._asks_current(_q))
+for _q in ["lễ hội trái cây là gì", "sự kiện Tết 2025 có gì"]:
+    check(f"Câu hỏi thường không bị siết: {_q[:34]}", not _ss._asks_current(_q))
+
+_cur = _ss.search_events("hiện tại có sự kiện gì", max_results=20)
+check("'Hiện tại' chỉ trả sự kiện CHỨNG MINH ĐƯỢC còn hạn",
+      all(_cl.is_confidently_current(e, "events") for e in _cur),
+      f"{len(_cur)} kết quả")
+check("'Hiện tại' vẫn trả được ít nhất 1 sự kiện thật", len(_cur) >= 1)
+check("Câu hỏi thường trả nhiều hơn câu hỏi 'hiện tại'",
+      len(_ss.search_events("sự kiện lễ hội", max_results=20)) >= len(_cur))
+
+
+# ── 22. GIAO DIỆN: CHẶN CHÈN MÃ ──────────────────────────────────────────────
+section("XSS GIAO DIỆN")
+
+_ui = (BASE.parent / "chat_ui.html").read_text(encoding="utf-8")
+check("Có hàm escape HTML", "function esc(s)" in _ui)
+check("fmt() escape TRƯỚC khi dựng markup", "function fmt(t){\n  t=esc(t);" in _ui)
+check("Escape đủ 5 ký tự nguy hiểm",
+      all(x in _ui for x in ["&amp;", "&lt;", "&gt;", "&quot;", "&#39;"]))
+check("Chặn href javascript: bằng safeUrl", "function safeUrl(u)" in _ui)
+check("renderSources escape URL và nhãn", "esc(u)" in _ui and "esc(l)" in _ui)
+
+
+# ── 23. TRIỂN KHAI: RATE LIMIT, CORS, CHỈ MỤC, HEALTH ────────────────────────
+section("SẴN SÀNG TRIỂN KHAI")
+
+_main = (BASE.parent / "main.py").read_text(encoding="utf-8")
+
+check("Có rate limit cho API AI", "rate_limit_middleware" in _main)
+check("Rate limit áp cho /api/chat và /api/feedback",
+      '"/api/chat"' in _main and '"/api/feedback"' in _main)
+check("Trả 429 kèm Retry-After", "429" in _main and "Retry-After" in _main)
+check("Lấy IP thật sau reverse proxy", "x-forwarded-for" in _main)
+
+check("CORS KHÔNG mặc định '*'", 'os.getenv("CORS_ORIGINS", "*")' not in _main)
+check("CORS thiếu cấu hình thì chỉ cho localhost",
+      "http://localhost:5002" in _main)
+
+check("Khởi động tự dựng chỉ mục khi thiếu", "_ensure_index" in _main)
+check("Thiếu chỉ mục thì DỪNG, không chạy câm",
+      "raise RuntimeError" in _main.split("def _ensure_index")[1][:1400])
+check("Có lối thoát có chủ đích khi chấp nhận chạy không RAG",
+      "SUOITIEN_ALLOW_NO_INDEX" in _main)
+
+_health = _main.split("def health_detail")[1]
+check("Health xét ĐÚNG provider đang chạy (không cứng Anthropic)",
+      "XAI_API_KEY" in _health and "get_provider" in _health)
+check("Health degraded khi thiếu chỉ mục", "faiss_index" in _health
+      and "critical" in _health)
+check("Health trả 503 khi degraded", "503" in _health)
 
 
 # ── Kết quả ───────────────────────────────────────────────────────────────────
