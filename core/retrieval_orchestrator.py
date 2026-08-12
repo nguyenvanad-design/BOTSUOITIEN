@@ -49,7 +49,28 @@ _CATEGORY_FILTER = {
 _DYNAMIC_INTENTS = {"hoi_su_kien", "hoi_uu_dai"}
 
 
-def _drop_stale_campaign(chunks: list) -> list:
+# Bài hướng dẫn / chào hàng dịch vụ B2B — KHÔNG phải chương trình đang diễn ra
+_RE_GUIDE = re.compile(
+    r"(cẩm nang|cam nang|hướng dẫn|huong dan|quy trình|quy trinh|"
+    r"kinh nghiệm|kinh nghiem|bí quyết|bi quyet|các bước|cac buoc|"
+    r"mục đích|muc dich|là gì|la gi|báo giá|bao gia|"
+    r"dịch vụ tổ chức|dich vu to chuc|checklist|mẹo |meo )", re.IGNORECASE)
+
+
+# Gói DỊCH VỤ B2B (thuê Suối Tiên tổ chức) — không phải chương trình công viên
+# đang chạy cho khách lẻ.
+_RE_B2B = re.compile(
+    r"(doanh nghiệp|doanh nghiep|công ty|cong ty|year end|tổng kết cuối năm|"
+    r"tong ket cuoi nam|hội nghị|hoi nghi|gala|tri ân|tri an|khách hàng|"
+    r"khach hang|ra mắt sản phẩm|ra mat san pham|teambuilding|team building|"
+    r"tiệc cưới|tiec cuoi|thuê địa điểm|thue dia diem)", re.IGNORECASE)
+
+# Khách đang hỏi CHO DOANH NGHIỆP thì nội dung B2B mới là thứ họ cần
+def _wants_b2b(query: str) -> bool:
+    return bool(query) and bool(_RE_B2B.search(query))
+
+
+def _drop_stale_campaign(chunks: list, query: str = "") -> list:
     """
     Loại chunk RAG là CHIẾN DỊCH ĐÃ QUA.
 
@@ -73,6 +94,19 @@ def _drop_stale_campaign(chunks: list) -> list:
     for c in chunks or []:
         title = str(c.get("title", ""))
         text  = str(c.get("text", ""))
+
+        # 0. Bài HƯỚNG DẪN B2B không phải chương trình đang diễn ra.
+        #    "Cẩm nang tổ chức sự kiện", "Quy trình tổ chức sự kiện chuyên
+        #    nghiệp" đều gắn nhãn category=events nên lọt vào câu hỏi "hiện tại
+        #    có sự kiện gì" — bot giới thiệu bài hướng dẫn như một sự kiện.
+        if _RE_GUIDE.search(title):
+            continue
+
+        # 0b. Gói dịch vụ B2B ("Year End Party", "Hội nghị khách hàng") không
+        #     phải chương trình đang diễn ra cho khách lẻ. Chỉ loại khi khách
+        #     KHÔNG hỏi cho doanh nghiệp — hỏi thuê tổ chức thì vẫn phải trả.
+        if not _wants_b2b(query) and _RE_B2B.search(title):
+            continue
 
         # 1. Năm cũ ngay trong tiêu đề
         yr = year_in_text(title)
@@ -233,8 +267,8 @@ def retrieve(
     # ── Step 5: Merge ──────────────────────────────────────────────────────────
     dynamic = _is_dynamic_intent(intent, query)
     if dynamic:
-        bm25_results   = _drop_stale_campaign(bm25_results)
-        vector_results = _drop_stale_campaign(vector_results)
+        bm25_results   = _drop_stale_campaign(bm25_results, query)
+        vector_results = _drop_stale_campaign(vector_results, query)
 
     if schema_results and len(schema_results) >= 2 and not dynamic:
         text_chunks = rrf_merge([bm25_results, vector_results], top_k=3) if (bm25_results or vector_results) else []

@@ -665,6 +665,38 @@ check("'Hiện tại' chỉ trả sự kiện CHỨNG MINH ĐƯỢC còn hạn",
       all(_cl.is_confidently_current(e, "events") for e in _cur),
       f"{len(_cur)} kết quả")
 check("'Hiện tại' vẫn trả được ít nhất 1 sự kiện thật", len(_cur) >= 1)
+
+# Bài hướng dẫn B2B gắn nhãn category=events, lọt vào câu "hiện tại có sự kiện
+# gì" → bot giới thiệu "Cẩm nang tổ chức sự kiện" như một chương trình
+_guides = [
+    {"title": "Cẩm nang tổ chức sự kiện", "text": "10/08/2026 nội dung"},
+    {"title": "Mục đích và Quy trình tổ chức sự kiện chuyên nghiệp", "text": "x"},
+    {"title": "Báo giá tổ chức sự kiện", "text": "x"},
+    {"title": "ĐÓN MÙA THU 2 COMBO ƯU ĐÃI", "text": "10/08/2026 Combo 240.000đ"},
+]
+_kept_g = [c["title"] for c in _ro._drop_stale_campaign(_guides)]
+check("Loại bài hướng dẫn khỏi câu hỏi sự kiện",
+      not any("Cẩm nang" in t or "Quy trình" in t or "Báo giá" in t for t in _kept_g),
+      str(_kept_g))
+check("Vẫn giữ chương trình thật", any("MÙA THU" in t for t in _kept_g))
+
+# Gói dịch vụ B2B không phải chương trình đang chạy cho khách lẻ — nhưng khách
+# DOANH NGHIỆP hỏi thì vẫn phải trả về
+_b2b = [
+    {"title": "Tổ chức sự kiện tổng kết cuối năm cho doanh nghiệp", "text": "x"},
+    {"title": "Hội nghị khách hàng", "text": "x"},
+    {"title": "ĐÓN MÙA THU 2 COMBO ƯU ĐÃI", "text": "10/08/2026 Combo 240.000đ"},
+]
+_khach_le = [c["title"] for c in _ro._drop_stale_campaign(_b2b, "hiện tại có sự kiện gì")]
+check("Khách lẻ hỏi 'hiện tại': KHÔNG trả gói B2B",
+      not any("doanh nghiệp" in t or "Hội nghị" in t for t in _khach_le), str(_khach_le))
+check("Khách lẻ vẫn nhận được chương trình thật",
+      any("MÙA THU" in t for t in _khach_le))
+
+_khach_b2b = [c["title"] for c in _ro._drop_stale_campaign(
+    _b2b, "công ty muốn tổ chức year end party")]
+check("Khách DOANH NGHIỆP hỏi: VẪN trả gói B2B",
+      any("doanh nghiệp" in t for t in _khach_b2b), str(_khach_b2b))
 check("Câu hỏi thường trả nhiều hơn câu hỏi 'hiện tại'",
       len(_ss.search_events("sự kiện lễ hội", max_results=20)) >= len(_cur))
 
