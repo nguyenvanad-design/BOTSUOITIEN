@@ -28,9 +28,18 @@ _chunks = None   # list of {text, title, url, category, slug, chunk_id}
 def _get_model():
     global _model
     if _model is None:
+        import torch
         from sentence_transformers import SentenceTransformer
-        print(f"[vector_search] Loading model {_MODEL_NAME}...")
-        _model = SentenceTransformer(_MODEL_NAME)
+        # Giới hạn thread CPU — tránh 1 encode chiếm hết core (tràn CPU khi nhiều request).
+        # Đặt env TORCH_NUM_THREADS=2..4 trên server production.
+        n_threads = int(os.environ.get("TORCH_NUM_THREADS", "0") or 0)
+        if n_threads > 0:
+            torch.set_num_threads(n_threads)
+        # Chọn device: env EMBED_DEVICE=cpu|cuda, mặc định auto (cuda nếu có).
+        device = os.environ.get("EMBED_DEVICE") or ("cuda" if torch.cuda.is_available() else "cpu")
+        print(f"[vector_search] Loading model {_MODEL_NAME} on {device} "
+              f"(threads={torch.get_num_threads()})...")
+        _model = SentenceTransformer(_MODEL_NAME, device=device)
         print("[vector_search] Model loaded.")
     return _model
 

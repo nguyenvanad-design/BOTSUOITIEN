@@ -23,7 +23,10 @@ BASE_URL      = "https://suoitien.vn"
 SITEMAP_URL   = f"{BASE_URL}/sitemap.xml"
 CHECK_INTERVAL = 60          # phút — check sitemap mỗi 60 phút
 CRAWL_DELAY   = 1.5          # giây giữa các request
-MAX_CRAWL     = 10           # tối đa 10 URL mới mỗi lần check
+# Nâng từ 10: có 35 URL đủ điều kiện crawl lại mà mỗi vòng chỉ lấy 10 → hàng đợi
+# không bao giờ rút hết, và trang động luôn bị trang chính sách tĩnh chiếm chỗ.
+# Hash nội dung chặn ở phía sau nên crawl nhiều không kéo theo gọi LLM nhiều.
+MAX_CRAWL     = int(os.getenv("SUOITIEN_MAX_CRAWL", "25"))
 MIN_CONTENT   = 200          # chars tối đa content
 
 _BASE_DIR     = Path(os.environ.get("SUOITIEN_BASE", Path(__file__).parent))
@@ -106,7 +109,8 @@ def get_new_or_updated_urls() -> list[dict]:
         log.warning("Sitemap empty or unreachable")
         return []
 
-    new_entries = []
+    new_entries  = []
+    forced_dyn   = []
     for entry in entries:
         url     = entry["url"]
         lastmod = entry["lastmod"]
@@ -115,14 +119,71 @@ def get_new_or_updated_urls() -> list[dict]:
         if state.get(url) == "404":
             continue
 
+        slug = url.rstrip("/").split("/")[-1]
+        if not _is_relevant_slug(slug):
+            continue
+
         # Mới hoàn toàn hoặc lastmod thay đổi
         if url not in state or (lastmod and state[url] != lastmod):
-            slug = url.rstrip("/").split("/")[-1]
-            if _is_relevant_slug(slug):
-                new_entries.append(entry)
+            new_entries.append(entry)
+        elif _is_dynamic_page(slug):
+            # KHÔNG tin lastmod cho trang động.
+            #
+            # Đo thực tế 13/08/2026 trên sitemap suoitien.vn: 367/460 URL có
+            # lastmod đóng băng ở 2024-05-07 — trong đó có đúng các trang đổi
+            # nhiều nhất: uu-dai-va-su-kien, uu-dai-khuyen-mai, bang-gia-1,
+            # toàn bộ combo-*. Website đổi khuyến mãi mà không đụng lastmod, nên
+            # chỉ dựa vào lastmod là các trang này crawl một lần rồi thôi vĩnh
+            # viễn — combo 240k không bao giờ về được.
+            # → Crawl lại định kỳ và so HASH NỘI DUNG để biết có đổi thật không.
+            forced_dyn.append(entry)
 
-    log.info(f"Sitemap: {len(entries)} total, {len(new_entries)} new/updated")
-    return new_entries[:MAX_CRAWL]
+    # Trang động lên TRƯỚC: hàng đợi cũ toàn trang chính sách tĩnh chiếm chỗ
+    # (chinh-sach-thanh-toan, chinh-sach-khieu-nai...) trong khi MAX_CRAWL=10.
+    new_entries.sort(key=lambda e: 0 if _is_dynamic_page(
+        e["url"].rstrip("/").split("/")[-1]) else 1)
+
+    picked = new_entries[:MAX_CRAWL]
+    if len(picked) < MAX_CRAWL:
+        picked += forced_dyn[: MAX_CRAWL - len(picked)]
+
+    log.info("Sitemap: %d total, %d new/updated, %d trang động soát lại → crawl %d",
+             len(entries), len(new_entries), len(forced_dyn), len(picked))
+    return picked
+
+
+def _is_dynamic_page(slug: str) -> bool:
+    """
+    Trang có nội dung đổi liên tục (bảng giá, combo, ưu đãi, tin tức).
+    Những trang này phải soát lại định kỳ vì lastmod của website không đáng tin.
+    """
+    s = (slug or "").lower()
+    return any(k in s for k in (
+        "bang-gia", "gia-ve", "combo", "uu-dai", "khuyen-mai", "su-kien",
+        "tin-tuc", "le-hoi", "chuong-trinh", "deal", "sale", "chon-ve",
+    ))
+
+
+def _content_hash(text: str) -> str:
+    """Hash phần chữ đã chuẩn hoá — đổi hash nghĩa là nội dung đổi thật."""
+    norm = " ".join((text or "").split()).lower()
+    return hashlib.sha256(norm.encode("utf-8")).hexdigest()[:16]
+
+
+def _load_content_hashes() -> dict:
+    f = _DATA_DIR / "content_hashes.json"
+    try:
+        return json.loads(f.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def _save_content_hashes(h: dict):
+    try:
+        (_DATA_DIR / "content_hashes.json").write_text(
+            json.dumps(h, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as e:
+        log.warning(f"Không lưu được content_hashes: {e}")
 
 
 def _is_relevant_slug(slug: str) -> bool:
@@ -189,10 +250,41 @@ def _crawl_url(url: str) -> dict | None:
         return None
 
 
+# Field vòng đời do hệ thống quản lý (crawler không sinh ra) — phải bảo toàn
+# khi cập nhật entity cũ, nếu không mỗi lần crawl sẽ mất trạng thái ẩn/ưu tiên.
+_LIFECYCLE_FIELDS = ("is_active", "priority", "valid_from", "valid_to")
+
+
+# Dấu hiệu BÀI CHIẾN DỊCH (tin khuyến mãi/sự kiện), khác với TRANG DANH MỤC vé.
+# Bài "tặng 2.000 vé dịp Quốc khánh" là SỰ KIỆN, không phải một loại vé — nhưng
+# slug của nó chứa "ve-cong" nên luật tickets (xét trước) cướp mất. Kết quả: tin
+# 2/9 rơi vào bucket tickets, không bao giờ xuất hiện khi khách hỏi sự kiện.
+_CAMPAIGN_SLUG = (
+    "uu-dai", "khuyen-mai", "giam-gia", "tang-", "mung-", "chao-mung",
+    "le-hoi", "su-kien", "quoc-khanh", "2-9", "30-4", "1-5", "1-6",
+    "tet-", "-tet", "trung-thu", "giang-sinh", "noel", "halloween",
+    "sinh-nhat", "ky-niem", "san-deal", "deal-", "flash", "sale",
+    "mua-thu", "mua-he", "mua-xuan", "he-ruc-ro", "phu-nu", "8-3", "20-10",
+)
+
+# Trang DANH MỤC vé thật sự — bảng giá, không phải bài viết chiến dịch
+_TICKET_CATALOG = ("bang-gia", "chi-tiet-ve", "gia-ve", "mua-ve-online", "chon-ve")
+
+
 def _guess_category(slug: str, title: str, text: str) -> str:
     slug = slug.lower()
+
+    # Xét TRƯỚC mọi luật khác: bài chiến dịch → events, trừ khi đó đúng là
+    # trang bảng giá (vd "bang-gia" có thể kèm chữ "uu-dai" trong slug).
+    if any(k in slug for k in _CAMPAIGN_SLUG) and \
+            not any(k in slug for k in _TICKET_CATALOG):
+        return "events"
+
     rules = [
-        (["bang-gia","chi-tiet-ve","mua-ve","combo-ve","ve-"], "tickets"),
+        # "ve-" quá rộng: bắt nhầm "ve-tranh" (vẽ tranh), "ve-dep"... → dùng
+        # tiền tố cụ thể hơn
+        (["bang-gia","chi-tiet-ve","mua-ve","combo-ve",
+          "ve-cong","ve-vao","ve-tron-goi","ve-doan","gia-ve"], "tickets"),
         (["go-kart","infinity","twin-race","xe-tang","sky-bounder",
           "bien-tien","thuyen","phim-","nha-ma","tagada","dia-xoay",
           "vong-xoay","ghe-bay","ca-sau","vuong-quoc"], "attractions"),
@@ -288,6 +380,52 @@ def _extract_entities_batch(new_docs: list[dict]) -> dict:
 
 # ── Hot-swap data ──────────────────────────────────────────────────────────────
 
+def _sweep_lifecycle():
+    """
+    Đánh dấu nội dung động đã hết hạn (is_active=False) sau mỗi lần nạp dữ liệu.
+
+    Chỉ ĐỔI CỜ, không xoá bản ghi — để còn tra cứu lịch sử và để thao tác này
+    đảo ngược được. Ghi báo cáo ra data/lifecycle_sweep_report.json để soát.
+    """
+    try:
+        import sys
+        sys.path.insert(0, str(_BASE_DIR / "core"))
+        from content_lifecycle import sweep, apply_sweep, build_crawl_map
+
+        from content_lifecycle import normalize_dates
+
+        data  = json.loads(_DATA_FILE.read_text(encoding="utf-8"))
+        clean = json.loads(_CLEAN_FILE.read_text(encoding="utf-8"))
+
+        # Chuẩn hoá ngày TRƯỚC khi phán định hạn dùng. Ngày hỏng mà nuốt im
+        # lặng thì bản ghi trượt mọi luật và sống vĩnh viễn.
+        date_errors = []
+        for bucket, items in data.items():
+            if not isinstance(items, list):
+                continue
+            for it in items:
+                if isinstance(it, dict):
+                    for err in normalize_dates(it):
+                        date_errors.append(f"[{bucket}] {it.get('name', '?')}: {err}")
+        if date_errors:
+            log.warning("Ngày không hợp lệ (%d) — đã loại bỏ:", len(date_errors))
+            for e in date_errors[:10]:
+                log.warning("   %s", e)
+
+        report = sweep(data, build_crawl_map(clean))
+        n = apply_sweep(data, report)
+        if n:
+            _DATA_FILE.write_text(
+                json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        (_DATA_DIR / "lifecycle_sweep_report.json").write_text(
+            json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        log.info("Lifecycle sweep: ẩn %d, hiện lại %d, không rõ ngày %d",
+                 len(report["to_hide"]), len(report["to_show"]),
+                 len(report["undated"]))
+    except Exception as e:
+        log.warning(f"Lifecycle sweep bỏ qua: {e}")
+
+
 def _hot_swap_data(new_docs: list[dict], new_entities: dict):
     """
     Merge new_docs + new_entities vào files hiện tại.
@@ -320,20 +458,38 @@ def _hot_swap_data(new_docs: list[dict], new_entities: dict):
             for bucket, items in new_entities.items():
                 if bucket not in existing:
                     existing[bucket] = []
-                # Dedup by id field
+                # Update-by-ID: ID đã có → THAY THẾ (nội dung đổi được cập nhật),
+                # ID mới → thêm. Trước đây chỉ append nên combo/giá đổi không cập nhật.
                 id_field = {"tickets":"ticket_id","attractions":"attraction_id",
                             "events":"event_id","teambuilding":"package_id",
                             "restaurant":"restaurant_id","info":"info_id"}.get(bucket,"id")
-                existing_ids = {i.get(id_field,"") for i in existing[bucket]}
-                added = 0
+                idx_by_id = {i.get(id_field,""): k for k, i in enumerate(existing[bucket])
+                             if i.get(id_field,"")}
+                added = updated = 0
                 for item in items:
-                    if item.get(id_field,"") not in existing_ids:
+                    iid = item.get(id_field, "")
+                    if iid and iid in idx_by_id:
+                        old = existing[bucket][idx_by_id[iid]]
+                        # Crawler KHÔNG trích xuất field vòng đời → phải giữ lại từ bản
+                        # cũ, nếu không mỗi lần crawl sẽ xoá sạch is_active/priority.
+                        merged = {**old, **item}
+                        for keep in _LIFECYCLE_FIELDS:
+                            if keep in old and keep not in item:
+                                merged[keep] = old[keep]
+                        existing[bucket][idx_by_id[iid]] = merged
+                        updated += 1
+                    else:
                         existing[bucket].append(item)
                         added += 1
-                log.info(f"data_v2 {bucket}: +{added} new entities")
+                log.info(f"data_v2 {bucket}: +{added} new, {updated} updated")
             _DATA_FILE.write_text(json.dumps(existing, ensure_ascii=False, indent=2), encoding="utf-8")
         except Exception as e:
             log.error(f"Error updating data_v2: {e}")
+
+    # 2.5 Quét vòng đời — nội dung động hết hạn thì tự ẩn.
+    # Không có bước này, pipeline chỉ biết THÊM: 151 sự kiện tích tụ từ 2023,
+    # và bot trả lời "hiện tại đang có Giỗ Tổ Hùng Vương" vào tháng 8.
+    _sweep_lifecycle()
 
     # 3. Reload schema_search in-process
     try:
@@ -393,20 +549,36 @@ def run_update():
         # 2. Crawl new URLs
         new_docs = []
         state    = _load_state()
+        hashes   = _load_content_hashes()
+        unchanged = 0
         for entry in new_entries:
             doc = _crawl_url(entry["url"])
             if doc:
-                new_docs.append(doc)
+                # So HASH nội dung: trang động crawl lại mỗi vòng, nhưng chỉ
+                # đưa vào pipeline khi chữ thật sự đổi — tránh gọi LLM trích
+                # xuất lại cùng một nội dung mỗi giờ (tốn token, nhiễu data).
+                h   = _content_hash(doc.get("text", ""))
+                old = hashes.get(entry["url"])
                 state[entry["url"]] = entry["lastmod"] or "ok"
-                log.info(f"  ✅ {doc['slug']} [{doc['category']}] {doc['char_count']}c")
+                if old == h:
+                    unchanged += 1
+                    log.debug("  ⏭  %s không đổi (hash %s)", doc["slug"], h)
+                else:
+                    hashes[entry["url"]] = h
+                    new_docs.append(doc)
+                    log.info("  ✅ %s [%s] %dc %s", doc["slug"], doc["category"],
+                             doc["char_count"], "MỚI" if old is None else "ĐỔI NỘI DUNG")
             else:
                 # Lưu 404 vào state với marker đặc biệt → skip lần sau
                 state[entry["url"]] = "404"
                 log.info(f"  ❌ {entry['url']}")
             time.sleep(CRAWL_DELAY)
 
+        _save_content_hashes(hashes)
+        _save_state(state)
+
         if not new_docs:
-            log.info("No valid docs crawled")
+            log.info("Không có nội dung đổi (%d trang giữ nguyên)", unchanged)
             return
 
         # 3. Extract entities — chỉ categories có structured data
@@ -501,10 +673,12 @@ def get_router():
 
     router  = APIRouter()
     bearer  = HTTPBearer()
-    ADMIN_KEY = os.environ.get("ADMIN_KEY", "suoitien-admin-2026")
-
     def verify(creds: HTTPAuthorizationCredentials = Depends(bearer)):
-        if creds.credentials != ADMIN_KEY:
+        # Đọc động + KHÔNG có key mặc định (key mặc định lộ trong source)
+        key = os.environ.get("ADMIN_KEY", "")
+        if not key:
+            raise HTTPException(status_code=503, detail="ADMIN_KEY chưa cấu hình")
+        if creds.credentials != key:
             raise HTTPException(status_code=401, detail="Invalid admin key")
 
     @router.post("/admin/refresh")

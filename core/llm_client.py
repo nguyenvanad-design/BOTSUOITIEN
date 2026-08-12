@@ -102,6 +102,12 @@ def resolve_model(role: str) -> str:
     return _DEFAULT_MODELS[provider]
 
 
+# Timeout + retry cho mỗi LLM call — tránh 1 call chậm (rate-limit) treo cả request.
+# Env: SUOITIEN_LLM_TIMEOUT (giây, default 30), SUOITIEN_LLM_RETRIES (default 1)
+_LLM_TIMEOUT = float(os.getenv("SUOITIEN_LLM_TIMEOUT", "30"))
+_LLM_RETRIES = int(os.getenv("SUOITIEN_LLM_RETRIES", "1"))
+
+
 def _client(provider: str):
     if provider not in _clients:
         if provider == "gemini":
@@ -112,10 +118,16 @@ def _client(provider: str):
             _clients[provider] = anthropic.Anthropic(
                 api_key=os.getenv("XAI_API_KEY"),
                 base_url="https://api.x.ai",
+                timeout=_LLM_TIMEOUT,
+                max_retries=_LLM_RETRIES,
             )
         else:
             import anthropic
-            _clients[provider] = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+            _clients[provider] = anthropic.Anthropic(
+                api_key=os.getenv("ANTHROPIC_API_KEY"),
+                timeout=_LLM_TIMEOUT,
+                max_retries=_LLM_RETRIES,
+            )
     return _clients[provider]
 
 

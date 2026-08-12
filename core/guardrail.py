@@ -34,13 +34,18 @@ _INJECTION_PATTERNS = [
 ]
 
 # ── 2. Out-of-domain patterns ──────────────────────────────────────────────────
+# CẢNH BÁO: tiếng Việt là ĐƠN ÂM — một từ khoá trần như "kiện" hay "thuốc" sẽ
+# khớp vào giữa "sự kiện", "điều kiện", "nhà thuốc"... và chặn nhầm câu hỏi
+# hoàn toàn hợp lệ. Mọi pattern ở đây PHẢI là cụm đủ nghĩa, không dùng âm lẻ.
 _OOD_PATTERNS = [
     re.compile(p, re.IGNORECASE) for p in [
-        r"(chẩn đoán|chữa bệnh|thuốc|liều dùng|triệu chứng)",
-        r"(tư vấn pháp lý|luật sư|kiện|tòa án|hợp đồng pháp)",
-        r"(cổ phiếu|chứng khoán|đầu tư|crypto|bitcoin|forex)",
-        r"(chính trị|bầu cử|đảng|tổng thống|thủ tướng)",
-        r"(hack|crack|exploit|malware|virus|ddos)",
+        r"(chẩn đoán|chữa bệnh|liều dùng|triệu chứng|"
+        r"thuốc (gì|nào) (chữa|trị|điều trị)|uống thuốc gì|kê đơn|đơn thuốc)",
+        r"(tư vấn pháp lý|luật sư|khởi kiện|kiện tụng|kiện cáo|đơn kiện|"
+        r"tòa án|hợp đồng pháp)",
+        r"(cổ phiếu|chứng khoán|đầu tư (tài chính|chứng khoán)|crypto|bitcoin|forex)",
+        r"(chính trị|bầu cử|tổng thống|thủ tướng)",
+        r"(hack|crack|exploit|malware|ddos)",
         r"(vũ khí|chất nổ|chất độc|ma túy)",
     ]
 ]

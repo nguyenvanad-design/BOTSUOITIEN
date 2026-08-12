@@ -302,7 +302,9 @@ EVAL_SET = [
     {
         "id": "L3_001", "level": "L3", "category": "multi_intent",
         "query": "Giá vé bao nhiêu và mấy giờ mở cửa?",
-        "must_contain": ["giờ"],
+        # Bot trả "7h30 đến 17h00" — đúng nhưng không có chữ "giờ";
+        # keyword cũ chỉ có "giờ" nên báo fail giả.
+        "must_contain": ["giờ", "7h30", "mở cửa"],
         "must_not_contain": [],
     },
     {
@@ -496,8 +498,31 @@ EVAL_SET = [
 
 # ── Evaluator ──────────────────────────────────────────────────────────────────
 
+def _usage_snapshot() -> dict:
+    """Tổng token đã dùng tới thời điểm này (theo role)."""
+    try:
+        import llm_client
+        return llm_client.get_usage()
+    except Exception:
+        return {}
+
+
+def _usage_delta(before: dict, after: dict) -> dict:
+    """Token tiêu tốn của riêng 1 case, tách theo role."""
+    out = {"calls": 0, "input": 0, "output": 0, "by_role": {}}
+    for role, a in after.items():
+        b = before.get(role, {"calls": 0, "input": 0, "output": 0})
+        d = {k: a.get(k, 0) - b.get(k, 0) for k in ("calls", "input", "output")}
+        if any(d.values()):
+            out["by_role"][role] = d
+            for k in ("calls", "input", "output"):
+                out[k] += d[k]
+    return out
+
+
 def evaluate_case(case: dict, verbose: bool = False) -> dict:
     """Chạy 1 test case, trả về kết quả."""
+    _u_before = _usage_snapshot()
     t0 = time.perf_counter()
     try:
         result = chat(case["query"], use_faq_fast_path=True)
@@ -536,6 +561,8 @@ def evaluate_case(case: dict, verbose: bool = False) -> dict:
         len(answer) > 10
     )
 
+    usage = _usage_delta(_u_before, _usage_snapshot())
+
     out = {
         "id":             case["id"],
         "level":          case["level"],
@@ -546,6 +573,7 @@ def evaluate_case(case: dict, verbose: bool = False) -> dict:
         "source":         source,
         "tools":          tools,
         "latency_ms":     round(latency),
+        "usage":          usage,
         "contain_miss":   contain_miss,
         "forbidden_hits": forbidden_hits,
         "error":          error,
@@ -643,6 +671,38 @@ def run_eval(
             if r["error"]:
                 print(f"     error: {r['error'][:80]}")
 
+    # ── Token breakdown ────────────────────────────────────────────────────────
+    llm_cases = [r for r in results if r.get("usage", {}).get("calls", 0) > 0]
+    tok_in    = sum(r.get("usage", {}).get("input", 0) for r in results)
+    tok_out   = sum(r.get("usage", {}).get("output", 0) for r in results)
+    n_calls   = sum(r.get("usage", {}).get("calls", 0) for r in results)
+
+    print(f"\n--- Token ---")
+    print(f"  Tổng: {tok_in:,} input + {tok_out:,} output = "
+          f"{tok_in + tok_out:,} token / {n_calls} lượt gọi LLM")
+    if llm_cases:
+        n = len(llm_cases)
+        print(f"  Câu KHÔNG dùng LLM (FAQ/guardrail): "
+              f"{len(results) - n}/{len(results)} → 0 token")
+        print(f"  Trung bình mỗi câu QUA LLM ({n} câu): "
+              f"{tok_in / n:,.0f} in + {tok_out / n:,.0f} out = "
+              f"{(tok_in + tok_out) / n:,.0f} token "
+              f"({n_calls / n:.1f} lượt gọi)")
+    print(f"  Trung bình trên TOÀN BỘ {len(results)} câu: "
+          f"{(tok_in + tok_out) / len(results):,.0f} token")
+
+    role_agg = {}
+    for r in results:
+        for role, d in r.get("usage", {}).get("by_role", {}).items():
+            a = role_agg.setdefault(role, {"calls": 0, "input": 0, "output": 0})
+            for k in a:
+                a[k] += d[k]
+    if role_agg:
+        print("  Theo vai trò:")
+        for role, a in sorted(role_agg.items(), key=lambda x: -x[1]["input"] - x[1]["output"]):
+            print(f"    {role:12s} {a['calls']:4d} lượt | "
+                  f"{a['input']:>8,} in | {a['output']:>7,} out")
+
     # Source breakdown
     sources = {}
     for r in results:
@@ -659,6 +719,16 @@ def run_eval(
         "pct":           round(overall_pass / overall_total * 100, 1),
         "level_stats":   level_stats,
         "avg_latency_ms": round(sum(r["latency_ms"] for r in results) / len(results)),
+        "tokens": {
+            "input":         tok_in,
+            "output":        tok_out,
+            "total":         tok_in + tok_out,
+            "llm_calls":     n_calls,
+            "cases_via_llm": len(llm_cases),
+            "avg_per_llm_case":  round((tok_in + tok_out) / len(llm_cases)) if llm_cases else 0,
+            "avg_per_case":      round((tok_in + tok_out) / len(results)),
+            "by_role":       role_agg,
+        },
         "results":       results,
     }
     with open(output_file, "w", encoding="utf-8") as f:

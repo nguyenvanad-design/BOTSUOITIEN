@@ -53,7 +53,7 @@ def format_directions(lang: str = "vi") -> str:
     templates = {
         "vi": (
             f"📍 **Địa chỉ:** {ADDRESS}\n\n"
-            f"**🚇 Metro số 1 (sắp khai thác):** Ga cuối tuyến là ga Suối Tiên, ngay trước cổng công viên.\n\n"
+            f"**🚇 Metro số 1 (đã hoạt động):** Đi metro đến ga cuối **Suối Tiên** — ra khỏi ga là tới cổng công viên luôn! Mua vé ngay tại quầy/máy bán vé ở ga.\n\n"
             f"**🚌 Xe buýt:** Tuyến 19 (Bến Thành – Suối Tiên), tuyến 53\n\n"
             f"**🚗 Xe máy/Ô tô:** Theo Xa Lộ Hà Nội hướng Thủ Đức, đến số 120.\n"
             f"Bãi đỗ xe rộng, miễn phí trong khuôn viên.\n\n"

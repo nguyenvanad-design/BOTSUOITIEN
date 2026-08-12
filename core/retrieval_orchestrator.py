@@ -4,6 +4,7 @@ Strategy giờ đến từ LLM intent_extractor, không cần _STRATEGY map cứ
 """
 
 import os
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -35,6 +36,106 @@ _CATEGORY_FILTER = {
     "hoi_ve_cong":      "tickets",
 }
 
+# ── Intent hỏi về nội dung ĐỘNG ───────────────────────────────────────────────
+# Lễ hội, ưu đãi, combo thay đổi liên tục theo chiến dịch marketing. Với nhóm
+# này, bảng schema CHẮC CHẮN cũ hơn website: schema chỉ được cập nhật khi crawl
+# trích xuất được entity, còn trang web đổi trước.
+#
+# Hậu quả khi tin schema (13/08/2026): hỏi "Combo Trải Nghiệm giá bao nhiêu?"
+# → 220.000đ (bảng vé cũ), trong khi website đang bán 240.000đ. Bot còn tự bịa
+# "Combo Trải Nghiệm (tức Combo Tham Quan)" để ghép cho khớp giá cũ.
+#
+# → Với intent động: KHÔNG cắt chunk web, và đẩy nội dung web LÊN TRƯỚC schema.
+_DYNAMIC_INTENTS = {"hoi_su_kien", "hoi_uu_dai"}
+
+
+def _drop_stale_campaign(chunks: list) -> list:
+    """
+    Loại chunk RAG là CHIẾN DỊCH ĐÃ QUA.
+
+    Chunk trong FAISS/BM25 không có vòng đời — 47 chunk là "ưu đãi Tết",
+    "Friendship Festival 2025", "Vé miễn phí 01/06/2025"... Khi câu hỏi động
+    được ưu tiên lấy nội dung web, đúng những chunk cũ này nhảy lên đầu và bot
+    quảng cáo "ưu đãi Ngày Phụ nữ" vào giữa tháng 8.
+
+    Chỉ dùng cho câu hỏi ĐỘNG. Câu hỏi tĩnh vẫn cần các chunk này (khách hỏi
+    "Tết năm ngoái có gì" thì vẫn nên tra được).
+    """
+    try:
+        from content_lifecycle import year_in_text, holiday_date, _HOLIDAY_GRACE_DAYS
+        from datetime import date, timedelta
+    except Exception:
+        # Không phán định được thì thà không đưa gì vào — xem giải thích ở cuối hàm
+        return []
+
+    today = date.today()
+    kept = []
+    for c in chunks or []:
+        title = str(c.get("title", ""))
+        text  = str(c.get("text", ""))
+
+        # 1. Năm cũ ngay trong tiêu đề
+        yr = year_in_text(title)
+        if yr and yr < today.year:
+            continue
+
+        # 2. Ngày ĐĂNG BÀI in trong thân bài. Chunk "MỪNG NGÀY PHỤ NỮ VIỆT NAM"
+        #    không có năm ở tiêu đề, năm 2024 nằm trong nội dung ("02/10/2024")
+        #    → lọc theo tiêu đề thôi là lọt.
+        pub = _publish_date(title, text)
+        if pub and pub.year < today.year:
+            continue
+
+        # 3. Ngày lễ đã qua trong năm nay
+        hd = holiday_date(title, today.year)
+        if hd and today > hd + timedelta(days=_HOLIDAY_GRACE_DAYS):
+            continue
+
+        kept.append(c)
+
+    if not kept:
+        # TRẢ RỖNG, KHÔNG trả nguyên bản.
+        #
+        # Trước đây ở đây fallback về `chunks` với lý lẽ "còn hơn không có gì".
+        # Lý lẽ đó SAI với câu hỏi ưu đãi: `chunks` lúc này chính là đống khuyến
+        # mãi hết hạn vừa lọc ra, nên fallback = quảng cáo ưu đãi Tết vào tháng 8.
+        # Khách tới nơi mới biết là mất uy tín; im lặng rồi mời gọi hotline thì
+        # không. Responder đã có luật xử lý khi thiếu dữ liệu.
+        return []
+
+    # "Web mới nhất thắng" — bài mới đứng trước. Chunk không đọc được ngày giữ
+    # nguyên thứ hạng liên quan (sort ổn định), chỉ xếp sau bài có ngày mới.
+    kept.sort(key=lambda c: _publish_date(str(c.get("title", "")),
+                                          str(c.get("text", ""))) or date.min,
+              reverse=True)
+    return kept
+
+
+_RE_PUB_DATE = re.compile(r"\b(\d{1,2})/(\d{1,2})/(20\d\d)\b")
+
+
+def _publish_date(title: str, text: str):
+    """Ngày đăng bài — crawler giữ nguyên dòng ngày tháng của website."""
+    from datetime import date as _d
+    m = _RE_PUB_DATE.search(f"{title} {text[:400]}")
+    if not m:
+        return None
+    try:
+        return _d(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+    except ValueError:
+        return None
+
+
+def _is_dynamic_intent(intent: str, query: str = "") -> bool:
+    if intent in _DYNAMIC_INTENTS:
+        return True
+    return bool(re.search(
+        r"(combo|ưu đãi|uu dai|khuyến mãi|khuyen mai|giảm giá|giam gia|"
+        r"đang áp dụng|dang ap dung|sự kiện|su kien|lễ hội|le hoi|"
+        r"hiện tại|hien tai|đang có|dang co|tháng này|thang nay)",
+        query or "", re.IGNORECASE))
+
+
 # Default strategy nếu extractor không trả về
 _DEFAULT_STRATEGY = {
     "hoi_gia_ve":       ["faq", "schema", "bm25"],
@@ -55,6 +156,28 @@ _DEFAULT_STRATEGY = {
     "hoi_chung":        ["faq", "bm25", "vector"],
     "unknown":          ["faq", "bm25", "vector"],
 }
+
+
+# Tách RAG operational vs blog/SEO: loại chunk nói về công viên ĐỐI THỦ hoặc
+# bài listicle SEO — tránh trộn thông tin ngoài Suối Tiên vào câu tư vấn.
+_BLOG_SIGNALS = (
+    "thảo cầm viên", "đầm sen", "vinpearl", "đại nam", "grand world",
+    "top 10", "top 5", "top các", "so sánh với", "review chi tiết",
+    "những công viên", "các khu du lịch nổi tiếng",
+)
+
+
+def _is_blog(chunk: dict) -> bool:
+    if chunk.get("category") == "blog_seo":
+        return True
+    t = (chunk.get("title", "") + " " + chunk.get("text", "")[:200]).lower()
+    return any(sig in t for sig in _BLOG_SIGNALS)
+
+
+def _drop_blog(chunks: list) -> list:
+    """Bỏ chunk blog/SEO. Nếu bỏ hết thì giữ nguyên (tránh trả rỗng)."""
+    clean = [c for c in chunks if not _is_blog(c)]
+    return clean if clean else chunks
 
 
 def retrieve(
@@ -96,19 +219,24 @@ def retrieve(
     # ── Step 3: BM25 ──────────────────────────────────────────────────────────
     bm25_results = []
     if "bm25" in strategy:
-        bm25_results = bm25_search(query, top_k=top_k * 2, category_filter=cat_filter)
+        bm25_results = _drop_blog(bm25_search(query, top_k=top_k * 2, category_filter=cat_filter))
 
     # ── Step 4: Vector ─────────────────────────────────────────────────────────
     vector_results = []
     if "vector" in strategy and use_vector:
         try:
             vs = _get_vector_search()
-            vector_results = vs(query, top_k=top_k * 2, category_filter=cat_filter)
+            vector_results = _drop_blog(vs(query, top_k=top_k * 2, category_filter=cat_filter))
         except FileNotFoundError:
             pass
 
     # ── Step 5: Merge ──────────────────────────────────────────────────────────
-    if schema_results and len(schema_results) >= 2:
+    dynamic = _is_dynamic_intent(intent, query)
+    if dynamic:
+        bm25_results   = _drop_stale_campaign(bm25_results)
+        vector_results = _drop_stale_campaign(vector_results)
+
+    if schema_results and len(schema_results) >= 2 and not dynamic:
         text_chunks = rrf_merge([bm25_results, vector_results], top_k=3) if (bm25_results or vector_results) else []
         return {
             "source": "schema",
@@ -130,6 +258,7 @@ def retrieve(
         "chunks": merged[:top_k],
         "intent": intent,
         "strategy": strategy,
+        "dynamic": dynamic,
     }
 
 
@@ -144,6 +273,28 @@ def build_context(retrieval_out: dict, max_chars: int = 3000) -> str:
 
     lines = []
     total = 0
+    dynamic = retrieval_out.get("dynamic", False)
+
+    # Câu hỏi ĐỘNG (combo/ưu đãi/sự kiện): nội dung web mới nhất đứng TRƯỚC và
+    # được tuyên bố là nguồn ưu tiên. Bảng schema chỉ còn vai trò tham khảo, vì
+    # nó luôn chậm hơn website — nơi Suối Tiên đổi khuyến mãi liên tục.
+    if dynamic and chunks:
+        lines.append("=== TIN MỚI NHẤT TỪ WEBSITE SUỐI TIÊN (ƯU TIÊN DÙNG) ===")
+        for c in chunks[:3]:
+            entry = f"[{c.get('title', '')}]\n{c.get('text', '')[:600]}"
+            if total + len(entry) > max_chars:
+                break
+            lines.append(entry)
+            total += len(entry)
+        if results:
+            lines.append("\n=== DỮ LIỆU NỀN (có thể cũ hơn website) ===")
+            for item in results[:3]:
+                s = _fmt(item)
+                if total + len(s) > max_chars:
+                    break
+                lines.append(s)
+                total += len(s)
+        return "\n\n".join(lines) if lines else ""
 
     if results and source == "schema":
         lines.append("=== THÔNG TIN TỪ DATABASE ===")
@@ -158,6 +309,8 @@ def build_context(retrieval_out: dict, max_chars: int = 3000) -> str:
         # Trước đây chunks (có thể là bài blog teambuilding) bị chèn vào context
         # ngay cả khi database đã trả đúng trò chơi → LLM2 bị nhiễu, trả lời nhầm.
         # Chỉ bổ sung chunks khi schema thiếu (< 2 kết quả).
+        # LƯU Ý: luật này CHỈ đúng cho câu hỏi TĨNH — nhánh dynamic ở trên đã
+        # xử lý riêng, vì với ưu đãi thì bỏ web đi chính là bỏ mất tin mới.
         if len(results) >= 2:
             return "\n\n".join(lines) if lines else ""
 

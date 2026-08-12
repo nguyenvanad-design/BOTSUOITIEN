@@ -46,9 +46,62 @@ def _match(query: str, text: str) -> bool:
     t = _strip_accents(_norm(text))
     return q in t or any(w in t for w in q.split() if len(w) > 2)
 
+# ── Cầu nối ngôn ngữ cho schema search ───────────────────────────────────────
+# Data toàn tiếng Việt, nhưng bot phục vụ 5 ngôn ngữ. Trước đây khách gõ
+# "ticket" / "kids" / "입장권" thì schema search trả 0 kết quả → bot rơi vào
+# fallback "không tìm thấy thông tin", dù cùng ý hỏi bằng tiếng Việt vẫn ra.
+# Bổ sung từ tiếng Việt tương đương vào query trước khi chấm điểm.
+_QUERY_ALIAS = {
+    # vé
+    "ticket": "ve", "tickets": "ve", "admission": "ve", "entrance": "ve cong",
+    # KHÔNG map "price"/"fee" → "gia": sau khi bỏ dấu, "gia" khớp cả
+    # "gia đình" → combo gia đình nhảy lên trên vé thường.
+    "pass": "ve",
+    "adult": "nguoi lon", "child": "tre em", "children": "tre em",
+    "kid": "tre em", "kids": "tre em", "student": "hoc sinh sinh vien",
+    "senior": "nguoi cao tuoi", "elderly": "nguoi cao tuoi",
+    "family": "gia dinh", "group": "doan nhom", "combo": "combo",
+    # khu / trò chơi
+    "ride": "tro choi", "rides": "tro choi", "game": "tro choi",
+    "playground": "khu vui choi tre em", "water": "khu nuoc",
+    "waterpark": "khu nuoc", "pool": "ho boi khu nuoc",
+    "zoo": "vuon thu", "aquarium": "thuy cung", "show": "bieu dien show",
+    "snow": "snow town", "farm": "farm nong trai",
+    # ăn uống
+    "restaurant": "nha hang", "restaurants": "nha hang", "food": "nha hang do an",
+    "eat": "nha hang an", "buffet": "buffet nha hang", "drink": "do uong",
+    # dịch vụ
+    "parking": "bai xe", "bus": "xe buyt", "metro": "metro",
+    "camping": "cam trai", "wedding": "tiec cuoi", "conference": "hoi nghi",
+    "teambuilding": "team building doan",
+    # zh / ko / ja — chỉ vài từ lõi hay gặp
+    "门票": "ve", "价格": "gia", "儿童": "tre em", "成人": "nguoi lon",
+    "餐厅": "nha hang", "游乐": "tro choi",
+    "입장권": "ve", "티켓": "ve", "어린이": "tre em", "성인": "nguoi lon",
+    "식당": "nha hang",
+    "チケット": "ve", "入場": "ve", "子供": "tre em", "大人": "nguoi lon",
+    "レストラン": "nha hang",
+}
+
+
+def _expand_query(query: str) -> str:
+    """Thêm từ tiếng Việt tương đương cho các từ khoá ngoại."""
+    if not query:
+        return query
+    low = _strip_accents(_norm(query))
+    extra = []
+    for foreign, viet in _QUERY_ALIAS.items():
+        if foreign.isascii():
+            if re.search(rf"(?<![a-z0-9]){re.escape(foreign)}(?![a-z0-9])", low):
+                extra.append(viet)
+        elif foreign in query:          # CJK không có ranh giới từ
+            extra.append(viet)
+    return query + " " + " ".join(extra) if extra else query
+
+
 def _score(query: str, item: dict, fields: list) -> int:
     # BUG FIX: so khớp trên bản KHÔNG DẤU — khách gõ "kham pha" vẫn match "Khám Phá"
-    q_words = [w for w in _strip_accents(_norm(query)).split() if len(w) > 1]
+    q_words = [w for w in _strip_accents(_norm(_expand_query(query))).split() if len(w) > 1]
     score = 0
     for field in fields:
         val = item.get(field)
@@ -79,8 +132,13 @@ _THRILL_MAP = {
     # EN
     "high": "manh", "medium": "trung_binh", "low": "nhe",
     "strong": "manh", "mild": "nhe",
+    "extreme": "manh", "moderate": "trung_binh",
     # VI không chuẩn
     "thấp": "nhe", "trung bình": "trung_binh", "mạnh": "manh",
+    "thap": "nhe", "trung binh": "trung_binh", "nhẹ": "nhe",
+    "cao": "manh", "mạo hiểm": "manh", "mao hiem": "manh",
+    "cảm giác mạnh": "manh", "cam giac manh": "manh",
+    "vừa": "trung_binh", "vua": "trung_binh",
     # Int (1=nhe, 2=trung_binh, 3=manh)
     "1": "nhe", "2": "trung_binh", "3": "manh",
 }
@@ -89,6 +147,50 @@ def _norm_thrill(val) -> str:
     if val is None:
         return None
     return _THRILL_MAP.get(str(val).lower().strip(), str(val).lower().strip())
+
+
+# ── Suy ra ý định từ chính câu hỏi ────────────────────────────────────────────
+# entities["thrill_level"] / ["get_all"] được schema_lookup ĐỌC nhưng không nơi
+# nào GHI (memory_layer chỉ trích group_size/height/age/date) → hai bộ lọc này
+# trước đây là code chết. Suy ra tại chỗ để "liệt kê tất cả trò cảm giác mạnh"
+# dùng đúng filter thay vì chỉ khớp chữ.
+_RE_THRILL_STRONG = re.compile(
+    r"(cảm giác mạnh|cam giac manh|mạo hiểm|mao hiem|thót tim|thot tim|"
+    r"kịch tính|kich tinh|thrill|extreme|adrenaline)", re.IGNORECASE)
+_RE_THRILL_MILD = re.compile(
+    r"(nhẹ nhàng|nhe nhang|cho bé|cho be|trẻ nhỏ|tre nho|em bé|em be|"
+    r"an toàn cho|gentle|for kids|for children)", re.IGNORECASE)
+_RE_GET_ALL = re.compile(
+    r"(liệt kê|liet ke|tất cả|tat ca|toàn bộ|toan bo|danh sách|danh sach|"
+    r"có những|co nhung|list all|all of)", re.IGNORECASE)
+
+
+def _infer_thrill(query: str) -> Optional[str]:
+    if not query:
+        return None
+    if _RE_THRILL_STRONG.search(query):
+        return "manh"
+    if _RE_THRILL_MILD.search(query):
+        return "nhe"
+    return None
+
+
+def _infer_get_all(query: str) -> bool:
+    return bool(query) and bool(_RE_GET_ALL.search(query))
+
+
+# ── Chốt chặn vòng đời lúc truy vấn ──────────────────────────────────────────
+def _lifecycle_ok(record: dict, bucket: str) -> bool:
+    """
+    Nội dung động còn được phép trả cho khách không? Đánh giá theo THỜI ĐIỂM
+    HIỆN TẠI, không dựa vào cờ is_active đã ghi sẵn.
+    Lỗi bất kỳ → cho qua, tuyệt đối không để chốt chặn này làm câm bot.
+    """
+    try:
+        from content_lifecycle import is_current
+        return is_current(record, bucket)
+    except Exception:
+        return True
 
 
 # Normalize type về chuẩn VI
@@ -145,19 +247,38 @@ def search_tickets(
     zone: str = None,
     max_results: int = 5,
     get_all: bool = False,
+    include_inactive: bool = False,
 ) -> list[dict]:
     """
     Tìm vé vào cổng.
-    get_all=True: trả hết không giới hạn (cho câu hỏi tổng hợp)
+    Mặc định ẨN vé hết hạn (is_active=False) và ưu tiên vé chuẩn (priority cao)
+    → tránh khơi lên promo/vé hết hạn khi trả lời khách.
+    include_inactive=True: lấy cả vé hết hạn (cho mục đích admin/tổng hợp).
     """
     results = []
     for t in _DB["tickets"]:
         if zone and t.get("zone") != zone:
             continue
+        if not include_inactive and t.get("is_active") is False:
+            continue
+        # Vé KHUYẾN MÃI có hạn; vé niêm yết (bang-gia) là tĩnh nên không đụng tới
+        if not include_inactive and not _lifecycle_ok(t, "tickets"):
+            continue
         score = _score(query, t, ["name", "zone", "valid_for", "notes", "includes"]) if query else 1
         if score > 0 or not query:
             results.append((score, t))
-    results.sort(key=lambda x: -x[0])
+    # Sắp xếp theo TẦNG, trong mỗi tầng mới xét độ khớp query:
+    #   1. Còn hiệu lực (is_active)
+    #   2. Vé chuẩn trước vé khuyến mãi (is_promo) — "giá vé bao nhiêu" phải ra giá
+    #      niêm yết, không phải promo cũ; hỏi đúng tên promo vẫn tìm thấy ở tầng dưới
+    #   3. ĐỘ KHỚP QUERY (score) — câu hỏi cụ thể thắng trong cùng tầng
+    #   4. priority — chỉ để phá hoà
+    results.sort(key=lambda x: (
+        -int(x[1].get("is_active", True)),
+        int(bool(x[1].get("is_promo"))),
+        -x[0],
+        -x[1].get("priority", 50),
+    ))
     if get_all:
         return [r[1] for r in results]
     return [r[1] for r in results[:max_results]]
@@ -167,6 +288,8 @@ def get_ticket_price(audience: str = "nguoi_lon") -> dict:
     """Lấy giá vé chuẩn."""
     standard = []
     for t in _DB["tickets"]:
+        if t.get("is_active") is False:
+            continue
         name = _norm(t.get("name", ""))
         zone = t.get("zone", "")
         if zone in ("khu_kho", "khu_nuoc", "combo") and (
@@ -313,10 +436,24 @@ def search_events(
     event_type: str = None,
     max_results: int = 5,
     get_all: bool = False,
+    include_inactive: bool = False,
 ) -> list[dict]:
-    """Tìm sự kiện / lễ hội / ưu đãi."""
+    """
+    Tìm sự kiện / lễ hội / ưu đãi.
+    Mặc định ẨN sự kiện đã qua (is_active=False) — tránh trả "ưu đãi hiện tại"
+    bằng chương trình của năm ngoái.
+
+    Ngoài cờ is_active (do lần quét gần nhất ghi), còn phán định LẠI ngay lúc
+    truy vấn bằng content_lifecycle. Lý do: hạn dùng trôi theo thời gian — bản
+    ghi hôm nay hợp lệ thì 45 ngày nữa đã cũ. Nếu chỉ tin cờ tĩnh thì giữa hai
+    lần quét bot vẫn nói "đang diễn ra" về chương trình đã kết thúc.
+    """
     results = []
     for e in _DB["events"]:
+        if not include_inactive and e.get("is_active") is False:
+            continue
+        if not include_inactive and not _lifecycle_ok(e, "events"):
+            continue
         if status and e.get("status") != status:
             continue
         if event_type and e.get("type") != event_type:
@@ -324,7 +461,8 @@ def search_events(
         score = _score(query, e, ["name", "description", "highlights", "special_offers"]) if query else 1
         if score > 0 or not query:
             results.append((score, e))
-    results.sort(key=lambda x: -x[0])
+    # Độ khớp query trước, priority chỉ phá hoà
+    results.sort(key=lambda x: (-x[0], -x[1].get("priority", 50)))
     if get_all:
         return [r[1] for r in results]
     return [r[1] for r in results[:max_results]]
@@ -437,12 +575,12 @@ def schema_lookup(intent: str, query: str = "", entities: dict = None) -> dict:
     """
     entities = entities or {}
 
-    # Extract entities
+    # Extract entities — entities ưu tiên, thiếu thì suy từ câu hỏi
     height_cm   = entities.get("height_cm")
     age         = entities.get("age")
     group_size  = entities.get("group_size")
-    thrill      = entities.get("thrill_level")
-    get_all     = entities.get("get_all", False)
+    thrill      = entities.get("thrill_level") or _infer_thrill(query)
+    get_all     = entities.get("get_all", False) or _infer_get_all(query)
 
     # Dispatch theo intent
     if intent in ("hoi_gia_ve", "hoi_ve_cong"):

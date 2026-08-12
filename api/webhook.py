@@ -43,7 +43,8 @@ ZALO_OA_TOKEN   = os.getenv("ZALO_OA_TOKEN", "")
 ZALO_APP_ID     = os.getenv("ZALO_APP_ID", "")
 ZALO_APP_SECRET = os.getenv("ZALO_APP_SECRET", "")
 FB_PAGE_TOKEN   = os.getenv("FB_PAGE_TOKEN", "")
-FB_VERIFY_TOKEN = os.getenv("FB_VERIFY_TOKEN", "suoitien_verify_2026")
+# KHÔNG đặt token mặc định trong source — lộ trong repo là ai cũng đăng ký được webhook
+FB_VERIFY_TOKEN = os.getenv("FB_VERIFY_TOKEN", "")
 FB_APP_SECRET   = os.getenv("FB_APP_SECRET", "")
 
 USE_LLM = bool(os.getenv("ANTHROPIC_API_KEY"))
@@ -63,10 +64,14 @@ def _client() -> httpx.AsyncClient:
 def _verify_fb_signature(raw_body: bytes, signature_header: str) -> bool:
     """
     Messenger: X-Hub-Signature-256 = 'sha256=' + HMAC-SHA256(app_secret, body).
-    Không set FB_APP_SECRET → bỏ qua (log warning 1 lần lúc import).
+
+    FAIL-CLOSED: chưa cấu hình FB_APP_SECRET → TỪ CHỐI. Trước đây trả True
+    ⇒ bất kỳ ai biết URL cũng bơm được tin nhắn giả vào bot, và bot sẽ trả lời
+    ra Fanpage thật. Thà webhook không chạy còn hơn chạy mà ai gọi cũng được.
     """
     if not FB_APP_SECRET:
-        return True
+        logger.error("FB_APP_SECRET chưa set — từ chối webhook Messenger")
+        return False
     if not signature_header or not signature_header.startswith("sha256="):
         return False
     expected = hmac.new(
@@ -79,10 +84,11 @@ def _verify_zalo_signature(raw_body: bytes, signature_header: str,
                            timestamp: str) -> bool:
     """
     Zalo OA: X-ZEvent-Signature = 'mac=' + SHA256(appId + body + timestamp + secret).
-    Không set ZALO_APP_ID/SECRET → bỏ qua.
+    FAIL-CLOSED như Messenger — xem giải thích ở _verify_fb_signature.
     """
     if not (ZALO_APP_SECRET and ZALO_APP_ID):
-        return True
+        logger.error("ZALO_APP_ID/SECRET chưa set — từ chối webhook Zalo")
+        return False
     if not signature_header:
         return False
     mac = signature_header[len("mac="):] if signature_header.startswith("mac=") \
@@ -186,7 +192,12 @@ async def messenger_verify(request: Request):
     mode      = params.get("hub.mode")
     token     = params.get("hub.verify_token")
     challenge = params.get("hub.challenge")
-    if mode == "subscribe" and token == FB_VERIFY_TOKEN:
+    # Chưa cấu hình token → TỪ CHỐI. Nếu chỉ so sánh bằng nhau, token rỗng sẽ
+    # khớp với hub.verify_token rỗng ⇒ ai cũng đăng ký được webhook.
+    if not FB_VERIFY_TOKEN:
+        logger.error("FB_VERIFY_TOKEN chưa set — từ chối xác minh webhook")
+        raise HTTPException(status_code=503, detail="Webhook chưa cấu hình")
+    if mode == "subscribe" and hmac.compare_digest(token or "", FB_VERIFY_TOKEN):
         return PlainTextResponse(challenge)
     raise HTTPException(status_code=403, detail="Verification failed")
 

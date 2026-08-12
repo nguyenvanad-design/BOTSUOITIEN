@@ -17,18 +17,26 @@ _KO_RE  = re.compile(r"[\uac00-\ud7af\u1100-\u11ff\u3130-\u318f]")  # Hangul
 _JA_RE  = re.compile(r"[\u3040-\u309f\u30a0-\u30ff]")                  # Hiragana/Katakana
 _VI_RE  = re.compile(r"[àáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]", re.IGNORECASE)
 
-# Vietnamese common words (không dấu cũng nhận)
+# Vietnamese common words — CÓ DẤU và KHÔNG DẤU (khách VN hay gõ không dấu)
 _VI_WORDS = {
+    # có dấu
     "và","của","có","là","được","cho","với","trong","tại","về","các","những",
     "này","đó","một","không","hay","rất","cũng","như","khi","đến","từ","theo",
     "ở","đâu","bao","nhiêu","gì","sao","thế","nào","đi","chơi","vé","giá","hỏi",
-    "cho","hỏi","mình","em","anh","chị","bạn","xin","cảm","ơn",
+    "mình","em","anh","chị","bạn","xin","cảm","ơn","người","lớn","trẻ","giờ",
+    "mở","cửa","đường","mua","đặt","liên","hệ","muốn","cần","ăn","uống","xe","buýt",
+    # không dấu (bản gõ nhanh)
+    "cua","co","la","duoc","voi","cac","nhung","nay","mot","khong","nhu","den",
+    "dau","nhieu","gi","the","nao","di","choi","ve","gia","hoi","minh","anh","chi",
+    "ban","xin","cam","on","nguoi","lon","tre","gio","mo","cua","duong","mua","dat",
+    "lien","he","muon","can","an","uong","xe","buyt","may","con","het","toi","o",
 }
 _EN_WORDS = {
     "the","is","are","was","were","have","has","do","does","will","would",
     "can","could","how","what","where","when","who","why","which","please",
     "ticket","tickets","price","open","close","game","games","food","tour","visit","fun","park","ride","rides","show","shows","kids","children","family","water","pool","map","hotel","book","booking","buy","entrance","entrance","resort","attraction","attractions",
     "i","you","we","they","he","she","it","my","your","our",
+    "hello","hi","hey","thanks","thank","yes","hours","cost","much","get","there","here","near",
 }
 _ZH_WORDS = {"吗","的","了","是","有","在","我","你","他","她","们","这","那","票","价","玩"}
 _KO_WORDS = {"이","가","을","를","은","는","의","에","에서","으로","로","와","과","도","만"}
@@ -66,18 +74,20 @@ def detect_lang(text: str) -> str:
     vi_score = len(words & _VI_WORDS)
     en_score = len(words & _EN_WORDS)
 
-    # Short query (1-2 words): nếu toàn ký tự Latin không dấu → EN
+    # Short query (1-2 words) toàn Latin, KHÔNG khớp từ VN nào, có tín hiệu EN → EN
     # VD: "ticket", "open", "food", "show", "ride", "water park"
     latin_words = [w for w in words if w.isascii()]
-    if len(words) <= 3 and latin_words and vi_score == 0:
+    if len(words) <= 3 and latin_words and vi_score == 0 and en_score > 0:
         return "en"
 
-    if vi_score > en_score:
+    # Bot ưu tiên tiếng Việt: EN chỉ thắng khi ÁP ĐẢO (nhiều từ EN hơn từ VN),
+    # tránh 1 từ VN không dấu trùng từ chức năng EN ("he"=hệ, "the"=thế) lật sang EN.
+    if en_score > vi_score:
+        return "en"
+    if vi_score > 0:
         return "vi"
-    if en_score > 0:
-        return "en"
 
-    # Default Vietnamese
+    # Không rõ tín hiệu — mặc định tiếng Việt (khách chủ yếu là người Việt)
     return DEFAULT_LANG
 
 

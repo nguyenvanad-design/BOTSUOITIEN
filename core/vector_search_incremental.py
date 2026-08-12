@@ -81,12 +81,16 @@ def _flush_buffer():
     try:
         import faiss
         import numpy as np
-        from vector_search import _get_model, _load_index, _INDEX_FILE, _CHUNKS_FILE
+        # LƯU Ý: vector_search KHÔNG có _CHUNKS_FILE (tên thật là _META_FILE), và
+        # _load_index() KHÔNG trả về gì — nó nạp vào biến global của module.
+        import vector_search as vs
+        from vector_search import _get_model, _load_index, _INDEX_FILE, _META_FILE
 
         logger.info("Flushing %d docs to FAISS index...", len(_buffer))
 
         model = _get_model()
-        index, chunks = _load_index()
+        _load_index()
+        index, chunks = vs._index, vs._chunks
 
         new_chunks = []
         texts_to_embed = []
@@ -117,16 +121,13 @@ def _flush_buffer():
 
         # Save
         faiss.write_index(index, str(_INDEX_FILE))
-        with open(str(_CHUNKS_FILE), "wb") as f:
+        with open(str(_META_FILE), "wb") as f:
             pickle.dump(chunks, f)
 
         # Reload in-process
-        import sys
-        if "vector_search" in sys.modules:
-            vs = sys.modules["vector_search"]
-            vs._index  = index
-            vs._chunks = chunks
-            logger.info("FAISS index updated in-process: %d total vectors", index.ntotal)
+        vs._index  = index
+        vs._chunks = chunks
+        logger.info("FAISS index updated in-process: %d total vectors", index.ntotal)
 
         # Clear buffer
         _buffer = []

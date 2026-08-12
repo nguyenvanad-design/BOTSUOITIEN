@@ -9,10 +9,17 @@ v3:
 - Logging
 """
 
+import os
 import time
+import random
 import logging
+import threading
 import concurrent.futures
 from typing import Generator
+
+# Tỉ lệ chạy học nền (critic/self-learning) — mỗi tin nhắn LLM tạo thêm ~1-3 Grok
+# call nền → dưới tải nặng dễ bị rate-limit. Production nên đặt thấp (vd 0.1).
+_LEARN_SAMPLE_RATE = float(os.getenv("SUOITIEN_LEARN_SAMPLE_RATE", "1.0"))
 
 from language_detector import detect_lang
 from planner       import plan
@@ -96,8 +103,14 @@ def _execute_parallel(tool_calls: list, lang: str) -> list:
             logger.exception("Tool %s failed", tool_calls[0].get("tool"))
             return [_error_result(tool_calls[0])]
 
+    # Cờ huỷ dùng chung: `future.cancel()` KHÔNG dừng được future ĐANG CHẠY —
+    # nó chỉ huỷ được task còn nằm trong hàng đợi. Trước đây tool timeout vẫn
+    # chạy tiếp tới cùng, giữ luôn worker của pool; nhiều câu chậm liên tiếp là
+    # pool cạn worker và mọi request sau đều phải xếp hàng.
+    # Giờ tool tự kiểm tra cờ tại các mốc và thoát sớm.
+    cancel_flag = threading.Event()
     futures = [
-        _EXECUTOR.submit(execute_tool, call, lang)
+        _EXECUTOR.submit(execute_tool, call, lang, cancel_flag)
         for call in tool_calls
     ]
 
@@ -109,7 +122,8 @@ def _execute_parallel(tool_calls: list, lang: str) -> list:
             results.append(future.result(timeout=remaining))
         except concurrent.futures.TimeoutError:
             logger.warning("Tool %s timed out after %.1fs", call.get("tool"), _TOOL_TIMEOUT)
-            future.cancel()
+            cancel_flag.set()     # báo cho MỌI tool còn chạy dừng lại
+            future.cancel()       # chỉ ăn nếu task chưa được nhấc khỏi hàng đợi
             results.append(_error_result(call))
         except Exception:
             logger.exception("Tool %s failed", call.get("tool"))
@@ -178,11 +192,20 @@ def chat(
             "source":  "faq",
             "lang":    lang,
             "tools":   [],
+            # rule ("gia_ve", "gio_mo_cua"...) — API layer dùng làm intent để
+            # đính đúng link, thay vì rơi về link trang chủ chung chung.
+            "rule":    faq_result.get("rule", ""),
             "latency": (time.perf_counter() - t0) * 1000,
         }
 
     # Step 2: Planner
     tool_calls = plan(query, history=history)
+
+    # Planner VIẾT LẠI query cho tool ("liệt kê tất cả trò cảm giác mạnh" →
+    # "trò chơi cảm giác mạnh") nên tool executor mất tín hiệu "liệt kê tất cả".
+    # Kèm câu gốc để retrieval suy đúng phạm vi.
+    for _c in tool_calls:
+        _c.setdefault("user_query", query)
 
     # Step 3: Execute tools PARALLEL (giữ thứ tự)
     tool_results = _execute_parallel(tool_calls, lang=lang)
@@ -248,7 +271,9 @@ def chat(
             pass
 
     # Step 7: Critic + Learn async (không block response)
-    if merged_context and response["source"] == "llm":
+    # Throttle theo sample-rate — tránh nhân 3x tải Grok dưới traffic cao.
+    if (merged_context and response["source"] == "llm"
+            and random.random() < _LEARN_SAMPLE_RATE):
         if _HAS_CRITIC:
             critique_and_learn(query, merged_context, answer, lang, blocking=False)
         elif _HAS_LEARNING:
@@ -267,20 +292,28 @@ def chat_stream(
     query: str,
     history: list = None,
     use_faq_fast_path: bool = True,
+    session_id: str = "",
 ) -> Generator[dict, None, None]:
     """
-    Streaming pipeline — yield DICT EVENTS (v3):
+    Streaming pipeline — yield DICT EVENTS (v4):
         {"type": "meta",  "lang": str, "source": "faq"|"llm", "tools": [str]}
         {"type": "token", "text": str}
 
-    Event "meta" được yield TRƯỚC token đầu tiên — API layer dùng nó để biết
-    intent/source thật (trước đây hardcode "unknown"/"llm" → build_links sai).
+    v4: có session_id → nối memory layer + long-term memory + few-shot + học nền
+    (trước đây stream bỏ qua các tầng này, chỉ blocking mới có).
 
     Dùng cho SSE endpoint trong api/chat.py.
-    Cần plain string? Dùng chat_stream_text().
     """
     history = history or []
     lang = detect_lang(query)
+
+    # Step 0.5: Memory layer — extract entities + inject context
+    if _HAS_MEMORY and session_id:
+        try:
+            update_memory(session_id, query)
+            query = inject_memory_to_query(query, session_id)
+        except Exception:
+            pass
 
     # Step 1: FAQ fast path — yield meta + toàn bộ answer, không stream
     faq_result = _try_faq(query, lang, history, use_faq_fast_path)
@@ -290,36 +323,78 @@ def chat_stream(
         yield {"type": "token", "text": faq_result.get("answer", "")}
         return
 
-    # Step 2: Planner (blocking, ~1s)
+    # Step 2: Planner
     tool_calls = plan(query, history=history)
 
-    # Step 3: Execute tools PARALLEL (blocking, ~0.3s)
+    # Planner VIẾT LẠI query cho tool ("liệt kê tất cả trò cảm giác mạnh" →
+    # "trò chơi cảm giác mạnh") nên tool executor mất tín hiệu "liệt kê tất cả".
+    # Kèm câu gốc để retrieval suy đúng phạm vi.
+    for _c in tool_calls:
+        _c.setdefault("user_query", query)
+
+    # Step 3: Execute tools PARALLEL (giữ thứ tự)
     tool_results = _execute_parallel(tool_calls, lang=lang)
 
     # Step 4: Merge context
     merged_context = merge_contexts(tool_results)
 
+    # Step 5: Few-shot — ưu tiên Golden Store > self-learning (giống blocking)
+    fewshot = ""
+    if merged_context:
+        try:
+            if _HAS_CRITIC:
+                fewshot = get_golden_examples(query, lang=lang)
+            if not fewshot and _HAS_LEARNING:
+                fewshot = get_fewshot_examples(query, lang=lang)
+            if _HAS_CRITIC:
+                patch = generate_prompt_patch()
+                if patch:
+                    fewshot = (fewshot + patch) if fewshot else patch
+        except Exception:
+            pass
+
     # Meta trước token đầu tiên
     yield {"type": "meta", "lang": lang, "source": "llm",
            "tools": [c["tool"] for c in tool_calls]}
 
-    # Step 5: STREAM từng token — user thấy chữ xuất hiện ngay
+    # Step 6: STREAM từng token — user thấy chữ xuất hiện ngay
+    full = []
     for text in respond_stream(
         query=query,
         merged_context=merged_context,
         lang=lang,
         history=history,
+        fewshot=fewshot,
     ):
+        full.append(text)
         yield {"type": "token", "text": text}
+
+    answer = "".join(full)
+
+    # Step 7: Long-term memory + học nền (async, sau khi stream xong)
+    if _HAS_LTM and session_id:
+        try:
+            learn_from_conversation(
+                session_id, query, answer,
+                [c["tool"] for c in tool_calls], lang)
+        except Exception:
+            pass
+    if merged_context and answer and random.random() < _LEARN_SAMPLE_RATE:
+        if _HAS_CRITIC:
+            critique_and_learn(query, merged_context, answer, lang, blocking=False)
+        elif _HAS_LEARNING:
+            evaluate_and_learn(query, merged_context, answer, lang, blocking=False)
 
 
 def chat_stream_text(
     query: str,
     history: list = None,
     use_faq_fast_path: bool = True,
+    session_id: str = "",
 ) -> Generator[str, None, None]:
     """Wrapper tương thích cũ — chỉ yield text, bỏ qua meta."""
     for event in chat_stream(query, history=history,
-                             use_faq_fast_path=use_faq_fast_path):
+                             use_faq_fast_path=use_faq_fast_path,
+                             session_id=session_id):
         if event["type"] == "token":
             yield event["text"]

@@ -157,10 +157,10 @@ font-family:inherit;transition:all .18s}
   </div>
 </div>
 <script>
-var _b=(window.location.hostname==='localhost'||window.location.hostname==='127.0.0.1')?'http://localhost:8000':'';var API=_b+'/api/chat',SAPI=_b+'/api/chat/stream',IAPI=_b+'/api/chat-image',FAPI=_b+'/api/feedback';
-var TID='user_'+Math.random().toString(36).substr(2,9),lastQuestion='';
+var _b=(window.location.protocol==='file:')?'http://localhost:5002':'';var API=_b+'/api/chat',SAPI=_b+'/api/chat/stream',IAPI=_b+'/api/chat-image',FAPI=_b+'/api/feedback';
+var TID=(function(){try{var s=localStorage.getItem('st_sid');if(!s){s='user_'+Math.random().toString(36).substr(2,9);localStorage.setItem('st_sid',s);}return s;}catch(e){return 'user_'+Math.random().toString(36).substr(2,9);}})(),lastQuestion='';
 var LG=document.getElementById('logo').src;
-fetch(API.replace('/chat','/session/'+TID),{method:'DELETE'}).catch(function(){});
+/* giữ ngữ cảnh khi F5 — không xóa session lúc tải trang */
 function gt(){return new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})}
 function fmt(t){
   var wm=t.match(/([\u2600-\u27BF\u1F300-\u1F9FF]|[☀️☁️🌧️🌦️⛈️🌫️🌤️❄️💨🌪️])\s*\*\*Thời tiết.*?\*\*[:\s]*([^,*]+),?\s*\*\*(\d+)°C\*\*\s*\(cảm giác (\d+)°C\)/);
@@ -215,8 +215,7 @@ function sd(){
           return;
         }
         buf+=dec.decode(x.value,{stream:true});
-        var lines=buf.split('
-');buf=lines.pop();
+        var lines=buf.split('\n');buf=lines.pop();
         lines.forEach(function(line){
           if(!line.startsWith('data:'))return;
           var raw=line.slice(5).trim();

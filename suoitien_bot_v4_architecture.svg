@@ -1,0 +1,260 @@
+<svg width="100%" viewBox="0 0 1320 1680" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrowG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowO" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#d97706"/>
+    </marker>
+    <style>
+      .t   { font-size:13px; fill:#0f172a; }
+      .ttl { font-size:15px; font-weight:700; fill:#0f172a; }
+      .sec { font-size:13px; font-weight:700; fill:#64748b; letter-spacing:1px; }
+      .sm  { font-size:11px; fill:#475569; }
+      .wh  { fill:#ffffff; font-weight:700; }
+      .lbl { font-size:11px; fill:#16a34a; font-weight:700; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1320" height="1680" fill="#f8fafc"/>
+  <text x="40" y="46" font-size="26" font-weight="800" fill="#0f172a">Kiến trúc Suối Tiên Bot</text>
+  <text x="40" y="70" font-size="14" fill="#64748b">v4 — chat-path hợp nhất qua llm_client → Grok (grok-4.20-0309-non-reasoning) · FastAPI · Hybrid RAG · Self-learning</text>
+
+  <!-- ================= CHANNELS ================= -->
+  <text x="40" y="108" class="sec">KÊNH NGƯỜI DÙNG</text>
+  <g>
+    <rect x="40"  y="120" width="150" height="46" rx="8" fill="#e0f2fe" stroke="#0284c7"/>
+    <text x="115" y="142" text-anchor="middle" class="t" font-weight="700">Web UI</text>
+    <text x="115" y="158" text-anchor="middle" class="sm">chat_ui.html</text>
+
+    <rect x="205" y="120" width="120" height="46" rx="8" fill="#e0f2fe" stroke="#0284c7"/>
+    <text x="265" y="142" text-anchor="middle" class="t" font-weight="700">Zalo OA</text>
+    <text x="265" y="158" text-anchor="middle" class="sm">webhook</text>
+
+    <rect x="340" y="120" width="120" height="46" rx="8" fill="#e0f2fe" stroke="#0284c7"/>
+    <text x="400" y="142" text-anchor="middle" class="t" font-weight="700">Messenger</text>
+    <text x="400" y="158" text-anchor="middle" class="sm">webhook</text>
+
+    <rect x="475" y="120" width="120" height="46" rx="8" fill="#e0f2fe" stroke="#0284c7"/>
+    <text x="535" y="142" text-anchor="middle" class="t" font-weight="700">CMS push</text>
+    <text x="535" y="158" text-anchor="middle" class="sm">suoitien.vn</text>
+  </g>
+
+  <!-- ================= API ================= -->
+  <text x="40" y="206" class="sec">API · FastAPI (main.py)</text>
+  <rect x="40" y="218" width="555" height="78" rx="10" fill="#eef2ff" stroke="#6366f1"/>
+  <text x="56" y="240" class="ttl">Routers</text>
+  <text x="56" y="262" class="t">• api/chat.py — POST /api/chat, /api/chat/stream (SSE)</text>
+  <text x="56" y="280" class="t">• api/webhook.py (Zalo·FB·Web) · api/webhook_content.py (CMS)</text>
+
+  <!-- health endpoints box -->
+  <rect x="615" y="218" width="305" height="78" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="631" y="240" class="ttl">Endpoints quản trị</text>
+  <text x="631" y="260" class="sm">/health · /analytics · /analytics/llm</text>
+  <text x="631" y="278" class="sm">/learning · /critic · /golden · /hub/status</text>
+
+  <!-- arrows channels -> api -->
+  <line x1="115" y1="166" x2="115" y2="216" stroke="#475569" marker-end="url(#arrow)"/>
+  <line x1="265" y1="166" x2="265" y2="216" stroke="#475569" marker-end="url(#arrow)"/>
+  <line x1="400" y1="166" x2="400" y2="216" stroke="#475569" marker-end="url(#arrow)"/>
+  <line x1="535" y1="166" x2="535" y2="216" stroke="#475569" marker-end="url(#arrow)"/>
+
+  <!-- ================= PIPELINE ================= -->
+  <text x="40" y="334" class="sec">CHAT PIPELINE · chat_pipeline.py</text>
+  <rect x="40" y="346" width="880" height="468" rx="12" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+
+  <!-- step boxes -->
+  <g>
+    <rect x="64" y="368" width="380" height="44" rx="8" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="80" y="386" class="t" font-weight="700">1 · Guardrail.check_input</text>
+    <text x="80" y="403" class="sm">chặn jailbreak / prompt-injection · redact PII</text>
+
+    <rect x="64" y="420" width="380" height="44" rx="8" fill="#ede9fe" stroke="#7c3aed"/>
+    <text x="80" y="438" class="t" font-weight="700">2 · Memory layer</text>
+    <text x="80" y="455" class="sm">update entities + inject context vào query</text>
+
+    <rect x="64" y="472" width="380" height="44" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="80" y="490" class="t" font-weight="700">3 · FAQ fast path  (~0ms)</text>
+    <text x="80" y="507" class="sm">faq_engine · chỉ khi CHƯA có history → trả lời luôn</text>
+
+    <rect x="64" y="524" width="380" height="46" rx="8" fill="#fef9c3" stroke="#ca8a04"/>
+    <text x="80" y="543" class="t" font-weight="700">4 · Planner (LLM1) — tool calling</text>
+    <text x="80" y="560" class="sm">chọn 1/8 tool + trích entity (số người, cao, tuổi…)</text>
+
+    <rect x="64" y="578" width="380" height="46" rx="8" fill="#e0f2fe" stroke="#0284c7"/>
+    <text x="80" y="597" class="t" font-weight="700">5 · Tool Executor (song song, giữ thứ tự)</text>
+    <text x="80" y="614" class="sm">timeout + cô lập lỗi từng tool → Retrieval</text>
+
+    <rect x="64" y="632" width="380" height="44" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="80" y="650" class="t" font-weight="700">6 · Merge context + Few-shot</text>
+    <text x="80" y="667" class="sm">Golden Store &gt; self-learning + prompt-patch</text>
+
+    <rect x="64" y="684" width="380" height="46" rx="8" fill="#fef9c3" stroke="#ca8a04"/>
+    <text x="80" y="703" class="t" font-weight="700">7 · Responder (LLM2) — persona "Tiên"</text>
+    <text x="80" y="720" class="sm">5 ngôn ngữ VI/EN/ZH/KO/JA · blocking + stream</text>
+
+    <rect x="64" y="738" width="380" height="44" rx="8" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="80" y="756" class="t" font-weight="700">8 · Guardrail.check_output</text>
+    <text x="80" y="773" class="sm">cảnh báo giá/tên nghi bịa (warn)</text>
+
+    <!-- async sidecar -->
+    <rect x="470" y="632" width="430" height="150" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-dasharray="5 4"/>
+    <text x="486" y="654" class="ttl">9 · Hậu xử lý (async, không block)</text>
+    <text x="486" y="676" class="t">• Analytics.track — volume, latency, source</text>
+    <text x="486" y="696" class="t">• long_term_memory.learn_from_conversation</text>
+    <text x="486" y="716" class="t">• response_critic.critique_and_learn</text>
+    <text x="486" y="736" class="t">• self_learning.evaluate_and_learn</text>
+    <text x="486" y="760" class="sm">→ chấm điểm, tự sửa, lưu Golden / few-shot</text>
+  </g>
+
+  <!-- vertical flow arrows -->
+  <g stroke="#475569" marker-end="url(#arrow)">
+    <line x1="254" y1="412" x2="254" y2="419"/>
+    <line x1="254" y1="464" x2="254" y2="471"/>
+    <line x1="254" y1="516" x2="254" y2="523"/>
+    <line x1="254" y1="570" x2="254" y2="577"/>
+    <line x1="254" y1="624" x2="254" y2="631"/>
+    <line x1="254" y1="676" x2="254" y2="683"/>
+    <line x1="254" y1="730" x2="254" y2="737"/>
+  </g>
+
+  <!-- API -> pipeline -->
+  <line x1="300" y1="296" x2="254" y2="366" stroke="#475569" marker-end="url(#arrow)"/>
+
+  <!-- ================= LLM GATEWAY ================= -->
+  <text x="960" y="334" class="sec">LLM GATEWAY</text>
+  <rect x="960" y="346" width="320" height="210" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="976" y="372" class="ttl">core/llm_client.py</text>
+  <text x="976" y="392" class="sm">adapter 1 cửa · token tracking</text>
+  <text x="976" y="412" class="t">call_tools() · complete() · complete_stream()</text>
+
+  <rect x="980" y="430" width="280" height="50" rx="8" fill="#16a34a"/>
+  <text x="1120" y="452" text-anchor="middle" class="wh" font-size="15">Grok (xAI)</text>
+  <text x="1120" y="470" text-anchor="middle" fill="#dcfce7" font-size="11">grok-4.20-0309-non-reasoning</text>
+
+  <text x="976" y="502" class="sm">env: LLM_PROVIDER · SUOITIEN_GROK_MODEL</text>
+  <text x="976" y="520" class="sm">fallback provider: gemini · anthropic</text>
+  <text x="976" y="540" class="sm">~550ms/call · pipeline ~2.4s</text>
+
+  <!-- planner/responder/critic/self_learning -> gateway -->
+  <g stroke="#16a34a" stroke-width="1.6" marker-end="url(#arrowG)">
+    <path d="M444 547 C 700 547, 760 460, 958 455" fill="none"/>
+    <path d="M444 707 C 700 707, 770 470, 958 466" fill="none"/>
+    <path d="M900 712 C 940 712, 950 560, 1000 558" fill="none"/>
+  </g>
+  <text x="690" y="500" class="lbl">planner · responder</text>
+  <text x="690" y="600" class="lbl">critic · self_learning</text>
+
+  <!-- ================= RETRIEVAL ================= -->
+  <text x="960" y="592" class="sec">HYBRID RAG · retrieval_orchestrator.py</text>
+  <rect x="960" y="604" width="320" height="210" rx="12" fill="#e0f2fe" stroke="#0284c7"/>
+  <text x="976" y="630" class="ttl">Chiến lược trộn (RRF)</text>
+  <rect x="976" y="644" width="288" height="36" rx="6" fill="#fff" stroke="#0284c7"/>
+  <text x="990" y="667" class="t">schema_search — lookup JSON chính xác</text>
+  <rect x="976" y="686" width="288" height="36" rx="6" fill="#fff" stroke="#0284c7"/>
+  <text x="990" y="709" class="t">bm25_search — keyword (rank-bm25)</text>
+  <rect x="976" y="728" width="288" height="36" rx="6" fill="#fff" stroke="#0284c7"/>
+  <text x="990" y="751" class="t">vector_search — BGE-M3 + FAISS + MMR</text>
+  <rect x="976" y="770" width="288" height="34" rx="6" fill="#fff" stroke="#0284c7"/>
+  <text x="990" y="792" class="t">faq_engine — rule fast path</text>
+
+  <!-- tool executor -> retrieval -->
+  <path d="M444 600 C 700 600, 800 700, 958 700" fill="none" stroke="#0284c7" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- ================= TOOLS / SERVICES ================= -->
+  <text x="40" y="860" class="sec">8 TOOLS &amp; DỊCH VỤ (planner gọi)</text>
+  <g font-size="12">
+    <rect x="40"  y="872" width="150" height="60" rx="8" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="115" y="898" text-anchor="middle" class="t" font-weight="700">vé · trò chơi</text>
+    <text x="115" y="916" text-anchor="middle" class="sm">nhà hàng · sự kiện</text>
+
+    <rect x="200" y="872" width="160" height="60" rx="8" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="280" y="898" text-anchor="middle" class="t" font-weight="700">teambuilding</text>
+    <text x="280" y="916" text-anchor="middle" class="sm">thông tin công viên</text>
+
+    <rect x="370" y="872" width="150" height="60" rx="8" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="445" y="898" text-anchor="middle" class="t" font-weight="700">weather_service</text>
+    <text x="445" y="916" text-anchor="middle" class="sm">OpenWeatherMap</text>
+
+    <rect x="530" y="872" width="150" height="60" rx="8" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="605" y="898" text-anchor="middle" class="t" font-weight="700">map · link</text>
+    <text x="605" y="916" text-anchor="middle" class="sm">directions · auto-link</text>
+
+    <rect x="690" y="872" width="230" height="60" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-dasharray="4 3"/>
+    <text x="805" y="898" text-anchor="middle" class="t" font-weight="700">tool_hub (stub)</text>
+    <text x="805" y="916" text-anchor="middle" class="sm">CRM · Booking · Odoo — chưa nối thật</text>
+  </g>
+
+  <!-- ================= MEMORY ================= -->
+  <text x="40" y="972" class="sec">BỘ NHỚ</text>
+  <rect x="40" y="984" width="430" height="120" rx="10" fill="#faf5ff" stroke="#7c3aed"/>
+  <text x="56" y="1008" class="ttl">Memory</text>
+  <text x="56" y="1030" class="t">• session_store — lịch sử hội thoại / session</text>
+  <text x="56" y="1052" class="t">• memory_layer — entity trong 1 hội thoại</text>
+  <text x="56" y="1074" class="t">• long_term_memory — profile qua nhiều lần ghé</text>
+  <text x="56" y="1094" class="sm">(in-memory, sẵn sàng đổi Redis)</text>
+
+  <!-- ================= LEARNING ================= -->
+  <text x="490" y="972" class="sec">TỰ HỌC &amp; CHẤT LƯỢNG</text>
+  <rect x="490" y="984" width="430" height="120" rx="10" fill="#f0fdf4" stroke="#16a34a"/>
+  <text x="506" y="1008" class="ttl">Self-learning loop</text>
+  <text x="506" y="1030" class="t">• response_critic — verdict PASS/IMPROVE/REJECT</text>
+  <text x="506" y="1052" class="t">• Golden Store — câu chuẩn người duyệt 👍</text>
+  <text x="506" y="1074" class="t">• self_learning — eval + improve + few-shot</text>
+  <text x="506" y="1094" class="sm">→ feed Few-shot ngược vào Responder (bước 6)</text>
+
+  <!-- ================= OPS ================= -->
+  <text x="960" y="860" class="sec">VẬN HÀNH</text>
+  <rect x="960" y="872" width="320" height="232" rx="10" fill="#fffbeb" stroke="#d97706"/>
+  <text x="976" y="896" class="ttl">Background / Ops</text>
+  <text x="976" y="918" class="t">• auto_updater — crawl sitemap mỗi giờ</text>
+  <text x="976" y="938" class="sm">  diff → extract → hot-swap data + index</text>
+  <text x="976" y="960" class="t">• vector_search_incremental — thêm vector</text>
+  <text x="976" y="980" class="t">• analytics — dashboard query/latency</text>
+  <text x="976" y="1000" class="t">• multi_llm — failover router</text>
+  <text x="976" y="1019" class="sm">  (riêng cho /analytics/llm)</text>
+  <text x="976" y="1042" class="t">• language_detector — vi/en/zh/ko/ja</text>
+  <line x1="976" y1="1056" x2="1264" y2="1056" stroke="#fcd34d"/>
+  <text x="976" y="1078" class="sm">auto_updater + multi_llm: giữ client LLM riêng</text>
+  <text x="976" y="1095" class="sm">(không thuộc chat-path)</text>
+
+  <!-- ================= DATA ================= -->
+  <text x="40" y="1150" class="sec">DỮ LIỆU · core/data/</text>
+  <g>
+    <path d="M40 1175 a90 14 0 0 0 180 0 v-26 a90 14 0 0 0 -180 0 Z" fill="#e2e8f0" stroke="#475569"/>
+    <ellipse cx="130" cy="1149" rx="90" ry="14" fill="#e2e8f0" stroke="#475569"/>
+    <text x="130" y="1154" text-anchor="middle" class="t" font-weight="700">suoitien_data_v2.json</text>
+
+    <path d="M240 1175 a90 14 0 0 0 180 0 v-26 a90 14 0 0 0 -180 0 Z" fill="#e2e8f0" stroke="#475569"/>
+    <ellipse cx="330" cy="1149" rx="90" ry="14" fill="#e2e8f0" stroke="#475569"/>
+    <text x="330" y="1154" text-anchor="middle" class="t" font-weight="700">suoitien_clean_v4.json</text>
+
+    <path d="M440 1175 a70 14 0 0 0 140 0 v-26 a70 14 0 0 0 -140 0 Z" fill="#dbeafe" stroke="#0284c7"/>
+    <ellipse cx="510" cy="1149" rx="70" ry="14" fill="#dbeafe" stroke="#0284c7"/>
+    <text x="510" y="1154" text-anchor="middle" class="t" font-weight="700">faiss_index</text>
+
+    <path d="M600 1175 a60 14 0 0 0 120 0 v-26 a60 14 0 0 0 -120 0 Z" fill="#dbeafe" stroke="#0284c7"/>
+    <ellipse cx="660" cy="1149" rx="60" ry="14" fill="#dbeafe" stroke="#0284c7"/>
+    <text x="660" y="1154" text-anchor="middle" class="t" font-weight="700">bm25.pkl</text>
+
+    <path d="M740 1175 a70 14 0 0 0 140 0 v-26 a70 14 0 0 0 -140 0 Z" fill="#dcfce7" stroke="#16a34a"/>
+    <ellipse cx="810" cy="1149" rx="70" ry="14" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="810" y="1154" text-anchor="middle" class="t" font-weight="700">learning.db</text>
+  </g>
+
+  <!-- legend -->
+  <text x="40" y="1240" class="sec">CHÚ THÍCH</text>
+  <g font-size="12">
+    <rect x="40"  y="1252" width="18" height="14" rx="3" fill="#fef9c3" stroke="#ca8a04"/><text x="64" y="1264" class="t">LLM (planner/responder)</text>
+    <rect x="240" y="1252" width="18" height="14" rx="3" fill="#dcfce7" stroke="#16a34a"/><text x="264" y="1264" class="t">LLM gateway / Grok</text>
+    <rect x="430" y="1252" width="18" height="14" rx="3" fill="#e0f2fe" stroke="#0284c7"/><text x="454" y="1264" class="t">Retrieval (RAG)</text>
+    <rect x="600" y="1252" width="18" height="14" rx="3" fill="#fee2e2" stroke="#dc2626"/><text x="624" y="1264" class="t">Guardrail</text>
+    <rect x="730" y="1252" width="18" height="14" rx="3" fill="#fff7ed" stroke="#ea580c"/><text x="754" y="1264" class="t">Tools/services</text>
+    <rect x="900" y="1252" width="18" height="14" rx="3" fill="#f0fdf4" stroke="#16a34a"/><text x="924" y="1264" class="t">async (không block)</text>
+  </g>
+
+  <text x="40" y="1320" class="sm">Luồng 1 câu hỏi: Kênh → API → [Guardrail → Memory → FAQ? → Planner → Tools(RAG) → Merge+Few-shot → Responder → Guardrail] → trả lời; Critic/Learn chạy nền.</text>
+</svg>

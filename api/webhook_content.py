@@ -47,9 +47,11 @@ VALID_EVENTS = {"post.created", "post.updated", "post.deleted",
 
 
 def _verify_secret(request: Request) -> bool:
+    """FAIL-CLOSED: chưa cấu hình secret → TỪ CHỐI. Trước đây cho qua ⇒ bất kỳ ai
+    cũng push/sửa được dữ liệu nội dung của bot."""
     if not CONTENT_WEBHOOK_SECRET:
-        logger.warning("CONTENT_WEBHOOK_SECRET chưa set — webhook content không verify")
-        return True
+        logger.error("CONTENT_WEBHOOK_SECRET chưa set — từ chối webhook content")
+        return False
     secret = request.headers.get("X-Webhook-Secret", "")
     return secret == CONTENT_WEBHOOK_SECRET
 
@@ -171,8 +173,13 @@ async def content_webhook(request: Request, background_tasks: BackgroundTasks):
 
 
 @router.get("/content/test")
-async def content_webhook_test():
-    """Test endpoint — gửi event giả để kiểm tra pipeline."""
+async def content_webhook_test(request: Request):
+    """
+    Test endpoint — gửi event giả để kiểm tra pipeline.
+    PHẢI có secret: trước đây GET vô danh cũng GHI được dữ liệu giả vào bot.
+    """
+    if not _verify_secret(request):
+        raise HTTPException(status_code=401, detail="Invalid or missing webhook secret")
     test_payload = {
         "event":    "post.updated",
         "slug":     "test-webhook",

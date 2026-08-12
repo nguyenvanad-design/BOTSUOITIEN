@@ -1,1 +1,45 @@
+# ── Bí mật ────────────────────────────────────────────────────────────────────
 .env
+.env.*
+!.env.example
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ── Sản phẩm chạy máy: sinh lại được, không thuộc mã nguồn ────────────────────
+# Index vector/BM25 dựng lại từ data bằng build_faiss.py
+core/data/faiss_index/*.faiss
+core/data/faiss_index/*.pkl
+core/data/faiss_index/incremental_buffer.json
+
+# Trạng thái crawl — thuộc về từng lần triển khai, không phải mã nguồn
+core/data/sitemap_state.json
+core/data/content_hashes.json
+
+# Báo cáo quét vòng đời: sinh lại mỗi lần chạy sweep
+core/data/lifecycle_sweep_report.json
+
+# ── Bản sao lưu tự động ───────────────────────────────────────────────────────
+*.backup_*
+*.backup_*.json
+*.backup_*.pkl
+
+# ── Kết quả eval: số đo của một lần chạy, không phải mã ───────────────────────
+# KHÔNG ignore cả thư mục archive/ — trong đó có 12 script thật, bỏ theo dõi là
+# xoá chúng khỏi repo. Chỉ loại đúng file kết quả đo.
+eval/eval_results*.json
+eval/eval_subset*.json
+archive/eval_results*.json
+
+# ── CSDL học nền (sinh ra lúc chạy) ───────────────────────────────────────────
+*.db
+*.sqlite3
+
+# ── Log & tạm ─────────────────────────────────────────────────────────────────
+*.log
+.DS_Store
+Thumbs.db

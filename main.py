@@ -115,13 +115,31 @@ def ui():
 
 
 # ── Health check ───────────────────────────────────────────────────────────────
+# ── Admin auth ────────────────────────────────────────────────────────────────
+# Các endpoint quản trị/ghi dữ liệu PHẢI có ADMIN_KEY. Không dùng key mặc định
+# nữa — key mặc định lộ trong source = ai cũng ghi được vào Golden Store.
+from fastapi import Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+_bearer = HTTPBearer(auto_error=True)
+
+
+def require_admin(creds: HTTPAuthorizationCredentials = Depends(_bearer)):
+    key = os.getenv("ADMIN_KEY", "")
+    if not key:
+        raise HTTPException(status_code=503,
+                            detail="ADMIN_KEY chưa cấu hình — endpoint quản trị bị khoá")
+    if creds.credentials != key:
+        raise HTTPException(status_code=401, detail="Invalid admin key")
+
+
 @app.get("/")
 def health():
     return {"status": "ok", "bot": "Suối Tiên Bot", "version": "1.1.0"}
 
 
 @app.get("/analytics")
-def analytics_dashboard(hours: int = 24):
+def analytics_dashboard(hours: int = 24, _=Depends(require_admin)):
     """Analytics dashboard — query volume, latency, FAQ rate..."""
     try:
         from analytics import get_dashboard
@@ -131,7 +149,7 @@ def analytics_dashboard(hours: int = 24):
 
 
 @app.get("/analytics/llm")
-def llm_health():
+def llm_health(_=Depends(require_admin)):
     """Trạng thái các LLM provider."""
     try:
         from multi_llm import health_status
@@ -141,7 +159,7 @@ def llm_health():
 
 
 @app.get("/hub/status")
-def hub_status():
+def hub_status(_=Depends(require_admin)):
     """Trạng thái Tool Hub (Booking/CRM/Odoo)."""
     try:
         from tool_hub import hub_status
@@ -151,7 +169,7 @@ def hub_status():
 
 
 @app.get("/learning")
-def learning_stats():
+def learning_stats(_=Depends(require_admin)):
     """Thống kê hệ thống tự học."""
     try:
         from self_learning import learning_stats
@@ -161,7 +179,7 @@ def learning_stats():
 
 
 @app.get("/critic")
-def critic_stats_endpoint():
+def critic_stats_endpoint(_=Depends(require_admin)):
     """Thống kê Response Critic + Golden Store."""
     try:
         from response_critic import critic_stats
@@ -171,7 +189,7 @@ def critic_stats_endpoint():
 
 
 @app.post("/golden")
-async def add_golden_endpoint(request: Request):
+async def add_golden_endpoint(request: Request, _=Depends(require_admin)):
     """Thêm câu trả lời chuẩn vào Golden Store (human feedback)."""
     try:
         from response_critic import add_golden
@@ -215,7 +233,7 @@ def health_detail():
 
 # ── Entry point ────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))
+    port = int(os.getenv("PORT", 5002))
     dev_reload = os.getenv("DEV_RELOAD", "0") == "1"
     print(f"\n🚀 Suối Tiên Bot đang chạy tại http://localhost:{port}")
     print(f"   Docs: http://localhost:{port}/docs"

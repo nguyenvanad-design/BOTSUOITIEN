@@ -95,7 +95,17 @@ def add_turn(session_id: str, user_msg: str, bot_msg: str, intent: str = ""):
     _store.add_turn(session_id, user_msg, bot_msg, intent)
 
 def clear_session(session_id: str):
+    """
+    Reset hội thoại — xoá CẢ lịch sử VÀ entity đã trích xuất (memory_layer).
+    Trước đây chỉ xoá lịch sử nên sau reset bot vẫn tự chèn "4 người, 2 trẻ em"
+    vào câu hỏi mới.
+    """
     _store.clear(session_id)
+    try:
+        from memory_layer import clear_memory
+        clear_memory(session_id)
+    except Exception:
+        pass
 
 def store_stats() -> dict:
     return _store.stats()

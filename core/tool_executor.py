@@ -81,7 +81,11 @@ _CATEGORY_MAP = {
 }
 
 
-def execute_tool(tool_call: dict, lang: str = "vi") -> dict:
+class _ToolCancelled(Exception):
+    """Tool bị huỷ vì một tool khác trong cùng lượt đã timeout."""
+
+
+def execute_tool(tool_call: dict, lang: str = "vi", cancel_flag=None) -> dict:
     """
     Thực thi 1 tool call từ planner.
 
@@ -103,6 +107,13 @@ def execute_tool(tool_call: dict, lang: str = "vi") -> dict:
     query = tool_input.get("query", "")
     intent = tool_call.get("intent", _INTENT_OVERRIDE.get(tool_name, "unknown"))
     strategy = tool_call.get("strategy", ["faq", "bm25", "vector"])
+
+    def _abort_if_cancelled(moc: str):
+        """Thoát sớm khi lượt chat đã bỏ cuộc — kết quả lúc này không ai dùng."""
+        if cancel_flag is not None and cancel_flag.is_set():
+            raise _ToolCancelled(f"{tool_name} huỷ tại {moc}")
+
+    _abort_if_cancelled("bắt đầu")
 
     # ── Special tools: weather ─────────────────────────────────────────────────
     if tool_name == "get_weather":
@@ -174,6 +185,24 @@ def execute_tool(tool_call: dict, lang: str = "vi") -> dict:
     if "get_all" in tool_input:
         entities["get_all"] = tool_input["get_all"]
 
+    # Suy phạm vi/độ mạo hiểm từ CÂU GỐC của khách — planner viết lại query cho
+    # tool nên hay đánh rơi "liệt kê tất cả" / "cảm giác mạnh".
+    user_query = tool_call.get("user_query") or query
+    if user_query:
+        try:
+            from schema_search import _infer_get_all, _infer_thrill
+            if not entities.get("get_all") and _infer_get_all(user_query):
+                entities["get_all"] = True
+            if not entities.get("thrill_level"):
+                _t = _infer_thrill(user_query)
+                if _t:
+                    entities["thrill_level"] = _t
+        except Exception:
+            pass   # suy đoán là bonus — hỏng thì vẫn chạy như cũ
+
+    # Mốc chặn ngay trước bước nặng nhất (vector search + đọc index)
+    _abort_if_cancelled("trước retrieval")
+
     out = retrieve(
         query=query,
         intent=intent,
@@ -181,6 +210,8 @@ def execute_tool(tool_call: dict, lang: str = "vi") -> dict:
         strategy=strategy,
         use_vector=True,
     )
+
+    _abort_if_cancelled("sau retrieval")
 
     # FAQ fast path — context là string trực tiếp
     if out.get("source") == "faq":

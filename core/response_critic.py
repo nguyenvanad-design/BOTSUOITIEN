@@ -42,7 +42,9 @@ import llm_client
 logger = logging.getLogger("suoitien.critic")
 
 DB_PATH = Path(os.getenv("SUOITIEN_BASE", "core")) / "data" / "learning.db"
-_db_lock = threading.Lock()
+# RLock (không phải Lock): nhiều helper DB gọi lồng nhau — Lock thường sẽ tự
+# khoá chết thread và treo toàn bộ bot (đã từng xảy ra ở critique_and_learn).
+_db_lock = threading.RLock()
 
 # ── Verdict constants ──────────────────────────────────────────────────────────
 VERDICT_PASS    = "PASS"     # >= 8/10, không cần sửa
@@ -100,6 +102,19 @@ def init_critic_db():
                 created_at   REAL NOT NULL
             );
 
+            -- Hàng chờ kiểm duyệt: 👍 của khách KHÔNG vào thẳng Golden Store
+            -- (tránh người dùng vô tình/cố ý làm nhiễm dữ liệu học)
+            CREATE TABLE IF NOT EXISTS golden_pending (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                query        TEXT NOT NULL,
+                answer       TEXT NOT NULL,
+                lang         TEXT DEFAULT 'vi',
+                session_id   TEXT,
+                status       TEXT DEFAULT 'pending',  -- pending|approved|rejected
+                created_at   REAL NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_pending_status ON golden_pending(status);
+
             -- Pattern tracker: đếm lỗi để tự cải thiện prompt
             CREATE TABLE IF NOT EXISTS error_patterns (
                 pattern_key  TEXT PRIMARY KEY,
@@ -145,6 +160,53 @@ def add_golden(query: str, answer: str, context: str = "",
         conn.commit()
         conn.close()
     logger.info("Golden added: '%s' (source=%s)", query[:50], source)
+
+
+# ── Hàng chờ kiểm duyệt (👍 của khách) ────────────────────────────────────────
+def add_pending_golden(query: str, answer: str, lang: str = "vi",
+                       session_id: str = "") -> int:
+    """Lưu 👍 của khách vào hàng chờ — CHƯA phải câu chuẩn cho tới khi admin duyệt."""
+    with _db_lock:
+        conn = _get_db()
+        cur = conn.execute("""
+            INSERT INTO golden_pending (query, answer, lang, session_id, created_at)
+            VALUES (?,?,?,?,?)
+        """, (query, answer, lang, session_id, time.time()))
+        conn.commit()
+        pid = cur.lastrowid
+        conn.close()
+    return pid
+
+
+def list_pending_golden(limit: int = 50) -> list[dict]:
+    with _db_lock:
+        conn = _get_db()
+        rows = conn.execute("""
+            SELECT id, query, answer, lang, created_at FROM golden_pending
+            WHERE status='pending' ORDER BY created_at DESC LIMIT ?
+        """, (limit,)).fetchall()
+        conn.close()
+    return [dict(r) for r in rows]
+
+
+def review_pending_golden(pending_id: int, approve: bool) -> bool:
+    """Admin duyệt: approve=True → đưa vào Golden Store; False → loại bỏ."""
+    with _db_lock:
+        conn = _get_db()
+        row = conn.execute(
+            "SELECT * FROM golden_pending WHERE id=? AND status='pending'",
+            (pending_id,)).fetchone()
+        if row:
+            conn.execute("UPDATE golden_pending SET status=? WHERE id=?",
+                         ("approved" if approve else "rejected", pending_id))
+            conn.commit()
+        conn.close()
+    if not row:
+        return False
+    if approve:
+        add_golden(query=row["query"], answer=row["answer"],
+                   source="human", lang=row["lang"])
+    return True
 
 
 def get_golden(query: str) -> Optional[dict]:
@@ -351,7 +413,10 @@ def critique_and_learn(query: str, context: str, answer: str,
                         logger.info("Improved: %.1f→%.1f '%s'", score, score_v2, query[:40])
                         answer_best = v2
                         score_best  = score_v2
-                    # Log
+                    # Log — LẤY has_golden TRƯỚC khi giữ lock: get_golden() cũng
+                    # acquire _db_lock, gọi lồng trong lock sẽ tự khoá chết thread
+                    # (threading.Lock không tái nhập) → treo toàn bộ bot.
+                    has_golden = 1 if get_golden(query) else 0
                     with _db_lock:
                         conn = _get_db()
                         conn.execute("""
@@ -361,7 +426,7 @@ def critique_and_learn(query: str, context: str, answer: str,
                             VALUES (?,?,?,?,?,?,?,?,?,?,?)
                         """, (query, answer, verdict, score,
                               json.dumps(patterns, ensure_ascii=False),
-                              1 if get_golden(query) else 0,
+                              has_golden,
                               result.get("golden_diff",""),
                               v2, score_v2, lang, time.time()))
                         conn.commit()
@@ -417,13 +482,13 @@ def generate_prompt_patch() -> str:
         if p["count"] < 3:  # Chỉ fix lỗi lặp >= 3 lần
             continue
         if key == "unnecessary_apology":
-            rules.append("KHÔNG xin lỗi khi đã có đủ thông tin trong Tool Results — trả lời thẳng")
+            rules.append("KHÔNG xin lỗi khi đã có đủ thông tin — trả lời thẳng")
         elif key == "hallucinate_price":
-            rules.append("KHÔNG nhắc giá nếu không có trong Tool Results — ghi 'liên hệ 1900 636 787'")
+            rules.append("KHÔNG nhắc giá nếu không có trong thông tin em có — ghi 'liên hệ 1900 636 787'")
         elif key == "too_long":
             rules.append("Câu trả lời tối đa 150 từ — cắt bớt nếu quá dài")
         elif key == "generic_response":
-            rules.append("Phải nêu tên cụ thể (tên combo, tên trò chơi) từ Tool Results — không nói chung chung")
+            rules.append("Phải nêu tên cụ thể (tên combo, tên trò chơi) từ thông tin em có — không nói chung chung")
         elif key == "redirect_without_info":
             rules.append("Trả lời câu hỏi TRƯỚC rồi mới gợi ý hotline — không đẩy hotline thay cho câu trả lời")
 

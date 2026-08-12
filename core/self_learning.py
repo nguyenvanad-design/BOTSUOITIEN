@@ -49,7 +49,8 @@ MAX_FEWSHOT_CHARS  = 1200  # giới hạn token few-shot trong prompt
 DB_PATH = Path(os.getenv("SUOITIEN_BASE", "core")) / "data" / "learning.db"
 
 # ── Database ──────────────────────────────────────────────────────────────────
-_db_lock = threading.Lock()
+# RLock để helper DB gọi lồng nhau không tự khoá chết thread (xem response_critic)
+_db_lock = threading.RLock()
 
 def _get_db() -> sqlite3.Connection:
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)

@@ -43,8 +43,11 @@ def _build(query: str, merged_context: str, lang: str,
     messages = list(history or [])
     user_content = f"Câu hỏi của khách: {query}"
     if merged_context:
-        user_content += f"\n\nTool Results:\n{merged_context}"
-    user_content += "\n\nHãy trả lời câu hỏi của khách dựa vào Tool Results trên."
+        user_content += ("\n\n--- THÔNG TIN NỘI BỘ (chỉ để em tham khảo, TUYỆT ĐỐI "
+                         "KHÔNG nhắc/trích tên mục này với khách) ---\n"
+                         f"{merged_context}")
+    user_content += ("\n\nTrả lời khách tự nhiên, ấm áp như nhân viên đang biết việc — "
+                     "KHÔNG nhắc bất kỳ từ nội bộ nào ở trên.")
     messages.append({"role": "user", "content": user_content})
     return system, messages
 

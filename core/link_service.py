@@ -115,10 +115,10 @@ REST_MAP = {
 _INTENT_LINKS = {
     "hoi_gia_ve": [
         {"label": "🎫 Bảng giá vé",        "url": f"{BASE_URL}/bang-gia"},
-        {"label": "🛒 Mua vé online",       "url": f"{BASE_URL}/mua-ve"},
+        {"label": "🛒 Mua vé online",       "url": f"{BASE_URL}/chon-ve"},
     ],
     "hoi_ve_cong": [
-        {"label": "🛒 Mua vé online",       "url": f"{BASE_URL}/mua-ve"},
+        {"label": "🛒 Mua vé online",       "url": f"{BASE_URL}/chon-ve"},
         {"label": "🎫 Bảng giá vé",        "url": f"{BASE_URL}/bang-gia"},
     ],
     "hoi_gio_mo_cua": [
@@ -136,11 +136,11 @@ _INTENT_LINKS = {
         {"label": "🚇 Metro số 1",          "url": "https://metrohcmc.vn"},
     ],
     "hoi_chinh_sach": [
-        {"label": "📋 Chính sách",          "url": f"{BASE_URL}/chinh-sach"},
+        {"label": "📋 Chính sách",          "url": f"{BASE_URL}/quy-dinh-dat-ve"},
     ],
     "hoi_tro_choi": [
         {"label": "🎢 Khu vui chơi",        "url": f"{BASE_URL}/vui-choi-giai-tri"},
-        {"label": "🎫 Mua vé",              "url": f"{BASE_URL}/mua-ve"},
+        {"label": "🎫 Mua vé",              "url": f"{BASE_URL}/chon-ve"},
     ],
     "hoi_khu_vui_choi": [
         {"label": "🎢 Khu vui chơi",        "url": f"{BASE_URL}/vui-choi-giai-tri"},
@@ -157,7 +157,7 @@ _INTENT_LINKS = {
     ],
     "hoi_uu_dai": [
         {"label": "🎁 Ưu đãi hiện tại",    "url": f"{BASE_URL}/uu-dai-va-su-kien"},
-        {"label": "🛒 Mua vé combo",        "url": f"{BASE_URL}/mua-ve"},
+        {"label": "🛒 Mua vé combo",        "url": f"{BASE_URL}/chon-ve"},
     ],
     "hoi_teambuilding": [
         {"label": "🏕️ Teambuilding",       "url": f"{BASE_URL}/dich-vu"},
@@ -239,7 +239,26 @@ def get_item_link(name: str) -> dict | None:
     return None
 
 
+# API layer truyền TÊN TOOL của planner (vd "search_tickets") làm intent, trong khi
+# _INTENT_LINKS dùng khoá "hoi_*" → link rơi về trang chủ. Map lại cho đúng nhóm.
+_TOOL_TO_INTENT = {
+    "search_tickets":      "hoi_gia_ve",
+    "search_attractions":  "hoi_tro_choi",
+    "search_restaurants":  "hoi_nha_hang",
+    "search_events":       "hoi_su_kien",
+    "search_teambuilding": "hoi_teambuilding",
+    "get_park_info":       "hoi_gio_mo_cua",
+    "get_directions":      "hoi_duong_di",
+    "get_weather":         "hoi_chung",
+    "faq":                 "hoi_chung",
+}
+
+
 def get_intent_links(intent: str, lang: str = "vi") -> list[dict]:
+    intent = _TOOL_TO_INTENT.get(intent, intent)
+    # FAQ trả rule dạng "gia_ve"/"gio_mo_cua" → khớp khoá "hoi_gia_ve"...
+    if intent not in _INTENT_LINKS and f"hoi_{intent}" in _INTENT_LINKS:
+        intent = f"hoi_{intent}"
     links = _INTENT_LINKS.get(intent, _INTENT_LINKS.get("hoi_chung", []))
     label_map = _LABEL_MAP.get(lang, {})
     return [{"label": label_map.get(l["label"], l["label"]), "url": l["url"]} for l in links]

@@ -25,3 +25,6 @@ requests==2.34.1
 
 # Config
 python-dotenv==1.2.2
+
+# Runtime pin — pydantic_core moi can Sentinel (typing_extensions >= 4.13)
+typing_extensions>=4.13

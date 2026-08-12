@@ -116,11 +116,11 @@ def _ans_lien_he(m, lang="vi"):
 
 def _ans_gio_mo_cua(m, lang="vi"):
     _HOURS = {
-        "vi": "Mở cửa hàng ngày. Địa chỉ: 120 Xa Lộ Hà Nội, P. Tăng Nhơn Phú, TP. Thủ Đức, TP.HCM.",
-        "en": "Open every day. Address: 120 Xa Lo Ha Noi, Tang Nhon Phu, Thu Duc City, HCMC.",
-        "zh": "每天开放。地址：120 Xa Lộ Hà Nội, Tăng Nhơn Phú, Thủ Đức, 胡志明市。",
-        "ko": "매일 운영합니다. 주소: 120 Xa Lộ Hà Nội, Tăng Nhơn Phú, Thủ Đức, TP.HCM.",
-        "ja": "毎日営業しております。住所：120 Xa Lộ Hà Nội, P. Tăng Nhơn Phú, TP. Thủ Đức, TP.HCM。",
+        "vi": "Thứ 2 – Chủ Nhật: **7h30 – 17h00**. Dịp lễ/Tết: từ **7h00** đến khi hết khách.",
+        "en": "Mon – Sun: **7:30 AM – 5:00 PM**. Holidays/Tet: from **7:00 AM** until the last guest.",
+        "zh": "周一至周日：**7:30 – 17:00**。节假日/春节：**7:00** 起至最后一位游客。",
+        "ko": "월–일: **오전 7시 30분 – 오후 5시**. 명절/설: **오전 7시**부터 마지막 손님까지.",
+        "ja": "月–日：**7:30～17:00**。祝日/旧正月：**7:00**から最後のお客様まで。",
     }
     hours = _HOURS.get(lang, _HOURS["vi"])
     if lang == "en":
@@ -152,17 +152,44 @@ def _ans_gia_ve(m, lang="vi"):
     if not std_adult and not std_child and not combo:
         return None
 
-    lines = ["🎫 **Giá vé vào cổng Suối Tiên:**\n"]
+    # Nhãn theo ngôn ngữ — trước đây chỉ dịch dòng 💡, phần giá vẫn tiếng Việt
+    L = {
+        "vi": ("🎫 **Giá vé vào cổng Suối Tiên:**", "Người lớn", "Trẻ em",
+               "**Combo tiết kiệm:**", "NL", "TE"),
+        "en": ("🎫 **Suoi Tien entrance ticket prices:**", "Adult", "Child",
+               "**Value combos:**", "Adult", "Child"),
+        "zh": ("🎫 **碎仙公园门票价格：**", "成人", "儿童",
+               "**优惠套票：**", "成人", "儿童"),
+        "ko": ("🎫 **수오이띠엔 입장권 가격:**", "성인", "어린이",
+               "**패키지 할인:**", "성인", "어린이"),
+        "ja": ("🎫 **スオイティエン入場券料金：**", "大人", "子供",
+               "**お得なコンボ：**", "大人", "子供"),
+    }
+    title, lbl_adult, lbl_child, lbl_combo, ca, cc = L.get(lang, L["vi"])
+
+    lines = [f"{title}\n"]
     if std_adult:
-        lines.append(f"• Người lớn: **{_format_price(std_adult['price_adult'])}**")
+        lines.append(f"• {lbl_adult}: **{_format_price(std_adult['price_adult'])}**")
     if std_child:
-        lines.append(f"• Trẻ em: **{_format_price(std_child['price_child'])}**")
+        lines.append(f"• {lbl_child}: **{_format_price(std_child['price_child'])}**")
+    # Vé người cao tuổi — chỉ nêu ĐÚNG những gì có trong dữ liệu (giá + ghi chú).
+    # KHÔNG tự suy ra ngưỡng tuổi: dữ liệu không ghi tuổi, trước đây LLM bịa
+    # "trên 60 tuổi" → sai lệch chính sách.
+    senior = next((t for t in tickets
+                   if t.get("price_senior") and "cao tuổi" in t["name"].lower()), None)
+    if senior and lang == "vi":
+        note = str(senior.get("notes") or "").strip()
+        line = f"• Người cao tuổi: **{_format_price(senior['price_senior'])}**"
+        if note:
+            line += f" ({note})"
+        lines.append(line)
+
     if combo:
-        lines.append("\n**Combo tiết kiệm:**")
+        lines.append(f"\n{lbl_combo}")
         for c in combo[:3]:
             pa = _format_price(c.get("price_adult"))
             pc = _format_price(c.get("price_child"))
-            lines.append(f"• {c['name']}: NL {pa} / TE {pc}")
+            lines.append(f"• {c['name']}: {ca} {pa} / {cc} {pc}")
     tips = {
         "vi": "\n💡 Đặt vé online tại **suoitien.vn** để nhận ưu đãi tốt nhất!",
         "en": "\n💡 Book online at **suoitien.vn** for the best deals!",
@@ -236,6 +263,12 @@ _SPECIFIC_SUBJECT = _kw(
     "sự kiện", "su kien", "lễ hội", "le hoi", "show", "biểu diễn", "bieu dien",
     "farm", "vườn", "vuon", "khu",
     "toilet", "wc", "vệ sinh", "ve sinh", "quầy", "quay", "cổng nào", "cong nao",
+    # Món ăn / đồ mua: "Lẩu ... ở đâu trong công viên?" từng bị FAQ địa chỉ
+    # cướp mất vì có đủ "ở đâu" + "công viên" → trả về địa chỉ Suối Tiên.
+    "lẩu", "lau", "phở", "cơm", "com", "gỏi", "goi", "bánh", "banh",
+    "nước ép", "nuoc ep", "sinh tố", "sinh to", "trà", "tra", "cà phê", "ca phe",
+    "kem", "đồ uống", "do uong", "hải sản", "hai san", "nướng", "nuong",
+    "lưu niệm", "luu niem", "quà", "qua", "sạc", "sac", "atm", "gửi đồ", "gui do",
 )
 
 _RULES = [

@@ -101,14 +101,21 @@ import chat_pipeline
 from chat_pipeline import _execute_parallel, _try_faq
 
 # Mock execute_tool: tool đầu chạy CHẬM hơn tool sau → as_completed cũ sẽ đảo
-def _mock_exec(call, lang="vi"):
+def _mock_exec(call, lang="vi", cancel_flag=None):
+    # cancel_flag: _execute_parallel truyền cờ huỷ để tool timeout tự thoát,
+    # không chạy mồ côi giữ worker của pool.
     name = call["tool"]
     if name == "slow":
         _time.sleep(0.4)
     if name == "boom":
         raise RuntimeError("tool exploded")
     if name == "hang":
-        _time.sleep(60)
+        # Tool "treo" phải TÔN TRỌNG cờ huỷ — ngủ ngắt quãng và kiểm tra cờ,
+        # đúng như tool thật kiểm tra tại các mốc.
+        for _ in range(600):
+            if cancel_flag is not None and cancel_flag.is_set():
+                raise RuntimeError("cancelled")
+            _time.sleep(0.1)
     return {"tool": name, "source": "mock", "context": f"ctx-{name}",
             "raw": {}, "intent": "test"}
 
@@ -167,8 +174,10 @@ check("Fallback đúng ngôn ngữ (ja)", out["answer"] == FALLBACK_MESSAGE["ja"
 system, messages = responder._build("câu hỏi", "CONTEXT", "en", [])
 check("Builder chèn đúng language instruction (không còn bug {{lang_note}})",
       "English" in system and "{lang_note}" not in system)
-check("Builder gắn Tool Results vào user message",
-      "Tool Results:\nCONTEXT" in messages[-1]["content"])
+check("Builder gắn context vào user message",
+      "CONTEXT" in messages[-1]["content"])
+check("Builder KHÔNG lộ nhãn nội bộ 'Tool Results' ra message",
+      "Tool Results" not in messages[-1]["content"])
 
 chunks = list(responder.respond_stream("q", merged_context="", lang="vi", history=None))
 check("Stream không context → yield đúng 1 fallback",
