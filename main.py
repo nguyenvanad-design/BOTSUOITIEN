@@ -63,6 +63,31 @@ def index_status() -> dict:
     return {"faiss": _FAISS_FILE.exists(), "bm25": _BM25_FILE.exists()}
 
 
+# Kết quả warmup thật sự — file tồn tại KHÔNG có nghĩa là tìm kiếm chạy được.
+# Index có thể hỏng, BGE-M3 có thể không nạp nổi (hết VRAM, thiếu thư viện);
+# trước đây health chỉ nhìn file nên vẫn báo "ok" trong khi RAG đã chết.
+_search_health: dict = {"vector": "unknown", "bm25": "unknown", "error": ""}
+
+
+def _probe_search() -> dict:
+    """Chạy thử một truy vấn nhỏ qua cả hai đường tìm kiếm."""
+    st = {"vector": "ok", "bm25": "ok", "error": ""}
+    try:
+        from vector_search import vector_search
+        vector_search("giá vé", top_k=1)
+    except Exception as e:
+        st["vector"] = "failed"
+        st["error"] = f"vector: {type(e).__name__}: {e}"[:200]
+    try:
+        from bm25_search import bm25_search
+        bm25_search("giá vé", top_k=1)
+    except Exception as e:
+        st["bm25"] = "failed"
+        st["error"] = (st["error"] + " | " if st["error"] else "") + \
+                      f"bm25: {type(e).__name__}: {e}"[:200]
+    return st
+
+
 def _ensure_index():
     """
     Chỉ mục KHÔNG nằm trong Git (sinh lại được từ data), nên bản clone sạch sẽ
@@ -100,6 +125,7 @@ def _ensure_index():
 # ── Lifespan (thay cho @app.on_event đã deprecated) ────────────────────────────
 def _warmup():
     """Warmup BGE-M3 + FAISS — tránh cold load ~8s ở request đầu tiên."""
+    global _search_health
     try:
         from vector_search import _get_model, _load_index
         _load_index()   # load FAISS index vào RAM
@@ -107,6 +133,10 @@ def _warmup():
         logger.info("BGE-M3 + FAISS warmed up ✓")
     except Exception as e:
         logger.warning("Warmup warning: %s", e)
+    # Ghi lại kết quả THẬT để /health không báo ok khi tìm kiếm đã chết
+    _search_health = _probe_search()
+    if _search_health["error"]:
+        logger.error("Tìm kiếm KHÔNG hoạt động: %s", _search_health["error"])
 
 
 @asynccontextmanager
@@ -181,11 +211,22 @@ _rate_lock = threading.Lock()
 _RATE_PATHS = ("/api/chat", "/api/feedback", "/api/chat-image")
 
 
+# X-Forwarded-For do CLIENT gửi, ai cũng đặt được. Tin nó vô điều kiện nghĩa là
+# rate limit vô dụng: đổi header mỗi request là có IP mới, bắn bao nhiêu cũng lọt
+# (đã thử: 30 request từ 1 máy đều 200). Chỉ đọc header khi có proxy tin cậy
+# đứng trước và được khai báo rõ:
+#   export TRUST_PROXY=1
+_TRUST_PROXY = os.getenv("TRUST_PROXY", "").strip().lower() in ("1", "true", "yes")
+if not _TRUST_PROXY:
+    logger.info("TRUST_PROXY tắt — rate limit tính theo IP socket. "
+                "Bật TRUST_PROXY=1 khi chạy sau nginx/Cloudflare.")
+
+
 def _client_ip(request: Request) -> str:
-    # Sau reverse proxy thì IP thật nằm ở X-Forwarded-For
-    fwd = request.headers.get("x-forwarded-for", "")
-    if fwd:
-        return fwd.split(",")[0].strip()
+    if _TRUST_PROXY:
+        fwd = request.headers.get("x-forwarded-for", "")
+        if fwd:
+            return fwd.split(",")[0].strip()
     return request.client.host if request.client else "unknown"
 
 
@@ -328,8 +369,12 @@ async def add_golden_endpoint(request: Request, _=Depends(require_admin)):
 
 
 @app.get("/health")
-def health_detail():
-    """Chi tiết trạng thái các components."""
+def health_detail(request_probe: bool = False):
+    """
+    Chi tiết trạng thái các components.
+    request_probe=true → chạy lại truy vấn thử ngay lúc gọi (chậm hơn nhưng
+    phản ánh đúng hiện tại, dùng khi nghi tìm kiếm vừa hỏng sau lúc khởi động).
+    """
     components = {}
 
     # Data files
@@ -362,14 +407,23 @@ def health_detail():
     components["cors_origins"] = ",".join(_cors_origins)
     components["rate_limit_per_min"] = _RATE_LIMIT
 
+    # Tìm kiếm có CHẠY được không — kiểm bằng truy vấn thật, không chỉ nhìn file.
+    probe = _probe_search() if request_probe else _search_health
+    components["vector_search"] = probe.get("vector", "unknown")
+    components["bm25_search"]   = probe.get("bm25", "unknown")
+    if probe.get("error"):
+        components["search_error"] = probe["error"]
+
     # Thành phần BẮT BUỘC để trả lời đúng: thiếu bất kỳ cái nào là degraded.
     # Chỉ mục mất nghĩa là mất RAG — bot vẫn nói được nhưng nói theo trí nhớ LLM.
     critical = {
-        "llm_key":     components["llm_key"] == "ok",
-        "faiss_index": _st["faiss"],
-        "bm25_index":  _st["bm25"],
-        "data_v2":     components["data_v2"] == "ok",
-        "clean_v4":    components["clean_v4"] == "ok",
+        "llm_key":       components["llm_key"] == "ok",
+        "faiss_index":   _st["faiss"],
+        "bm25_index":    _st["bm25"],
+        "data_v2":       components["data_v2"] == "ok",
+        "clean_v4":      components["clean_v4"] == "ok",
+        "vector_search": probe.get("vector") == "ok",
+        "bm25_search":   probe.get("bm25") == "ok",
     }
     failed = [k for k, v in critical.items() if not v]
     overall = "ok" if not failed else "degraded"
@@ -387,4 +441,14 @@ if __name__ == "__main__":
     print(f"\n🚀 Suối Tiên Bot đang chạy tại http://localhost:{port}")
     print(f"   Docs: http://localhost:{port}/docs"
           f"   (reload={'ON' if dev_reload else 'OFF'})\n")
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=dev_reload)
+    # proxy_headers: uvicorn MẶC ĐỊNH BẬT và tin X-Forwarded-For từ 127.0.0.1,
+    # nên nó GHI ĐÈ request.client.host bằng header do client tự đặt — trước
+    # khi middleware rate limit kịp chạy. Kết quả: đổi header là có IP mới, bắn
+    # bao nhiêu cũng lọt, dù _client_ip đã cố tình không đọc header.
+    # → Chỉ bật khi thật sự đứng sau proxy tin cậy, và khai rõ dải IP của proxy.
+    _fwd_ips = os.getenv("FORWARDED_ALLOW_IPS", "127.0.0.1")
+    uvicorn.run(
+        "main:app", host="0.0.0.0", port=port, reload=dev_reload,
+        proxy_headers=_TRUST_PROXY,
+        forwarded_allow_ips=_fwd_ips if _TRUST_PROXY else [],
+    )

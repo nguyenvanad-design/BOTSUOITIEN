@@ -722,7 +722,34 @@ check("Có rate limit cho API AI", "rate_limit_middleware" in _main)
 check("Rate limit áp cho /api/chat và /api/feedback",
       '"/api/chat"' in _main and '"/api/feedback"' in _main)
 check("Trả 429 kèm Retry-After", "429" in _main and "Retry-After" in _main)
-check("Lấy IP thật sau reverse proxy", "x-forwarded-for" in _main)
+
+# X-Forwarded-For do CLIENT gửi. Tin vô điều kiện ⇒ đổi header mỗi request là
+# có "IP" mới, rate limit vô dụng (đã thử: 30 request từ 1 máy đều lọt).
+check("KHÔNG tin X-Forwarded-For khi chưa khai proxy", "_TRUST_PROXY" in _main)
+_ip_fn = _main.split("def _client_ip")[1].split("\n@")[0]
+check("Chỉ đọc X-Forwarded-For khi TRUST_PROXY bật",
+      "if _TRUST_PROXY:" in _ip_fn
+      and _ip_fn.index("_TRUST_PROXY") < _ip_fn.index("x-forwarded-for"))
+check("Mặc định dùng IP socket", "request.client.host" in _ip_fn)
+
+# Lỗ hổng nằm THẤP HƠN code của mình: uvicorn mặc định bật proxy_headers và tin
+# X-Forwarded-For từ 127.0.0.1, nên nó GHI ĐÈ request.client.host bằng header
+# client tự đặt TRƯỚC khi middleware chạy. _client_ip không đọc header vẫn bị né.
+check("Tắt uvicorn proxy_headers khi chưa khai proxy",
+      "proxy_headers=_TRUST_PROXY" in _main)
+check("Không cho uvicorn tin IP chuyển tiếp nào khi TRUST_PROXY tắt",
+      "forwarded_allow_ips=_fwd_ips if _TRUST_PROXY else []" in _main)
+
+# File tồn tại KHÔNG có nghĩa là tìm kiếm chạy được: index có thể hỏng, BGE-M3
+# có thể không nạp nổi. Health từng báo "ok" trong khi RAG đã chết.
+check("Health thử truy vấn thật, không chỉ kiểm file", "_probe_search" in _main)
+check("Probe kiểm CẢ vector lẫn bm25",
+      "vector_search(" in _main.split("def _probe_search")[1][:700]
+      and "bm25_search(" in _main.split("def _probe_search")[1][:700])
+check("Tìm kiếm hỏng thì health degraded",
+      '"vector_search": probe.get("vector") == "ok"' in _main)
+check("Warmup ghi lại kết quả thật cho health",
+      "_search_health = _probe_search()" in _main)
 
 check("CORS KHÔNG mặc định '*'", 'os.getenv("CORS_ORIGINS", "*")' not in _main)
 check("CORS thiếu cấu hình thì chỉ cho localhost",
