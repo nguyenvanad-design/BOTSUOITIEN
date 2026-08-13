@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from typing import Optional
 
-from schema_search import schema_lookup, _norm_zone
+from schema_search import schema_lookup, _norm_zone, _asks_current
 from bm25_search   import bm25_search, rrf_merge
 from faq_engine    import faq_match
 from language_detector import detect_lang
@@ -45,7 +45,8 @@ _CATEGORY_FILTER = {
 # → 220.000đ (bảng vé cũ), trong khi website đang bán 240.000đ. Bot còn tự bịa
 # "Combo Trải Nghiệm (tức Combo Tham Quan)" để ghép cho khớp giá cũ.
 #
-# → Với intent động: KHÔNG cắt chunk web, và đẩy nội dung web LÊN TRƯỚC schema.
+# → Với intent động: entity có vòng đời đã đối chiếu được ưu tiên.
+# Chỉ dùng chunk web khi chưa trích xuất được entity có cấu trúc.
 _DYNAMIC_INTENTS = {"hoi_su_kien", "hoi_uu_dai"}
 
 
@@ -64,6 +65,37 @@ _RE_B2B = re.compile(
     r"tong ket cuoi nam|hội nghị|hoi nghi|gala|tri ân|tri an|khách hàng|"
     r"khach hang|ra mắt sản phẩm|ra mat san pham|teambuilding|team building|"
     r"tiệc cưới|tiec cuoi|thuê địa điểm|thue dia diem)", re.IGNORECASE)
+
+_RE_DATED_CLAIM = re.compile(
+    r"(tặng|tang|miễn phí|mien phi|giảm|giam|ưu đãi|uu dai|khuyến mãi|"
+    r"khuyen mai|khai mạc|khai mac|sắp|sap |tới đây|toi day|bắt đầu|bat dau)",
+    re.IGNORECASE,
+)
+_RE_DAY_MONTH = re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})(?:/(20\d{2}))?(?!\d)")
+
+
+def _sanitize_current_text(text: str) -> str:
+    """Bỏ dòng quảng cáo có ngày đã qua khỏi ngữ cảnh hỏi 'hiện tại'."""
+    from datetime import date
+
+    today = date.today()
+    kept = []
+    segments = re.split(r"(?<=[.!?])\s+|\n+", str(text or ""))
+    for line in segments:
+        if not _RE_DATED_CLAIM.search(line):
+            kept.append(line)
+            continue
+        dates = []
+        for day, month, year in _RE_DAY_MONTH.findall(line):
+            try:
+                dates.append(date(int(year or today.year), int(month), int(day)))
+            except ValueError:
+                pass
+        # Dải ngày còn ít nhất một mốc chưa qua vẫn là thông tin hiện hành.
+        if dates and max(dates) < today:
+            continue
+        kept.append(line)
+    return " ".join(kept)
 
 # Khách đang hỏi CHO DOANH NGHIỆP thì nội dung B2B mới là thứ họ cần
 def _wants_b2b(query: str) -> bool:
@@ -125,6 +157,9 @@ def _drop_stale_campaign(chunks: list, query: str = "") -> list:
         if hd and today > hd + timedelta(days=_HOLIDAY_GRACE_DAYS):
             continue
 
+        if _asks_current(query):
+            c = dict(c)
+            c["text"] = _sanitize_current_text(text)
         kept.append(c)
 
     if not kept:
@@ -309,9 +344,30 @@ def build_context(retrieval_out: dict, max_chars: int = 3000) -> str:
     total = 0
     dynamic = retrieval_out.get("dynamic", False)
 
-    # Câu hỏi ĐỘNG (combo/ưu đãi/sự kiện): nội dung web mới nhất đứng TRƯỚC và
-    # được tuyên bố là nguồn ưu tiên. Bảng schema chỉ còn vai trò tham khảo, vì
-    # nó luôn chậm hơn website — nơi Suối Tiên đổi khuyến mãi liên tục.
+    # Entity có cấu trúc đã qua bộ lọc vòng đời (active, valid_from,
+    # valid_to) nên an toàn hơn chunk RAG thô. Chunk cũ có thể vẫn xếp hạng
+    # cao chỉ vì ngữ nghĩa giống câu hỏi, dù chiến dịch đã kết thúc.
+    structured = [
+        item for item in results
+        if any(key in item for key in (
+            "ticket_id", "event_id", "attraction_id", "package_id",
+            "restaurant_id", "info_id",
+        ))
+    ]
+    if dynamic and structured:
+        lines.append(
+            "=== THÔNG TIN HIỆN HÀNH ĐÃ ĐỐI CHIẾU SUOITIEN.VN "
+            "(BẮT BUỘC ƯU TIÊN) ==="
+        )
+        for item in structured[:5]:
+            s = _fmt(item)
+            if total + len(s) > max_chars:
+                break
+            lines.append(s)
+            total += len(s)
+        return "\n\n".join(lines) if lines else ""
+
+    # Chưa có entity: dùng nội dung website đã qua bộ lọc chiến dịch cũ.
     if dynamic and chunks:
         lines.append("=== TIN MỚI NHẤT TỪ WEBSITE SUỐI TIÊN (ƯU TIÊN DÙNG) ===")
         for c in chunks[:3]:
@@ -320,14 +376,6 @@ def build_context(retrieval_out: dict, max_chars: int = 3000) -> str:
                 break
             lines.append(entry)
             total += len(entry)
-        if results:
-            lines.append("\n=== DỮ LIỆU NỀN (có thể cũ hơn website) ===")
-            for item in results[:3]:
-                s = _fmt(item)
-                if total + len(s) > max_chars:
-                    break
-                lines.append(s)
-                total += len(s)
         return "\n\n".join(lines) if lines else ""
 
     if results and source == "schema":
@@ -403,9 +451,17 @@ def _fmt(item: dict) -> str:
 
     if "event_id" in item:
         parts = [f"Sự kiện: {item.get('name','')}"]
-        if item.get("date_start"):   parts.append(f"Thời gian: {item['date_start']}")
+        if item.get("status"):       parts.append(f"Trạng thái: {item['status']}")
+        if item.get("date_start"):
+            period = item["date_start"]
+            if item.get("date_end") and item["date_end"] != period:
+                period += f" đến {item['date_end']}"
+            parts.append(f"Thời gian: {period}")
         if item.get("description"):  parts.append(item["description"][:150])
-        if item.get("special_offers"): parts.append(f"Ưu đãi: {', '.join(item['special_offers'][:3])}")
+        if item.get("special_offers"):
+            offers = item["special_offers"]
+            offers = [offers] if isinstance(offers, str) else offers
+            parts.append(f"Ưu đãi: {', '.join(str(x) for x in offers[:3])}")
         return "\n".join(parts)
 
     if "package_id" in item:

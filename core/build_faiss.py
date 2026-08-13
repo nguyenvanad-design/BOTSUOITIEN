@@ -22,6 +22,30 @@ MODEL_NAME = os.environ.get("EMBED_MODEL", "BAAI/bge-m3")
 def build_chunks(data: dict) -> list[dict]:
     chunks = []
 
+    def active(item: dict, bucket: str) -> bool:
+        if item.get("is_active") is False:
+            return False
+        try:
+            from content_lifecycle import is_current
+            return is_current(item, bucket)
+        except Exception:
+            return True
+
+    def text_list(value) -> list[str]:
+        if not value:
+            return []
+        if isinstance(value, str):
+            return [value]
+        out = []
+        for item in value:
+            if isinstance(item, str):
+                out.append(item)
+            elif isinstance(item, dict):
+                text = item.get("text") or item.get("name") or item.get("description")
+                if text:
+                    out.append(str(text))
+        return out
+
     def add(chunk_id, category, title, text):
         if not text.strip():
             return
@@ -34,14 +58,17 @@ def build_chunks(data: dict) -> list[dict]:
 
     # Tickets
     for t in data.get("tickets", []):
+        if not active(t, "tickets"):
+            continue
         parts = []
         if t.get("price_adult"):
             parts.append(f"Giá người lớn: {t['price_adult']:,.0f}đ")
         if t.get("price_child") is not None:
             p = t["price_child"]
             parts.append(f"Giá trẻ em: {'miễn phí' if p == 0 else f'{p:,.0f}đ'}")
-        if t.get("price_senior"):
-            parts.append(f"Giá người cao tuổi: {t['price_senior']:,.0f}đ")
+        if t.get("price_senior") is not None:
+            p = t["price_senior"]
+            parts.append(f"Giá người cao tuổi: {'miễn phí' if p == 0 else f'{p:,.0f}đ'}")
         if t.get("zone"):
             parts.append(f"Khu: {t['zone']}")
         if t.get("height_restriction"):
@@ -56,6 +83,8 @@ def build_chunks(data: dict) -> list[dict]:
 
     # Attractions
     for a in data.get("attractions", []):
+        if not active(a, "attractions"):
+            continue
         parts = []
         if a.get("description"):
             parts.append(a["description"])
@@ -81,6 +110,8 @@ def build_chunks(data: dict) -> list[dict]:
 
     # Events
     for e in data.get("events", []):
+        if not active(e, "events"):
+            continue
         parts = []
         if e.get("description"):
             parts.append(e["description"])
@@ -93,15 +124,23 @@ def build_chunks(data: dict) -> list[dict]:
         if e.get("date_end"):
             parts.append(f"Đến: {e['date_end']}")
         if e.get("target_audience"):
-            parts.append(f"Đối tượng: {', '.join(e['target_audience'][:3])}")
+            parts.append(f"Đối tượng: {', '.join(text_list(e['target_audience'])[:3])}")
         if e.get("special_offers"):
-            parts.append(f"Ưu đãi: {', '.join(e['special_offers'][:5])}")
+            try:
+                from schema_search import _active_special_offers
+                offers = _active_special_offers(e)
+            except Exception:
+                offers = text_list(e["special_offers"])
+            if offers:
+                parts.append(f"Ưu đãi: {', '.join(offers[:5])}")
         if e.get("highlights"):
             parts.append(f"Nổi bật: {', '.join(e['highlights'][:5])}")
         add(e["event_id"], "events", e.get("name", "Sự kiện"), ". ".join(parts))
 
     # Teambuilding
     for tb in data.get("teambuilding", []):
+        if not active(tb, "teambuilding"):
+            continue
         parts = []
         if tb.get("type"):
             parts.append(f"Loại: {tb['type']}")
@@ -126,6 +165,8 @@ def build_chunks(data: dict) -> list[dict]:
 
     # Restaurant
     for r in data.get("restaurant", []):
+        if not active(r, "restaurant"):
+            continue
         parts = []
         if r.get("cuisine_type"):
             parts.append(f"Ẩm thực: {r['cuisine_type']}")
@@ -148,6 +189,8 @@ def build_chunks(data: dict) -> list[dict]:
 
     # Info
     for info in data.get("info", []):
+        if not active(info, "info"):
+            continue
         add(info["info_id"], "info",
             info.get("title", "Thông tin"),
             info.get("content", ""))

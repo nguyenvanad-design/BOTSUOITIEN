@@ -9,6 +9,8 @@ import time
 import hashlib
 import threading
 import requests
+import re
+import unicodedata
 from apscheduler.schedulers.background import BackgroundScheduler
 import logging
 from pathlib import Path
@@ -254,6 +256,91 @@ def _crawl_url(url: str) -> dict | None:
 # khi cập nhật entity cũ, nếu không mỗi lần crawl sẽ mất trạng thái ẩn/ưu tiên.
 _LIFECYCLE_FIELDS = ("is_active", "priority", "valid_from", "valid_to")
 
+_ENTITY_ID_FIELDS = {
+    "tickets": "ticket_id",
+    "attractions": "attraction_id",
+    "events": "event_id",
+    "teambuilding": "package_id",
+    "restaurant": "restaurant_id",
+    "info": "info_id",
+}
+
+
+def _stable_entity_id(bucket: str, source_slug: str, name: str) -> str:
+    """ID ổn định theo trang nguồn + tên, không phụ thuộc ID do LLM tự đặt."""
+    raw = f"{bucket}|{source_slug}|{name}".lower().strip()
+    plain = unicodedata.normalize("NFD", raw)
+    plain = "".join(c for c in plain if unicodedata.category(c) != "Mn")
+    label = re.sub(r"[^a-z0-9]+", "-", plain).strip("-")[:48]
+    digest = hashlib.sha1(raw.encode("utf-8")).hexdigest()[:10]
+    return f"WEB_{bucket.upper()}_{label}_{digest}"
+
+
+def _normalize_extracted_items(bucket: str, items: list, source_slug: str) -> list:
+    """Ép metadata nguồn và ID ổn định cho dữ liệu do LLM trích xuất."""
+    id_field = _ENTITY_ID_FIELDS.get(bucket, "id")
+    normalized = []
+    for item in items or []:
+        if not isinstance(item, dict) or not item.get("name"):
+            continue
+        item = dict(item)
+        item["source_slug"] = source_slug
+        item[id_field] = _stable_entity_id(bucket, source_slug, str(item["name"]))
+        item["is_active"] = True
+        normalized.append(item)
+    return normalized
+
+
+# `combo-tro-choi` là trang danh mục chính thức, đầy đủ nhất. Khi trang này được
+# trích xuất thành công, các combo từ những trang danh mục cũ phải nghỉ hưu;
+# nếu không chúng tiếp tục cùng tồn tại và có thể thắng kết quả tìm kiếm.
+_LEGACY_COMBO_SOURCES = {
+    "combo",
+    "combo-ky-quan",
+    "san-combo-suoi-tien-2026-vui-choi-tha-ga-giam-den-20",
+}
+_AUTHORITATIVE_REPLACE_SOURCES = {
+    "tickets": {"combo-tro-choi"},
+}
+
+
+def _retire_missing_entities(existing: dict, new_entities: dict) -> int:
+    """Ẩn entity cũ không còn xuất hiện trong lần trích xuất thành công."""
+    retired = 0
+    retired_at = datetime.now().isoformat()
+
+    for bucket, incoming in (new_entities or {}).items():
+        if not incoming or bucket not in existing:
+            continue
+        id_field = _ENTITY_ID_FIELDS.get(bucket, "id")
+        by_source = {}
+        for item in incoming:
+            source = item.get("source_slug")
+            if source:
+                by_source.setdefault(source, set()).add(item.get(id_field))
+
+        for source, current_ids in by_source.items():
+            for old in existing[bucket]:
+                same_source = (
+                    source in _AUTHORITATIVE_REPLACE_SOURCES.get(bucket, set())
+                    and old.get("source_slug") == source
+                )
+                legacy_combo = (
+                    bucket == "tickets"
+                    and source == "combo-tro-choi"
+                    and old.get("zone") == "combo"
+                    and old.get("source_slug") in _LEGACY_COMBO_SOURCES
+                )
+                if not (same_source or legacy_combo):
+                    continue
+                if old.get(id_field) in current_ids or old.get("is_active") is False:
+                    continue
+                old["is_active"] = False
+                old["superseded_by"] = source
+                old["retired_at"] = retired_at
+                retired += 1
+    return retired
+
 
 # Dấu hiệu BÀI CHIẾN DỊCH (tin khuyến mãi/sự kiện), khác với TRANG DANH MỤC vé.
 # Bài "tặng 2.000 vé dịp Quốc khánh" là SỰ KIỆN, không phải một loại vé — nhưng
@@ -332,9 +419,9 @@ def _extract_entities_batch(new_docs: list[dict]) -> dict:
         log.info(f"Extract using Anthropic ({EXTRACT_MODEL})")
 
     PROMPTS = {
-        "tickets":      "Extract thông tin VÉ VÀO CỬA. JSON array: [{ticket_id,name,zone,price_adult,price_child,includes,notes,source_slug}]. CHỈ JSON.",
+        "tickets":      "Extract thông tin VÉ/COMBO đang được bán. JSON array: [{ticket_id,name,zone,price_adult,price_child,includes,notes,valid_from,valid_to,is_promo,source_slug}]. Ngày ISO YYYY-MM-DD; zone=combo cho combo. CHỈ JSON.",
         "attractions":  "Extract ĐIỂM THAM QUAN/TRÒ CHƠI. JSON array: [{attraction_id,name,type,zone,description,thrill_level,extra_fee,highlights,source_slug}]. CHỈ JSON.",
-        "events":       "Extract SỰ KIỆN/LỄ HỘI/ƯU ĐÃI. JSON array: [{event_id,name,type,status,date_start,description,special_offers,source_slug}]. CHỈ JSON.",
+        "events":       "Extract SỰ KIỆN/LỄ HỘI/ƯU ĐÃI. JSON array: [{event_id,name,type,status,date_start,date_end,description,special_offers,source_slug}]. Ngày ISO YYYY-MM-DD. CHỈ JSON.",
         "teambuilding": "Extract GÓI TEAMBUILDING/HỘI NGHỊ. JSON array: [{package_id,name,type,duration,price_per_person,includes,source_slug}]. CHỈ JSON.",
         "restaurant":   "Extract NHÀ HÀNG/ẨM THỰC. JSON array: [{restaurant_id,name,type,cuisine_type,signature_dishes,source_slug}]. CHỈ JSON.",
         "info":         "Extract THÔNG TIN HỮU ÍCH. JSON array: [{info_id,topic,title,content,source_slug}]. CHỈ JSON.",
@@ -348,7 +435,8 @@ def _extract_entities_batch(new_docs: list[dict]) -> dict:
         prompt = PROMPTS.get(bucket, PROMPTS["info"])
 
         try:
-            content = f"{prompt}\n\nSlug: {doc['slug']}\n\n{doc['text'][:2000]}"
+            content = (f"{prompt}\nNgày hiện tại: {datetime.now().date().isoformat()}"
+                       f"\nSlug: {doc['slug']}\n\n{doc['text'][:4000]}")
             if EXTRACT_PROVIDER == "grok":
                 resp = client.chat.completions.create(
                     model=EXTRACT_MODEL, max_tokens=1500,
@@ -378,7 +466,9 @@ def _extract_entities_batch(new_docs: list[dict]) -> dict:
                     raw = raw + "]"
             items = json.loads(raw)
             if isinstance(items, list) and items:
-                results.setdefault(bucket, []).extend(items)
+                items = _normalize_extracted_items(bucket, items, doc["slug"])
+                if items:
+                    results.setdefault(bucket, []).extend(items)
             time.sleep(0.3)
         except Exception as e:
             log.warning(f"Extract error {doc['slug']}: {e}")
@@ -468,9 +558,7 @@ def _hot_swap_data(new_docs: list[dict], new_entities: dict):
                     existing[bucket] = []
                 # Update-by-ID: ID đã có → THAY THẾ (nội dung đổi được cập nhật),
                 # ID mới → thêm. Trước đây chỉ append nên combo/giá đổi không cập nhật.
-                id_field = {"tickets":"ticket_id","attractions":"attraction_id",
-                            "events":"event_id","teambuilding":"package_id",
-                            "restaurant":"restaurant_id","info":"info_id"}.get(bucket,"id")
+                id_field = _ENTITY_ID_FIELDS.get(bucket, "id")
                 idx_by_id = {i.get(id_field,""): k for k, i in enumerate(existing[bucket])
                              if i.get(id_field,"")}
                 added = updated = 0
@@ -490,6 +578,9 @@ def _hot_swap_data(new_docs: list[dict], new_entities: dict):
                         existing[bucket].append(item)
                         added += 1
                 log.info(f"data_v2 {bucket}: +{added} new, {updated} updated")
+            retired = _retire_missing_entities(existing, new_entities)
+            if retired:
+                log.info("data_v2: %d entity cũ được vô hiệu hóa", retired)
             _DATA_FILE.write_text(json.dumps(existing, ensure_ascii=False, indent=2), encoding="utf-8")
         except Exception as e:
             log.error(f"Error updating data_v2: {e}")
@@ -614,12 +705,17 @@ def run_update():
 
 def rebuild_faiss_nightly():
     """Rebuild FAISS lúc 3h sáng — tốn time nhưng không ảnh hưởng user."""
+    # Không cho sitemap update chen giữa lúc build đọc clean_v4 và lúc xóa
+    # incremental buffer, nếu không tài liệu vừa crawl có thể bị mất khỏi cả hai.
+    _update_lock.acquire()
     log.info("Nightly FAISS rebuild starting...")
     try:
         import sys
         sys.path.insert(0, str(_BASE_DIR / "core"))
         from vector_search import build_index
         build_index(force=True)
+        from vector_search_incremental import clear_buffer
+        clear_buffer()
         # Reload
         if "vector_search" in sys.modules:
             mod = sys.modules["vector_search"]
@@ -628,6 +724,8 @@ def rebuild_faiss_nightly():
             log.info("FAISS index rebuilt + reloaded ✅")
     except Exception as e:
         log.error(f"FAISS rebuild error: {e}")
+    finally:
+        _update_lock.release()
 
 
 # ── Scheduler ──────────────────────────────────────────────────────────────────

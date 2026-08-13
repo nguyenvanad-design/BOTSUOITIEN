@@ -187,10 +187,18 @@ def _ans_gia_ve(m, lang="vi"):
     # KHÔNG tự suy ra ngưỡng tuổi: dữ liệu không ghi tuổi, trước đây LLM bịa
     # "trên 60 tuổi" → sai lệch chính sách.
     senior = next((t for t in tickets
-                   if t.get("price_senior") and "cao tuổi" in t["name"].lower()), None)
+                   if t.get("price_senior") is not None
+                   and "cao tuổi" in t["name"].lower()), None)
     if senior and lang == "vi":
+        applies = str(senior.get("valid_for") or "").strip()
         note = str(senior.get("notes") or "").strip()
         line = f"• Người cao tuổi: **{_format_price(senior['price_senior'])}**"
+        if applies:
+            line += f" ({applies}"
+            if note:
+                line += f"; {note}"
+            line += ")"
+            note = ""
         if note:
             line += f" ({note})"
         lines.append(line)

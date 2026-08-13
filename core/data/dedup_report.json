@@ -1,0 +1,128 @@
+[
+  {
+    "bucket": "events",
+    "id": "bon-mua-le-hoi",
+    "name": "Bốn Mùa Lễ Hội",
+    "reason": "trùng với 2"
+  },
+  {
+    "bucket": "events",
+    "id": "EVT_001",
+    "name": "Bốn Mùa Lễ Hội",
+    "reason": "trùng với 2"
+  },
+  {
+    "bucket": "events",
+    "id": "EVT_006",
+    "name": "Hawaii Night sôi động",
+    "reason": "trùng với evt_001"
+  },
+  {
+    "bucket": "events",
+    "id": "EVT_007",
+    "name": "Đêm trao giải tôn vinh thành tựu",
+    "reason": "trùng với evt_002"
+  },
+  {
+    "bucket": "events",
+    "id": "EVT_021",
+    "name": "Tổ chức sự kiện tổng kết cuối năm cho doanh nghiệp",
+    "reason": "trùng với EVE_148"
+  },
+  {
+    "bucket": "events",
+    "id": "khu-du-lich-van-hoa-suoi-tien",
+    "name": "Khu Du Lịch Văn Hóa Suối Tiên",
+    "reason": "trùng với st-event-001"
+  },
+  {
+    "bucket": "events",
+    "id": "suoi-tien-bao-gia-to-chuc-su-kien-2025",
+    "name": "Báo giá tổ chức sự kiện và giá thuê địa điểm tại Suối Tiên",
+    "reason": "trùng với suoi-tien-event-organization"
+  },
+  {
+    "bucket": "events",
+    "id": "suoi-tien-combo-mua-thu",
+    "name": "ĐÓN MÙA THU, TRỌN NIỀM VUI CÙNG 2 COMBO ƯU ĐÃI SIÊU HỜI TẠI SUỐI TIÊN",
+    "reason": "trùng với don-mua-thu-tron-niem-vui-cung-2-combo-uu-dai-sieu-hoi-tai-suoi-tien-"
+  },
+  {
+    "bucket": "events",
+    "id": "suoitien-2",
+    "name": "ĐÓN MÙA THU, TRỌN NIỀM VUI CÙNG 2 COMBO ƯU ĐÃI SIÊU HỜI TẠI SUỐI TIÊN",
+    "reason": "trùng với don-mua-thu-tron-niem-vui-cung-2-combo-uu-dai-sieu-hoi-tai-suoi-tien-"
+  },
+  {
+    "bucket": "events",
+    "id": "suoitien-lau-phung-o-trai-dua-truong-tho",
+    "name": "Lẩu phụng ô trái dừa trường thọ – Tinh hoa ẩm thực dưỡng sinh tại Du l",
+    "reason": "trùng với lau-phung-o-trai-dua-truong-tho"
+  },
+  {
+    "bucket": "events",
+    "id": "evt-1",
+    "name": "Lẩu phụng ô trái dừa trường thọ – Tinh hoa ẩm thực dưỡng sinh tại Du l",
+    "reason": "trùng với lau-phung-o-trai-dua-truong-tho"
+  },
+  {
+    "bucket": "events",
+    "id": "top-11-cong-ty-team-building-tphcm-2026",
+    "name": "TOP 11 công ty tổ chức team building chuyên nghiệp tại TP.HCM",
+    "reason": "trùng với top-11-cong-ty-team-building-tphcm"
+  },
+  {
+    "bucket": "events",
+    "id": "evt-7",
+    "name": "TOP 11 công ty tổ chức team building chuyên nghiệp tại TP.HCM",
+    "reason": "trùng với top-11-cong-ty-team-building-tphcm"
+  },
+  {
+    "bucket": "events",
+    "id": "top-11-cong-ty-team-building",
+    "name": "TOP 11 công ty tổ chức team building chuyên nghiệp tại TP.HCM",
+    "reason": "trùng với top-11-cong-ty-team-building-tphcm"
+  },
+  {
+    "bucket": "events",
+    "id": "suoitien-1",
+    "name": "Quốc khánh 2/9, Suối Tiên tặng 2.000 vé cổng cho du khách",
+    "reason": "trùng với suoi-tien-quoc-khanh-2-9"
+  },
+  {
+    "bucket": "events",
+    "id": "suoitien-3",
+    "name": "CHUNG KẾT CUỘC THI VẼ TRANH “MẮT SÁNG TỰ DO - EM VẼ RÕ NÉT HÈ”",
+    "reason": "trùng với cuoc-thi-ve-tranh-mat-sang-tu-do"
+  },
+  {
+    "bucket": "events",
+    "id": "suoitien-4",
+    "name": "SUỐI TIÊN MỞ KHÓA MENU “QUẨY” BANH NÓC CHO NGÀY VUI CHƠI TRỌN VẸN",
+    "reason": "trùng với suoi-tien-menu-quay-banh-noc"
+  },
+  {
+    "bucket": "events",
+    "id": "suoitien-5",
+    "name": "TOUCHFES MIZU BOMB 2026: Suối Tiên mang văn hóa Nhật Bản đến gần hơn v",
+    "reason": "trùng với touchfes-mizu-bomb-2026"
+  },
+  {
+    "bucket": "events",
+    "id": "top-16-khu-vui-choi-quan-9",
+    "name": "16 khu vui chơi quận 9 hấp dẫn không thể bỏ qua",
+    "reason": "trùng với evt-3"
+  },
+  {
+    "bucket": "events",
+    "id": "top-10-du-lich-van-hoa-viet-nam",
+    "name": "Tổng hợp 10 khu du lịch Việt Nam văn hóa và trải nghiệm độc đáo",
+    "reason": "trùng với evt-4"
+  },
+  {
+    "bucket": "events",
+    "id": "review-metro-so-1",
+    "name": "Review tuyến Metro số 1 Bến Thành - Suối Tiên chi tiết từ A - Z",
+    "reason": "trùng với evt-5"
+  }
+]

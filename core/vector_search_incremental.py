@@ -34,7 +34,6 @@ _INDEX_DIR = _BASE / "data" / "faiss_index"
 _BUFFER_F  = _INDEX_DIR / "incremental_buffer.json"
 
 BUFFER_THRESHOLD = 5   # Embed ngay khi có 5 docs mới
-_buffer: list = []
 _buffer_lock = threading.Lock()
 
 
@@ -50,6 +49,19 @@ def _load_buffer() -> list:
 def _save_buffer(buf: list):
     _INDEX_DIR.mkdir(parents=True, exist_ok=True)
     _BUFFER_F.write_text(json.dumps(buf, ensure_ascii=False), encoding="utf-8")
+
+
+# Khôi phục hàng đợi sau restart. Trước đây luôn khởi tạo [] rồi lần cập nhật
+# tiếp theo ghi đè file buffer còn sót, làm mất tài liệu chưa kịp embed.
+_buffer: list = _load_buffer()
+
+
+def clear_buffer():
+    """Xóa hàng đợi sau khi full rebuild đã lấy toàn bộ clean_v4 làm nguồn."""
+    global _buffer
+    with _buffer_lock:
+        _buffer = []
+        _save_buffer([])
 
 
 def add_documents(docs: list[dict], force_flush: bool = False):

@@ -73,6 +73,8 @@ check("FAQ trả giá NIÊM YẾT 180.000đ cho người lớn",
       adult_shown == "180000", f"đang trả: {adult_shown or faq_ans[:60]}")
 check("FAQ KHÔNG trả giá khuyến mãi cũ (80.000đ / 120.000đ)",
       adult_shown not in ("80000", "120000"), f"đang trả: {adult_shown}")
+check("FAQ nêu đúng người từ 65 tuổi được miễn phí",
+      "Người cao tuổi: **miễn phí**" in faq_ans and "65 tuổi" in faq_ans)
 
 top = search_tickets("giá vé vào cổng người lớn", max_results=3)
 check("Vé khuyến mãi KHÔNG đứng đầu kết quả",
@@ -132,6 +134,23 @@ check("Sự kiện đã hết hạn đều bị ẩn", not expired_shown,
 
 check("Vé promo/hết hạn có đánh dấu vòng đời",
       all("is_active" in t and "priority" in t for t in DATA["tickets"]))
+
+# 0 = MIỄN PHÍ, None = CHƯA BIẾT. Dùng 0 làm placeholder cho "chưa có thông
+# tin" khiến _format_price(0) trả "miễn phí" ⇒ bot nói với khách là vé Farm
+# miễn phí trong khi thực ra chỉ là chưa biết giá. Sai kiểu này khách tới quầy
+# mới phát hiện.
+_gia_gia = [
+    t["name"] for t in DATA["tickets"]
+    if ("chưa có thông tin" in str(t.get("notes") or "").lower()
+        or "chua co thong tin" in str(t.get("notes") or "").lower())
+    and 0 in (t.get("price_adult"), t.get("price_child"), t.get("price_senior"))
+]
+check("Giá CHƯA BIẾT không được lưu là 0 (sẽ thành 'miễn phí')",
+      not _gia_gia, str(_gia_gia[:3]))
+
+from schema_search import _format_price as _fp   # noqa: E402
+check("_format_price phân biệt miễn phí và chưa biết",
+      _fp(0) == "miễn phí" and _fp(None) == "liên hệ")
 
 
 # ── 3. TOÀN VẸN DỮ LIỆU ───────────────────────────────────────────────────────
@@ -381,6 +400,10 @@ import content_lifecycle as _cl   # noqa: E402
 
 _T = date(2026, 8, 13)
 
+# Bản đồ slug → thời điểm crawl, để phán định hạn dùng giống lúc chạy thật
+_CLEAN = json.loads(Path(os.environ["SUOITIEN_CLEAN"]).read_text(encoding="utf-8"))
+_CRAWL_MAP = _cl.build_crawl_map(_CLEAN)
+
 # Đọc được cả 2 định dạng ngày lẫn lộn trong data
 check("Đọc ngày ISO", _cl.parse_date("2026-04-26") == date(2026, 4, 26))
 check("Đọc ngày DD/MM/YYYY", _cl.parse_date("22/04/2026") == date(2026, 4, 22))
@@ -446,10 +469,19 @@ check("apply_sweep mới thực sự đổi cờ",
       _cl.apply_sweep(_probe, _rep) == 1
       and _probe["events"][0]["is_active"] is False)
 
-# Kết quả thật trên data hiện tại
+# Kết quả thật trên data hiện tại.
+# Ngưỡng "<60" cũ là con số tuyệt đối lấy theo bộ dữ liệu 151 sự kiện; dữ liệu
+# nay đã 219 nên ngưỡng đó vô nghĩa. Bất biến ĐÚNG không phải "ít sự kiện", mà
+# là "không sự kiện nào ĐÃ HẾT HẠN mà còn bật".
 _ev_act = [e for e in DATA["events"] if e.get("is_active") is not False]
-check("Sự kiện đang bật đã giảm về mức hợp lý (<60)", len(_ev_act) < 60,
-      f"{len(_ev_act)} sự kiện")
+_still_expired = [
+    e for e in _ev_act
+    if _cl.evaluate(e, "events", TODAY,
+                    _CRAWL_MAP.get(e.get("source_slug")))[0] == _cl.EXPIRED
+]
+check("Không sự kiện hết hạn nào còn bật", not _still_expired,
+      f"{len(_still_expired)}/{len(_ev_act)}: "
+      + "; ".join(str(e.get('name'))[:28] for e in _still_expired[:3]))
 check("Không còn sự kiện tên gắn năm cũ đang bật",
       not [e for e in _ev_act
            if (_cl.year_in_text(e.get("name")) or _T.year) < _T.year],
@@ -471,16 +503,26 @@ for _q in ["Giá vé người lớn bao nhiêu?", "Go Kart ở khu nào?", "Mấ
 check("Intent sự kiện luôn là động", _ro._is_dynamic_intent("hoi_su_kien", ""))
 check("Intent ưu đãi luôn là động", _ro._is_dynamic_intent("hoi_uu_dai", ""))
 
-# Với câu hỏi động, context phải đặt tin web LÊN TRƯỚC dữ liệu nền
+# Khi entity hiện hành đã đối chiếu, không để chunk RAG cũ ghi đè.
 _ctx = _ro.build_context({
     "source": "hybrid", "dynamic": True, "intent": "hoi_uu_dai",
-    "results": [{"name": "Combo Tham Quan", "price_adult": 220000}],
-    "chunks": [{"title": "Đón mùa thu", "text": "Combo Trải Nghiệm 240.000đ/người lớn"}],
+    "results": [{"ticket_id": "NEW", "name": "Combo Trải Nghiệm",
+                 "price_adult": 240000}],
+    "chunks": [{"title": "Sự kiện cũ", "text": "Combo cũ 220.000đ"}],
 })
-check("Câu hỏi động: context ưu tiên tin website", "TIN MỚI NHẤT TỪ WEBSITE" in _ctx)
-check("Câu hỏi động: KHÔNG cắt mất nội dung web mới", "240.000" in _ctx)
-check("Câu hỏi động: dữ liệu nền bị hạ xuống thành tham khảo",
-      _ctx.index("TIN MỚI NHẤT") < _ctx.index("DỮ LIỆU NỀN"))
+check("Câu hỏi động: ưu tiên entity đã đối chiếu",
+      "THÔNG TIN HIỆN HÀNH" in _ctx and "240,000" in _ctx)
+check("Câu hỏi động: không chèn chunk cũ khi đã có entity",
+      "220.000" not in _ctx and "Sự kiện cũ" not in _ctx)
+
+# Chưa trích xuất được entity thì website vẫn là đường dự phòng.
+_ctx_web = _ro.build_context({
+    "source": "hybrid", "dynamic": True, "intent": "hoi_uu_dai",
+    "results": [],
+    "chunks": [{"title": "Đón mùa thu", "text": "Combo Trải Nghiệm 240.000đ"}],
+})
+check("Câu hỏi động: chưa có entity thì dùng website",
+      "TIN MỚI NHẤT TỪ WEBSITE" in _ctx_web and "240.000" in _ctx_web)
 
 # Câu hỏi tĩnh vẫn giữ luật cũ: schema đủ ⇒ không chèn blog gây nhiễu
 _ctx2 = _ro.build_context({
@@ -701,7 +743,106 @@ check("Câu hỏi thường trả nhiều hơn câu hỏi 'hiện tại'",
       len(_ss.search_events("sự kiện lễ hội", max_results=20)) >= len(_cur))
 
 
-# ── 22. GIAO DIỆN: CHẶN CHÈN MÃ ──────────────────────────────────────────────
+# ── 22. SNAPSHOT CHÍNH THỨC 13/08/2026 ────────────────────────────────────────
+section("DỮ LIỆU WEB HIỆN HÀNH 13/08/2026")
+
+_combo_expected = {
+    "Combo Trải Nghiệm": (240000, 160000),
+    "Combo Biển Xanh": (350000, 220000),
+    "Combo Tham Quan": (255000, 175000),
+    "Combo Tham Quan + Biển Tiên Đồng": (375000, 255000),
+    "Combo Khám Phá": (330000, 220000),
+    "Combo Khám Phá + Biển Tiên Đồng": (450000, 300000),
+    "Combo Thử Thách": (340000, None),
+    "Combo Thử Thách + Biển Tiên Đồng": (450000, None),
+}
+_active_combo = {t["name"]: t for t in DATA["tickets"]
+                 if t.get("zone") == "combo" and t.get("is_active") is not False}
+for _name, (_adult, _child) in _combo_expected.items():
+    _ticket = _active_combo.get(_name)
+    check(f"Giá hiện hành: {_name}",
+          bool(_ticket) and (_ticket.get("price_adult"), _ticket.get("price_child"))
+          == (_adult, _child), str(_ticket))
+
+check("Không còn combo 220k/229k/260k hoạt động",
+      not [t for t in _active_combo.values()
+           if t.get("price_adult") in (220000, 229000, 260000)])
+check("Hỏi chung ticket price vẫn ra vé cổng trước combo",
+      "combo" not in _ss.search_tickets("ticket price")[0].get("name", "").lower())
+check("Hỏi Combo Trải Nghiệm ra đúng 240.000đ",
+      _ss.search_tickets("Combo Trải Nghiệm giá bao nhiêu")[0].get("price_adult") == 240000)
+check("Hỏi Combo Biển Xanh ra đúng 350.000đ",
+      _ss.search_tickets("Combo Biển Xanh giá bao nhiêu")[0].get("price_adult") == 350000)
+
+import planner as _planner  # noqa: E402
+check("Planner dự phòng vẫn định tuyến câu combo vào bảng vé",
+      _planner._fallback_plan("Combo Trải Nghiệm giá bao nhiêu?")[0]["tool"]
+      == "search_tickets")
+check("Planner dự phòng ưu tiên sự kiện cho ưu đãi tặng vé Quốc khánh",
+      _planner._fallback_plan("Ưu đãi tặng vé Quốc khánh 2/9")[0]["tool"]
+      == "search_events")
+
+# Data có 2 bản ghi cho cùng tin này, khác cách đặt tên nên khử-trùng-theo-tên
+# không gộp được (cố ý: so tên gần đúng có nguy cơ gộp nhầm "Lễ hội 2025" với
+# "Lễ hội 2026"). Điều thật sự quan trọng là NỘI DUNG khách nhận được đúng, và
+# bản có ngày hiệu lực rõ ràng phải nằm trong kết quả — không nhất thiết hạng 1.
+_qk = _ss.search_events("quốc khánh 2/9 tặng vé", max_results=5)
+check("Tìm được ưu đãi Quốc khánh 2/9/2026", bool(_qk))
+check("Kết quả đầu đúng là tin Quốc khánh tặng vé",
+      bool(_qk) and "quốc khánh" in str(_qk[0].get("name", "")).lower())
+check("Bản ghi có ngày hiệu lực rõ ràng nằm trong kết quả",
+      any(e.get("event_id") == "EVT_2026_QUOC_KHANH_02_09" for e in _qk),
+      str([e.get("event_id") for e in _qk]))
+check("Ưu đãi Quốc khánh ghi đúng 2.000 vé",
+      any("2.000 vé" in str(e.get("special_offers")) or "2.000 vé" in str(e.get("description"))
+          for e in _qk))
+
+# Khử trùng lặp: crawl lại cùng một trang qua nhiều đường sinh nhiều bản ghi
+# khác ID cho cùng nội dung. Update-by-ID không gộp được (ID khác), TTL cũng
+# không giết được (đều mới) → bản thô đè mất bản đã biên tập.
+import re as _re2   # noqa: E402
+def _dk(x):
+    return _re2.sub(r"[^a-z0-9]+", "", str(x.get("name") or "").lower())[:60]
+_ev_on = [e for e in DATA["events"] if e.get("is_active") is not False]
+_dups = [k for k, v in __import__("collections").Counter(
+    _dk(e) for e in _ev_on).items() if v > 1 and k]
+check("Không còn sự kiện trùng tên đang bật", not _dups,
+      f"{len(_dups)} tên còn trùng")
+check("Khử trùng giữ bản đầy đủ nhất (Combo Mùa Thu giữ bản có ngày kết thúc)",
+      any(e.get("date_end") for e in _ev_on
+          if "MÙA THU" in str(e.get("name", "")).upper()))
+
+_farm = next(e for e in _ss.search_events("Farm Festival 2026", max_results=20)
+             if e.get("event_id") == "EVT_114")
+check("Farm Festival được suy ra đang diễn ra", _farm.get("status") == "ongoing")
+check("Không phát lại ưu đãi một ngày 31/5 và 1/6",
+      "31/5" not in str(_farm.get("special_offers"))
+      and "1/6" not in str(_farm.get("special_offers")))
+
+_stale_lines = "Tặng vé miễn phí ngày 31/5. Giảm 50% từ 1/6 đến 30/8."
+_clean_lines = _ro._sanitize_current_text(_stale_lines)
+check("Ngữ cảnh hiện tại bỏ ưu đãi 31/5 đã qua", "31/5" not in _clean_lines)
+check("Ngữ cảnh hiện tại giữ ưu đãi còn tới 30/8", "30/8" in _clean_lines)
+
+_n1 = _au._normalize_extracted_items("tickets", [{"name": "Combo Mới"}], "combo-tro-choi")
+_n2 = _au._normalize_extracted_items("tickets", [{"name": "Combo Mới"}], "combo-tro-choi")
+check("Entity web có ID ổn định qua nhiều lần crawl",
+      _n1[0]["ticket_id"] == _n2[0]["ticket_id"])
+_mock_db = {"tickets": [
+    {"ticket_id": "old", "name": "Combo Cũ", "zone": "combo",
+     "source_slug": "combo", "is_active": True},
+]}
+check("Trang combo chính thức tự vô hiệu combo danh mục cũ",
+      _au._retire_missing_entities(_mock_db, {"tickets": _n1}) == 1
+      and _mock_db["tickets"][0]["is_active"] is False)
+
+from build_faiss import build_chunks as _build_chunks  # noqa: E402
+_indexed_titles = {c["title"] for c in _build_chunks(DATA) if c["category"] == "tickets"}
+check("FAISS mới không đưa combo cũ đã tắt vào chỉ mục",
+      "Combo Kỳ Quan (Combo Gia đình 01)" not in _indexed_titles)
+
+
+# ── 23. GIAO DIỆN: CHẶN CHÈN MÃ ──────────────────────────────────────────────
 section("XSS GIAO DIỆN")
 
 _ui = (BASE.parent / "chat_ui.html").read_text(encoding="utf-8")
@@ -713,7 +854,7 @@ check("Chặn href javascript: bằng safeUrl", "function safeUrl(u)" in _ui)
 check("renderSources escape URL và nhãn", "esc(u)" in _ui and "esc(l)" in _ui)
 
 
-# ── 23. TRIỂN KHAI: RATE LIMIT, CORS, CHỈ MỤC, HEALTH ────────────────────────
+# ── 24. TRIỂN KHAI: RATE LIMIT, CORS, CHỈ MỤC, HEALTH ────────────────────────
 section("SẴN SÀNG TRIỂN KHAI")
 
 _main = (BASE.parent / "main.py").read_text(encoding="utf-8")

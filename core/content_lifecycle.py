@@ -357,6 +357,63 @@ def sweep(data: dict, crawl_map: dict = None,
     return report
 
 
+def _dedup_key(record: dict) -> str:
+    """Khoá so trùng: tên đã bỏ dấu câu/khoảng trắng, cắt 60 ký tự đầu."""
+    return re.sub(r"[^a-z0-9]+", "", str(record.get("name") or "").lower())[:60]
+
+
+def _dedup_rank(record: dict, bucket: str) -> tuple:
+    """
+    Bản ghi nào ĐÁNG GIỮ hơn khi trùng tên. Số càng lớn càng được giữ.
+
+    Ưu tiên bản có NGÀY RÕ RÀNG: bản crawl thô thường thiếu date_end và thiếu
+    cả is_active, nên nếu chỉ so điểm khớp chữ thì bản thô đè mất bản đã biên
+    tập. Đó là lý do "Quốc khánh 2/9 tặng 2.000 vé" trả về đúng nội dung nhưng
+    sai bản ghi: 2 bản crawl xếp trên bản chuẩn có ngày hiệu lực.
+    """
+    return (
+        1 if record.get("date_end") or record.get("valid_to") else 0,
+        1 if record.get("date_start") or record.get("valid_from") else 0,
+        1 if record.get("is_active") is True else 0,
+        1 if record.get("priority") is not None else 0,
+        len(str(record.get("description") or "")),
+    )
+
+
+def dedup(data: dict, buckets=("events", "tickets")) -> list:
+    """
+    Ẩn bản ghi TRÙNG TÊN, giữ lại bản đầy đủ nhất. Trả danh sách bị ẩn để soát.
+
+    Crawl lại cùng một trang qua nhiều đường (sitemap, CMS push, bài tổng hợp)
+    sinh ra nhiều bản ghi khác ID cho cùng một nội dung. Update-by-ID không gộp
+    được vì ID khác nhau, còn TTL không giết được vì chúng đều mới.
+    """
+    hidden = []
+    for bucket in buckets:
+        items = data.get(bucket) or []
+        groups: dict = {}
+        for it in items:
+            if not isinstance(it, dict) or it.get("is_active") is False:
+                continue
+            k = _dedup_key(it)
+            if k:
+                groups.setdefault(k, []).append(it)
+        for k, group in groups.items():
+            if len(group) < 2:
+                continue
+            group.sort(key=lambda r: _dedup_rank(r, bucket), reverse=True)
+            for extra in group[1:]:
+                extra["is_active"] = False
+                extra["expired_by"] = "duplicate"
+                hidden.append({
+                    "bucket": bucket,
+                    "id": extra.get("event_id") or extra.get("ticket_id") or extra.get("id"),
+                    "name": str(extra.get("name", ""))[:70],
+                    "reason": f"trùng với {group[0].get('event_id') or group[0].get('ticket_id')}",
+                })
+    return hidden
+
+
 def apply_sweep(data: dict, report: dict) -> int:
     """Áp dụng báo cáo vào data (in-place). Trả số bản ghi đã đổi."""
     hide = {(e["bucket"], e["id"]) for e in report.get("to_hide", [])}

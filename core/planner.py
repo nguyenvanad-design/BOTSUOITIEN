@@ -325,7 +325,36 @@ def plan(query: str, history: list = None, retries: int = 2) -> list[dict]:
 
 
 def _fallback_plan(query: str) -> list[dict]:
-    """Fallback đơn giản khi LLM không gọi được."""
+    """Fallback theo nhóm nghiệp vụ khi LLM planner tạm thời không sẵn sàng."""
+    import re
+    import unicodedata
+
+    q = unicodedata.normalize("NFD", query.lower())
+    q = "".join(ch for ch in q if unicodedata.category(ch) != "Mn")
+    routes = [
+        (r"\b(su kien|le hoi|uu dai|khuyen mai|quoc khanh|show)\b",
+         "search_events", "hoi_su_kien", ["schema", "bm25", "vector"]),
+        (r"\b(ve|gia|combo|nguoi lon|tre em|mien phi)\b",
+         "search_tickets", "hoi_gia_ve", ["faq", "schema"]),
+        (r"\b(tro choi|go kart|tau luon|khu vui|tham quan)\b",
+         "search_attractions", "hoi_tro_choi", ["schema", "bm25", "vector"]),
+        (r"\b(nha hang|an uong|mon an|buffet)\b",
+         "search_restaurants", "hoi_nha_hang", ["schema", "bm25", "vector"]),
+        (r"\b(teambuilding|team building|hoi nghi|cam trai|doan)\b",
+         "search_teambuilding", "hoi_teambuilding", ["faq", "schema", "bm25", "vector"]),
+        (r"\b(duong di|chi duong|metro|xe buyt|xe bus)\b",
+         "get_directions", "hoi_duong_di", ["faq", "schema", "vector"]),
+        (r"\b(thoi tiet|troi mua|troi nang|nhiet do|du bao)\b",
+         "get_weather", "hoi_chung", ["faq"]),
+    ]
+    for pattern, tool, intent, strategy in routes:
+        if re.search(pattern, q):
+            return [{
+                "tool": tool,
+                "input": {"query": query},
+                "intent": intent,
+                "strategy": strategy,
+            }]
     return [{
         "tool":     "get_park_info",
         "input":    {"query": query, "info_type": "general"},

@@ -14,6 +14,7 @@ FIXES v2:
 import json
 import re
 import os
+from datetime import date
 from pathlib import Path
 from typing import Optional
 
@@ -211,6 +212,52 @@ def _lifecycle_ok(record: dict, bucket: str, strict: bool = False) -> bool:
         return True
 
 
+def _active_special_offers(record: dict, today: date = None) -> list[str]:
+    """Chuẩn hóa ưu đãi và loại phần ưu đãi con đã hết hạn."""
+    today = today or date.today()
+    offers = record.get("special_offers") or []
+    if isinstance(offers, str):
+        offers = [offers]
+
+    active = []
+    for offer in offers:
+        if isinstance(offer, str):
+            active.append(offer)
+            continue
+        if not isinstance(offer, dict):
+            continue
+        try:
+            from content_lifecycle import parse_date
+            valid_to = parse_date(offer.get("valid_to") or offer.get("date_end"))
+        except Exception:
+            valid_to = None
+        if valid_to and valid_to < today:
+            continue
+        text = (offer.get("text") or offer.get("name")
+                or offer.get("description") or offer.get("offer"))
+        if text:
+            active.append(str(text))
+    return active
+
+
+def _runtime_event_status(record: dict, today: date = None) -> str:
+    """Không tin status tĩnh của bài viết; suy ra lại theo ngày hiện tại."""
+    today = today or date.today()
+    try:
+        from content_lifecycle import parse_date
+        start = parse_date(record.get("date_start"))
+        end = parse_date(record.get("date_end"))
+    except Exception:
+        start = end = None
+    if end and end < today:
+        return "ended"
+    if start and start > today:
+        return "upcoming"
+    if start and start <= today and (not end or today <= end):
+        return "ongoing"
+    return record.get("status") or "unknown"
+
+
 # Normalize type về chuẩn VI
 _TYPE_MAP = {
     "tro_choi": "tro_choi", "cong_trinh_van_hoa": "cong_trinh_van_hoa",
@@ -274,6 +321,13 @@ def search_tickets(
     include_inactive=True: lấy cả vé hết hạn (cho mục đích admin/tổng hợp).
     """
     results = []
+    asks_combo = "combo" in _strip_accents(_norm(query or ""))
+    generic_words = {
+        "combo", "ve", "gia", "bao", "nhieu", "price", "ticket",
+        "co", "khong", "la", "cho", "toi", "xin", "hoi",
+    }
+    specific_words = [w for w in re.findall(r"[a-z0-9]+", _strip_accents(_norm(query or "")))
+                      if len(w) > 1 and w not in generic_words]
     for t in _DB["tickets"]:
         if zone and t.get("zone") != zone:
             continue
@@ -283,6 +337,12 @@ def search_tickets(
         if not include_inactive and not _lifecycle_ok(t, "tickets"):
             continue
         score = _score(query, t, ["name", "zone", "valid_for", "notes", "includes"]) if query else 1
+        # Tên sản phẩm phải nặng điểm hơn chữ chung trong notes/includes. Nếu
+        # không, "Combo Biển Xanh" có thể thua mọi combo có chữ "Biển" ở phần
+        # quyền lợi dù tên hoàn toàn khác.
+        if query and specific_words:
+            name_norm = _strip_accents(_norm(t.get("name", "")))
+            score += 6 * sum(1 for w in specific_words if w in name_norm)
         if score > 0 or not query:
             results.append((score, t))
     # Sắp xếp theo TẦNG, trong mỗi tầng mới xét độ khớp query:
@@ -291,10 +351,15 @@ def search_tickets(
     #      niêm yết, không phải promo cũ; hỏi đúng tên promo vẫn tìm thấy ở tầng dưới
     #   3. ĐỘ KHỚP QUERY (score) — câu hỏi cụ thể thắng trong cùng tầng
     #   4. priority — chỉ để phá hoà
+    def _is_combo_ticket(item: dict) -> bool:
+        return "combo" in _strip_accents(_norm(item.get("name", "")))
+
     results.sort(key=lambda x: (
         -int(x[1].get("is_active", True)),
-        int(bool(x[1].get("is_promo"))),
+        int(not asks_combo and _is_combo_ticket(x[1])),
+        int(not asks_combo and bool(x[1].get("is_promo"))),
         -x[0],
+        int(asks_combo and bool(x[1].get("is_promo"))),
         -x[1].get("priority", 50),
     ))
     if get_all:
@@ -477,9 +542,12 @@ def search_events(
             continue
         if event_type and e.get("type") != event_type:
             continue
-        score = _score(query, e, ["name", "description", "highlights", "special_offers"]) if query else 1
+        current = dict(e)
+        current["special_offers"] = _active_special_offers(e)
+        current["status"] = _runtime_event_status(e)
+        score = _score(query, current, ["name", "description", "highlights", "special_offers"]) if query else 1
         if score > 0 or not query:
-            results.append((score, e))
+            results.append((score, current))
     # Độ khớp query trước, priority chỉ phá hoà
     results.sort(key=lambda x: (-x[0], -x[1].get("priority", 50)))
     if get_all:

@@ -41,11 +41,10 @@
       "valid_for": "Người lớn",
       "notes": "Giá ưu đãi 50% cho 3000 du khách đầu tiên ngày 2/9 (từ 7h00 - 16h00). Giá gốc: 150.000 đồng",
       "source_slug": "tung-bung-sinh-nhat-30-tuoi-suoi-tien-uu-dai-50-ve-cong-ngay-29",
-      "is_active": false,
+      "is_active": true,
       "priority": 40,
       "valid_to": null,
-      "is_promo": true,
-      "expired_by": "content_lifecycle"
+      "is_promo": true
     },
     {
       "ticket_id": "VE_003",
@@ -64,11 +63,10 @@
       "valid_for": "Trẻ em",
       "notes": "Giá ưu đãi 50% cho 3000 du khách đầu tiên ngày 2/9 (từ 7h00 - 16h00). Giá gốc: 80.000 đồng",
       "source_slug": "tung-bung-sinh-nhat-30-tuoi-suoi-tien-uu-dai-50-ve-cong-ngay-29",
-      "is_active": false,
+      "is_active": true,
       "priority": 40,
       "valid_to": null,
-      "is_promo": true,
-      "expired_by": "content_lifecycle"
+      "is_promo": true
     },
     {
       "ticket_id": "VE_004",
@@ -125,11 +123,10 @@
       "valid_for": "trẻ em cao từ 1m - 1m4 đi cùng 1 người lớn",
       "notes": "áp dụng ngày 01.06.2025, 1 trẻ em đi cùng 1 người lớn",
       "source_slug": "16-suoi-tien-tang-ve-cong-tre-em-vao-le-khai-mac-le-hoi-trai-cay-nam-bo-2025",
-      "is_active": false,
+      "is_active": true,
       "priority": 40,
       "valid_to": null,
-      "is_promo": true,
-      "expired_by": "content_lifecycle"
+      "is_promo": true
     },
     {
       "ticket_id": "VE_007",
@@ -146,11 +143,10 @@
       "valid_for": "học sinh có giấy khen giỏi/xuất sắc năm học 2024-2025",
       "notes": "giảm 50% vé cổng, áp dụng từ 01.06 - 31.08.2025",
       "source_slug": "16-suoi-tien-tang-ve-cong-tre-em-vao-le-khai-mac-le-hoi-trai-cay-nam-bo-2025",
-      "is_active": false,
+      "is_active": true,
       "priority": 40,
       "valid_to": null,
-      "is_promo": true,
-      "expired_by": "content_lifecycle"
+      "is_promo": true
     },
     {
       "ticket_id": "VE_008",
@@ -427,7 +423,7 @@
     {
       "ticket_id": "VE_020",
       "name": "Vé người lớn",
-      "zone": "combo",
+      "zone": "khu_kho",
       "price_adult": 180000,
       "price_child": null,
       "price_senior": null,
@@ -447,7 +443,7 @@
     {
       "ticket_id": "VE_021",
       "name": "Vé trẻ em",
-      "zone": "combo",
+      "zone": "khu_kho",
       "price_adult": null,
       "price_child": 100000,
       "price_senior": null,
@@ -467,7 +463,7 @@
     {
       "ticket_id": "VE_022",
       "name": "Vé trẻ em dưới 1m",
-      "zone": "combo",
+      "zone": "khu_kho",
       "price_adult": null,
       "price_child": 0,
       "price_senior": null,
@@ -487,18 +483,18 @@
     {
       "ticket_id": "VE_023",
       "name": "Vé người cao tuổi",
-      "zone": "combo",
+      "zone": "khu_kho",
       "price_adult": null,
       "price_child": null,
-      "price_senior": 90000,
+      "price_senior": 0,
       "height_restriction": null,
       "includes": [
         "vào cửa công viên"
       ],
       "excludes": [],
-      "valid_for": "người cao tuổi trên 60 tuổi",
-      "notes": "Giảm 50%, cần CMND",
-      "source_slug": "bang-gia",
+      "valid_for": "người cao tuổi từ 65 tuổi trở lên",
+      "notes": "Miễn phí vé vào cổng, cần xuất trình CMND/CCCD/hộ chiếu; không áp dụng ngày lễ, Tết",
+      "source_slug": "quy-dinh-dat-ve",
       "is_active": true,
       "priority": 200,
       "valid_to": null,
@@ -605,10 +601,12 @@
       "valid_for": "Người lớn, Trẻ em",
       "notes": "Hotline: 1900 636 787",
       "source_slug": "combo-ky-quan",
-      "is_active": true,
+      "is_active": false,
       "priority": 150,
       "valid_to": null,
-      "is_promo": false
+      "is_promo": false,
+      "expired_by": "official_catalog_refresh",
+      "superseded_by": "combo-tro-choi"
     },
     {
       "ticket_id": "VE_028",
@@ -630,10 +628,12 @@
       "valid_for": "Gia đình",
       "notes": null,
       "source_slug": "combo",
-      "is_active": true,
+      "is_active": false,
       "priority": 150,
       "valid_to": null,
-      "is_promo": false
+      "is_promo": false,
+      "expired_by": "official_catalog_refresh",
+      "superseded_by": "combo-tro-choi"
     },
     {
       "ticket_id": "VE_029",
@@ -654,10 +654,12 @@
       "valid_for": "Trải nghiệm cơ bản",
       "notes": null,
       "source_slug": "combo",
-      "is_active": true,
+      "is_active": false,
       "priority": 150,
       "valid_to": null,
-      "is_promo": false
+      "is_promo": false,
+      "expired_by": "official_catalog_refresh",
+      "superseded_by": "combo-tro-choi"
     },
     {
       "ticket_id": "VE_030",
@@ -678,10 +680,12 @@
       "valid_for": "Khám phá",
       "notes": null,
       "source_slug": "combo",
-      "is_active": true,
+      "is_active": false,
       "priority": 150,
       "valid_to": null,
-      "is_promo": false
+      "is_promo": false,
+      "expired_by": "official_catalog_refresh",
+      "superseded_by": "combo-tro-choi"
     },
     {
       "ticket_id": "VE_031",
@@ -699,9 +703,204 @@
       "valid_for": "Thử thách",
       "notes": null,
       "source_slug": "combo",
-      "is_active": true,
+      "is_active": false,
       "priority": 150,
       "valid_to": null,
+      "is_promo": false,
+      "expired_by": "official_catalog_refresh",
+      "superseded_by": "combo-tro-choi"
+    },
+    {
+      "ticket_id": "VE_2026_COMBO_TRAI_NGHIEM",
+      "name": "Combo Trải Nghiệm",
+      "zone": "combo",
+      "price_adult": 240000,
+      "price_child": 160000,
+      "price_senior": null,
+      "height_restriction": "Trên 1,4m: vé người lớn; từ 1m đến dưới 1,4m: vé trẻ em; dưới 1m: miễn phí",
+      "includes": [
+        "Vé vào cổng Thiên Tiên Môn",
+        "Xe lửa tham quan toàn cảnh",
+        "Cung Vàng Điện Ngọc",
+        "Kỳ Lân Cung",
+        "Vương Quốc Cá Sấu",
+        "01 sản phẩm Suối Tiên Farm"
+      ],
+      "excludes": [],
+      "valid_for": "Người lớn, trẻ em",
+      "notes": "Áp dụng từ 01/08/2026 đến 31/12/2026 theo trang Combo trò chơi chính thức",
+      "source_slug": "combo-tro-choi",
+      "valid_from": "2026-08-01",
+      "valid_to": "2026-12-31",
+      "is_active": true,
+      "priority": 240,
+      "is_promo": true
+    },
+    {
+      "ticket_id": "VE_2026_COMBO_BIEN_XANH",
+      "name": "Combo Biển Xanh",
+      "zone": "combo",
+      "price_adult": 350000,
+      "price_child": 220000,
+      "price_senior": null,
+      "height_restriction": "Trên 1,4m: vé người lớn; từ 1m đến dưới 1,4m: vé trẻ em; dưới 1m: miễn phí",
+      "includes": [
+        "Vé vào cổng Thiên Tiên Môn",
+        "Xe lửa tham quan toàn cảnh",
+        "Vương Quốc Cá Sấu",
+        "Thủy Cung",
+        "Kỳ Lân Cung",
+        "Biển Tiên Đồng - Ngọc Nữ"
+      ],
+      "excludes": [],
+      "valid_for": "Người lớn, trẻ em",
+      "notes": "Áp dụng từ 01/08/2026 đến 31/12/2026 theo trang Combo trò chơi chính thức",
+      "source_slug": "combo-tro-choi",
+      "valid_from": "2026-08-01",
+      "valid_to": "2026-12-31",
+      "is_active": true,
+      "priority": 240,
+      "is_promo": true
+    },
+    {
+      "ticket_id": "VE_2026_COMBO_THAM_QUAN",
+      "name": "Combo Tham Quan",
+      "zone": "combo",
+      "price_adult": 255000,
+      "price_child": 175000,
+      "price_senior": null,
+      "height_restriction": "Trên 1,4m: vé người lớn; từ 1m đến dưới 1,4m: vé trẻ em; dưới 1m: miễn phí",
+      "includes": [
+        "Vé vào cổng Thiên Tiên Môn",
+        "Xe lửa tham quan toàn cảnh",
+        "Massage Cá",
+        "Vương Quốc Cá Sấu",
+        "Cung Vàng Điện Ngọc",
+        "01 sản phẩm Suối Tiên Farm"
+      ],
+      "excludes": [],
+      "valid_for": "Người lớn, trẻ em",
+      "notes": "Giá niêm yết trên trang Combo trò chơi, cập nhật 05/08/2026",
+      "source_slug": "combo-tro-choi",
+      "valid_to": null,
+      "is_active": true,
+      "priority": 230,
+      "is_promo": false
+    },
+    {
+      "ticket_id": "VE_2026_COMBO_THAM_QUAN_BIEN",
+      "name": "Combo Tham Quan + Biển Tiên Đồng",
+      "zone": "combo",
+      "price_adult": 375000,
+      "price_child": 255000,
+      "price_senior": null,
+      "height_restriction": "Trên 1,4m: vé người lớn; từ 1m đến dưới 1,4m: vé trẻ em; dưới 1m: miễn phí",
+      "includes": [
+        "Toàn bộ quyền lợi Combo Tham Quan",
+        "Biển Tiên Đồng - Ngọc Nữ"
+      ],
+      "excludes": [],
+      "valid_for": "Người lớn, trẻ em",
+      "notes": "Giá niêm yết trên trang Combo trò chơi, cập nhật 05/08/2026",
+      "source_slug": "combo-tro-choi",
+      "valid_to": null,
+      "is_active": true,
+      "priority": 230,
+      "is_promo": false
+    },
+    {
+      "ticket_id": "VE_2026_COMBO_KHAM_PHA",
+      "name": "Combo Khám Phá",
+      "zone": "combo",
+      "price_adult": 330000,
+      "price_child": 220000,
+      "price_senior": null,
+      "height_restriction": "Trên 1,4m: vé người lớn; từ 1m đến dưới 1,4m: vé trẻ em; dưới 1m: miễn phí",
+      "includes": [
+        "Vé vào cổng Thiên Tiên Môn",
+        "Taxi Du Lịch",
+        "Kỳ Lân Cung",
+        "Lâu Đài Tuyết",
+        "Âm Cung Đệ Nhất Cung Đình Tửu",
+        "Bí Mật Rừng Phù Thủy",
+        "Cối Xay Thần Gió",
+        "Du Thuyền Tứ Linh"
+      ],
+      "excludes": [],
+      "valid_for": "Người lớn, trẻ em",
+      "notes": "Giá niêm yết trên trang Combo trò chơi, cập nhật 05/08/2026",
+      "source_slug": "combo-tro-choi",
+      "valid_to": null,
+      "is_active": true,
+      "priority": 230,
+      "is_promo": false
+    },
+    {
+      "ticket_id": "VE_2026_COMBO_KHAM_PHA_BIEN",
+      "name": "Combo Khám Phá + Biển Tiên Đồng",
+      "zone": "combo",
+      "price_adult": 450000,
+      "price_child": 300000,
+      "price_senior": null,
+      "height_restriction": "Trên 1,4m: vé người lớn; từ 1m đến dưới 1,4m: vé trẻ em; dưới 1m: miễn phí",
+      "includes": [
+        "Toàn bộ quyền lợi Combo Khám Phá",
+        "Biển Tiên Đồng - Ngọc Nữ"
+      ],
+      "excludes": [],
+      "valid_for": "Người lớn, trẻ em",
+      "notes": "Giá niêm yết trên trang Combo trò chơi, cập nhật 05/08/2026",
+      "source_slug": "combo-tro-choi",
+      "valid_to": null,
+      "is_active": true,
+      "priority": 230,
+      "is_promo": false
+    },
+    {
+      "ticket_id": "VE_2026_COMBO_THU_THACH",
+      "name": "Combo Thử Thách",
+      "zone": "combo",
+      "price_adult": 340000,
+      "price_child": null,
+      "price_senior": null,
+      "height_restriction": "Combo hiện niêm yết giá người lớn",
+      "includes": [
+        "Vé vào cổng Thiên Tiên Môn",
+        "Xe lửa tham quan",
+        "Đĩa Bay Hành Tinh Lạ",
+        "Tàu Lượn Siêu Tốc",
+        "Vòng Xoay Vũ Trụ",
+        "VR Game hoặc Phim 9D",
+        "Thuyền Bay hoặc Thuyền Rồng"
+      ],
+      "excludes": [],
+      "valid_for": "Người lớn",
+      "notes": "Giá niêm yết trên trang Combo trò chơi, cập nhật 05/08/2026",
+      "source_slug": "combo-tro-choi",
+      "valid_to": null,
+      "is_active": true,
+      "priority": 230,
+      "is_promo": false
+    },
+    {
+      "ticket_id": "VE_2026_COMBO_THU_THACH_BIEN",
+      "name": "Combo Thử Thách + Biển Tiên Đồng",
+      "zone": "combo",
+      "price_adult": 450000,
+      "price_child": null,
+      "price_senior": null,
+      "height_restriction": "Combo hiện niêm yết giá người lớn",
+      "includes": [
+        "Toàn bộ quyền lợi Combo Thử Thách",
+        "Biển Tiên Đồng - Ngọc Nữ"
+      ],
+      "excludes": [],
+      "valid_for": "Người lớn",
+      "notes": "Giá niêm yết trên trang Combo trò chơi, cập nhật 05/08/2026",
+      "source_slug": "combo-tro-choi",
+      "valid_to": null,
+      "is_active": true,
+      "priority": 230,
       "is_promo": false
     },
     {
@@ -728,11 +927,10 @@
       "includes": "Vào cửa khu du lịch Suối Tiên, xem show nghệ thuật thực cảnh đêm",
       "notes": "Áp dụng 2/9/2025 (7h00-16h00) cho 3000 du khách đầu tiên. Giá gốc: 150.000 đồng",
       "source_slug": "tung-bung-sinh-nhat-30-tuoi-suoi-tien-uu-dai-50-ve-cong-ngay-29",
-      "is_active": false,
+      "is_active": true,
       "priority": 40,
       "valid_to": null,
-      "is_promo": true,
-      "expired_by": "content_lifecycle"
+      "is_promo": true
     },
     {
       "ticket_id": "suoi-tien-child-discount",
@@ -743,11 +941,10 @@
       "includes": "Vào cửa khu du lịch Suối Tiên, xem show nghệ thuật thực cảnh đêm",
       "notes": "Áp dụng 2/9/2025 (7h00-16h00) cho 3000 du khách đầu tiên. Giá gốc: 80.000 đồng",
       "source_slug": "tung-bung-sinh-nhat-30-tuoi-suoi-tien-uu-dai-50-ve-cong-ngay-29",
-      "is_active": false,
+      "is_active": true,
       "priority": 40,
       "valid_to": null,
-      "is_promo": true,
-      "expired_by": "content_lifecycle"
+      "is_promo": true
     },
     {
       "ticket_id": "ST-2509-50OFF",
@@ -758,11 +955,10 @@
       "includes": "Truy cập toàn bộ công viên, 99 trò chơi, tour đêm câu cá sấu, show diễu hành, triển lãm, chương trình nghệ thuật miễn phí",
       "notes": "Ưu đãi 50% vé cổng cho 3000 du khách đến sớm nhất. Áp dụng ngày 2/9/2025. Sự kiện lễ hội 29/8 - 2/9/2025",
       "source_slug": "le-29-sinh-nhat-suoi-tien-30-nam-tang-ban-uu-dai-50-ve-cong",
-      "is_active": false,
+      "is_active": true,
       "priority": 40,
       "valid_to": null,
-      "is_promo": true,
-      "expired_by": "content_lifecycle"
+      "is_promo": true
     },
     {
       "ticket_id": "combo-chien-xa-cong-nghe",
@@ -783,6 +979,30 @@
       "valid_to": null,
       "is_promo": true,
       "expired_by": "content_lifecycle"
+    },
+    {
+      "ticket_id": "farm-adult",
+      "name": "Vé Farm - Người lớn",
+      "zone": "Farm",
+      "price_adult": null,
+      "price_child": null,
+      "includes": "",
+      "notes": "Giá vé Farm theo bảng giá Suối Tiên (chưa có thông tin cụ thể trong nội dung)",
+      "source_slug": "bang-gia-farm",
+      "is_active": true,
+      "priority": 50
+    },
+    {
+      "ticket_id": "farm-child",
+      "name": "Vé Farm - Trẻ em",
+      "zone": "Farm",
+      "price_adult": null,
+      "price_child": null,
+      "includes": "",
+      "notes": "Giá vé Farm theo bảng giá Suối Tiên (chưa có thông tin cụ thể trong nội dung)",
+      "source_slug": "bang-gia-farm",
+      "is_active": true,
+      "priority": 50
     }
   ],
   "attractions": [
@@ -3980,7 +4200,7 @@
       "source_slug": "bon-mua-le-hoi",
       "is_active": false,
       "priority": 100,
-      "expired_by": "content_lifecycle"
+      "expired_by": "duplicate"
     },
     {
       "event_id": "EVT_002",
@@ -4006,7 +4226,7 @@
       "event_id": "EVT_003",
       "name": "Friendship Festival 2025",
       "type": "le_hoi",
-      "status": "upcoming",
+      "status": "ongoing",
       "date_start": "2025-10-10",
       "date_end": "2025-10-12",
       "description": "Lễ hội văn hóa Việt và quốc tế 3 ngày với hoạt động từ sáng đến chiều: chương trình nghệ thuật khai hội, diễu hành văn hóa, trải nghiệm ẩm thực đa quốc gia, gian hàng giao thương và trò chơi cảm giác mạnh",
@@ -4088,8 +4308,9 @@
         "Phù hợp cho các sự kiện ngoài trời"
       ],
       "source_slug": "y-tuong-to-chuc-su-kien",
-      "is_active": true,
-      "priority": 100
+      "is_active": false,
+      "priority": 100,
+      "expired_by": "duplicate"
     },
     {
       "event_id": "EVT_007",
@@ -4110,8 +4331,9 @@
         "Mang lại hiệu quả truyền thông nội bộ rõ rệt"
       ],
       "source_slug": "y-tuong-to-chuc-su-kien",
-      "is_active": true,
-      "priority": 100
+      "is_active": false,
+      "priority": 100,
+      "expired_by": "duplicate"
     },
     {
       "event_id": "EVT_008",
@@ -4188,9 +4410,8 @@
         "Gắn kết đội ngũ"
       ],
       "source_slug": "mau-kich-ban-chuong-trinh-to-chuc-su-kien",
-      "is_active": false,
-      "priority": 100,
-      "expired_by": "content_lifecycle"
+      "is_active": true,
+      "priority": 100
     },
     {
       "event_id": "EVT_012",
@@ -4369,9 +4590,8 @@
         "Hỗ trợ từ khâu lên ý tưởng đến điều phối chương trình"
       ],
       "source_slug": "to-chuc-su-kien-tron-goi",
-      "is_active": false,
-      "priority": 100,
-      "expired_by": "content_lifecycle"
+      "is_active": true,
+      "priority": 100
     },
     {
       "event_id": "EVT_020",
@@ -4399,9 +4619,8 @@
         "Sức chứa tối đa 1.000 khách"
       ],
       "source_slug": "to-chuc-su-kien-ngoai-troi",
-      "is_active": false,
-      "priority": 100,
-      "expired_by": "content_lifecycle"
+      "is_active": true,
+      "priority": 100
     },
     {
       "event_id": "EVT_021",
@@ -4425,8 +4644,9 @@
         "Tiệc Gala Dinner sang trọng"
       ],
       "source_slug": "to-chuc-su-kien-tong-ket-cuoi-nam",
-      "is_active": true,
-      "priority": 100
+      "is_active": false,
+      "priority": 100,
+      "expired_by": "duplicate"
     },
     {
       "event_id": "EVT_022",
@@ -6570,9 +6790,15 @@
       "date_end": "2026-08-30",
       "description": "Lễ hội văn hóa sống tái hiện dòng chảy văn hóa miền đất phương Nam với chủ đề 'Thanh âm dòng phù sa - Dòng chảy nguồn cội - Tiếp nối văn hóa'",
       "special_offers": [
-        "Tặng 2.000 vé miễn phí ngày khai mạc 31/5 cho khách mặc áo bà ba và áo dài",
-        "Miễn phí 100% vé vào cổng cho trẻ em ngày 1/6 (Quốc tế Thiếu nhi)",
-        "Giảm 50% vé cổng xe lửa cho học sinh giỏi có giấy khen từ 1/6 đến 30/8"
+        {
+          "text": "Giảm 50% vé cổng xe lửa cho học sinh giỏi có giấy khen từ 01/06 đến 30/08/2026",
+          "valid_from": "2026-06-01",
+          "valid_to": "2026-08-30"
+        }
+      ],
+      "historical_offers": [
+        "Tặng 2.000 vé miễn phí ngày khai mạc 31/05/2026 cho khách mặc áo bà ba và áo dài",
+        "Miễn phí 100% vé vào cổng cho trẻ em ngày 01/06/2026"
       ],
       "target_audience": "Gia đình, trẻ em, nhóm bạn, học sinh",
       "highlights": [
@@ -6610,9 +6836,8 @@
       "description": "Khu Du Lịch - Văn Hóa Suối Tiên không chỉ là một điểm đến tham quan giải trí nổi tiếng mà còn được biết đến với 'Bốn mùa lễ hội' trong năm, thu hút du khách muôn phương.",
       "special_offers": null,
       "source_slug": "bon-mua-le-hoi-1",
-      "is_active": false,
-      "priority": 100,
-      "expired_by": "content_lifecycle"
+      "is_active": true,
+      "priority": 100
     },
     {
       "event_id": "1_dup1",
@@ -6822,22 +7047,15 @@
     {
       "event_id": "bon-mua-le-hoi",
       "name": "Bốn Mùa Lễ Hội",
-      "type": "LỄ HỘI",
-      "status": "ACTIVE",
+      "type": "festival",
+      "status": "ongoing",
       "date_start": null,
-      "description": "Công viên giải trí với nhiều điểm tham quan và hoạt động: Cổng Thiên Tiên Môn, Cung Vàng Điện Ngọc, Long Hoa Sơn Nhật Nguyệt, các trò chơi giải trí, động vật, nông trại, và dịch vụ du lịch",
-      "special_offers": [
-        "Zipline qua hồ",
-        "Du thuyền Thiên Nga",
-        "Thuyền Rồng",
-        "Cáp treo du lịch",
-        "Massage cá",
-        "Các trang trại nông nghiệp (nho, sung, dừa)"
-      ],
+      "description": "Bốn Mùa Lễ Hội tại Suối Tiên - Khu du lịch văn hóa Suối Tiên với hàng loạt hoạt động lễ hội, sự kiện theo mùa và các ưu đãi đặc biệt quanh năm.",
+      "special_offers": null,
       "source_slug": "bon-mua-le-hoi",
       "is_active": false,
       "priority": 100,
-      "expired_by": "content_lifecycle"
+      "expired_by": "duplicate"
     },
     {
       "event_id": "evt_001",
@@ -6975,13 +7193,13 @@
     },
     {
       "event_id": "suoi-tien-chinh-thuc-mo-cua-dem-mang-den-trai-nghiem-le-hoi-chua-tung-co",
-      "name": "Suối Tiên Chính Thức Mở Cửa Đêm, Mang Đến Trải Nghiệm Lễ Hội Chưa Từng Có",
+      "name": "Suối Tiên Chính Thức Mở Cửa Đêm - Lễ Hội Chưa Từng Có",
       "type": "Lễ hội",
-      "status": "upcoming",
+      "status": "Sắp diễn ra",
       "date_start": "2025-08-29",
       "date_end": "2025-09-02",
-      "description": "Mừng kỷ niệm 30 năm thành lập, Suối Tiên lần đầu tiên mở cửa đêm (16h00 – 22h00), mang đến hành trình giải trí bất tận với không gian lễ hội lung linh, huyền ảo. Trải nghiệm bao gồm: thử thách câu cá sấu về đêm, khám phá Kỳ Lân Cung 18 tầng địa ngục, Vương quốc Thiên Tài Tương Lai về đêm, ẩm thực đêm, và sân khấu hóa truyền thuyết Sơn Tinh - Thủy Tinh với pháo hoa.",
-      "special_offers": [],
+      "description": "Suối Tiên mở cửa đêm lần đầu tiên nhân kỷ niệm 30 năm thành lập (16h00 – 22h00), mang đến trải nghiệm lễ hội lung linh, huyền ảo với nhiều hoạt động đặc sắc: câu cá sấu về đêm, khám phá 18 tầng địa ngục, Vương quốc Thiên Tài Tương Lai, ẩm thực đêm, sân khấu hóa truyền thuyết Sơn Tinh - Thủy Tinh và bắn pháo hoa.",
+      "special_offers": null,
       "source_slug": "suoi-tien-chinh-thuc-mo-cua-dem-mang-den-trai-nghiem-le-hoi-chua-tung-co",
       "is_active": false,
       "priority": 10
@@ -7051,11 +7269,797 @@
       "type": "Ưu đãi",
       "status": "active",
       "date_start": "2026-08-01",
+      "date_end": "2026-12-31",
       "description": "Hai Combo Mùa Thu siêu hời tại Suối Tiên: Combo Trải Nghiệm (240k/người lớn, 160k/trẻ em) và Combo Biển Xanh (350k/người lớn, 220k/trẻ em). Bao gồm vé cổng, xe lửa và nhiều điểm tham quan hấp dẫn.",
-      "special_offers": "Combo Trải Nghiệm: Vé cổng - Xe lửa, Cung Vàng Điện Ngọc, Kỳ Lân Cung, Quà tặng Suối Tiên Farm\nCombo Biển Xanh: Vé cổng - Xe lửa, Vương Quốc Cá Sấu, Thủy Cung, Kỳ Lân Cung, Biển Tiên Đồng",
+      "special_offers": [
+        "Combo Trải Nghiệm 240.000đ/người lớn, 160.000đ/trẻ em",
+        "Combo Biển Xanh 350.000đ/người lớn, 220.000đ/trẻ em"
+      ],
       "source_slug": "don-mua-thu-tron-niem-vui-cung-2-combo-uu-dai-sieu-hoi-tai-suoi-tien-",
       "is_active": true,
-      "priority": 100
+      "priority": 220
+    },
+    {
+      "event_id": "EVT_2026_QUOC_KHANH_02_09",
+      "name": "Quốc khánh 2/9 - Tặng 2.000 vé cổng cho du khách",
+      "type": "Ưu đãi và biểu diễn",
+      "status": "upcoming",
+      "date_start": "2026-09-02",
+      "date_end": "2026-09-02",
+      "description": "Trong ngày 02/09/2026, Suối Tiên tặng 2.000 vé cổng cho những du khách mặc áo cờ đỏ sao vàng đến sớm nhất, đồng thời tổ chức chuỗi hoạt động nghệ thuật và giải trí trong ngày lễ.",
+      "special_offers": [
+        {
+          "text": "Tặng 2.000 vé cổng cho du khách mặc áo cờ đỏ sao vàng đến sớm nhất",
+          "valid_from": "2026-09-02",
+          "valid_to": "2026-09-02"
+        }
+      ],
+      "target_audience": [
+        "Du khách mặc áo cờ đỏ sao vàng",
+        "Gia đình",
+        "Nhóm bạn"
+      ],
+      "highlights": [
+        "Diễu hành xe tăng",
+        "Xiếc múa lửa và chú hề",
+        "Nàng tiên cá và DJ",
+        "Sơn Tinh Thủy Tinh phiên bản tối kết hợp pháo hoa",
+        "Trò chơi tương tác nhận quà"
+      ],
+      "source_slug": "quoc-khanh-29-suoi-tien-tang-2000-ve-cong-cho-du-khach",
+      "is_active": true,
+      "priority": 250,
+      "published_at": "2026-08-12"
+    },
+    {
+      "event_id": "bon-mua-le-hoi-1",
+      "name": "Bốn Mùa Lễ Hội",
+      "type": "Lễ hội",
+      "status": "ongoing",
+      "date_start": "2023-06-01",
+      "description": "Khu Du Lịch - Văn Hóa Suối Tiên với “Bốn mùa lễ hội” trong năm, thu hút du khách muôn phương. Sự kiện văn hóa - du lịch độc đáo diễn ra thường niên tại Suối Tiên.",
+      "special_offers": "Tưng bừng Lễ hội Trái cây Nam Bộ - Suoi Tien Farm Festival 2023",
+      "source_slug": "bon-mua-le-hoi-1",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "lau-phung-o-trai-dua-truong-tho",
+      "name": "Lẩu phụng ô trái dừa trường thọ – Tinh hoa ẩm thực dưỡng sinh tại Du lịch Văn hóa Suối Tiên",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-04-10",
+      "description": "Món Lẩu phụng ô trái dừa trường thọ – tuyệt phẩm mới ra mắt tại Du lịch Văn hóa Suối Tiên, hội tụ yếu tố ngon, lành và ý nghĩa phong thủy tốt đẹp.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien"
+    },
+    {
+      "event_id": "giang-sinh-2025",
+      "name": "Giáng sinh ngày mấy? Những hoạt động thú vị dịp lễ Giáng sinh",
+      "type": "Lễ hội",
+      "status": "upcoming",
+      "date_start": "2025-12-24",
+      "description": "Giáng Sinh diễn ra vào đêm 24 và ngày 25/12 hằng năm. Gợi ý địa điểm vui chơi, check-in và tận hưởng mùa lễ hội.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "top-11-cong-ty-team-building-tphcm",
+      "name": "TOP 11 công ty tổ chức team building chuyên nghiệp tại TP.HCM",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-01-23",
+      "description": "Top 11 công ty tổ chức team building tại TP.HCM: VietPower, Suối Tiên, Du Lịch Việt... Tìm hiểu ưu điểm của từng công ty về kịch bản, chi phí và dịch vụ.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien"
+    },
+    {
+      "event_id": "top-33-tro-choi-team-building-2026",
+      "name": "Top 33 trò chơi team building gắn kết tập thể mới nhất 2026",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-01-21",
+      "description": "Suối Tiên gợi ý 33 trò chơi teambuilding dành cho doanh nghiệp.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "suoi-tien-quoc-khanh-2-9",
+      "name": "Quốc khánh 2/9, Suối Tiên tặng 2.000 vé cổng cho du khách",
+      "type": "ưu đãi",
+      "status": "upcoming",
+      "date_start": "2026-09-02",
+      "description": "Dịp Quốc khánh năm nay, Khu Du lịch Văn hóa Suối Tiên (TP.HCM) tặng 2.000 vé cổng cho du khách mặc áo cờ đỏ sao vàng, cùng chuỗi hoạt động nghệ thuật - giải trí sôi động.",
+      "special_offers": "Tặng 2.000 vé cổng cho du khách mặc áo cờ đỏ sao vàng",
+      "source_slug": "uu-dai-va-su-kien"
+    },
+    {
+      "event_id": "suoi-tien-combo-mua-thu",
+      "name": "ĐÓN MÙA THU, TRỌN NIỀM VUI CÙNG 2 COMBO ƯU ĐÃI SIÊU HỜI TẠI SUỐI TIÊN",
+      "type": "ưu đãi",
+      "status": "upcoming",
+      "date_start": "2026-08-10",
+      "description": "Tháng 8 này, đi Suối Tiên – chọn combo là vui trọn hành trình! Hai Combo Mùa Thu với nhiều trải nghiệm hấp dẫn với chi phí tiết kiệm tối ưu.",
+      "special_offers": "2 Combo Mùa Thu ưu đãi",
+      "source_slug": "uu-dai-va-su-kien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "cuoc-thi-ve-tranh-mat-sang-tu-do",
+      "name": "CHUNG KẾT CUỘC THI VẼ TRANH “MẮT SÁNG TỰ DO - EM VẼ RÕ NÉT HÈ”",
+      "type": "sự kiện",
+      "status": "completed",
+      "date_start": "2026-08-08",
+      "description": "Vòng chung kết và lễ trao giải cuộc thi vẽ tranh dành cho thiếu nhi “Mắt sáng tự do - Em vẽ rõ nét hè” diễn ra tại Khu du lịch văn hóa Suối Tiên.",
+      "special_offers": null,
+      "source_slug": "uu-dai-va-su-kien"
+    },
+    {
+      "event_id": "suoi-tien-menu-quay-banh-noc",
+      "name": "SUỐI TIÊN MỞ KHÓA MENU “QUẨY” BANH NÓC CHO NGÀY VUI CHƠI TRỌN VẸN",
+      "type": "ưu đãi",
+      "status": "upcoming",
+      "date_start": "2026-07-28",
+      "description": "Suối Tiên chào đón du khách bằng những ưu đãi và trải nghiệm mới với hành trình khám phá từ vui chơi dưới nước, trò chơi giải trí đến các chương trình nghệ thuật.",
+      "special_offers": "Menu “Quẩy” banh nóc",
+      "source_slug": "uu-dai-va-su-kien"
+    },
+    {
+      "event_id": "touchfes-mizu-bomb-2026",
+      "name": "TOUCHFES MIZU BOMB 2026: Suối Tiên mang văn hóa Nhật Bản đến gần hơn với du khách Việt",
+      "type": "lễ hội",
+      "status": "completed",
+      "date_start": "2026-07-10",
+      "description": "Chương trình TOUCHFES MIZU BOMB 2026 diễn ra trong 3 ngày 10, 11 và 12/07, mang văn hóa Nhật Bản đến với du khách tại Suối Tiên.",
+      "special_offers": null,
+      "source_slug": "uu-dai-va-su-kien"
+    },
+    {
+      "event_id": "tet-xuyen-khong",
+      "name": "SĂN VÉ DU HÀNH “TẾT XUYÊN KHÔNG” - SỐNG DẬY",
+      "type": "sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-01-01",
+      "description": "Săn vé du hành Tết Xuyên Không tại Suối Tiên.",
+      "special_offers": null,
+      "source_slug": "uu-dai-va-su-kien",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "tin-tuc-1",
+      "name": "Cẩm nang tổ chức sự kiện",
+      "type": "cẩm nang",
+      "status": "active",
+      "date_start": "2025-11-13",
+      "description": "Cẩm nang chia sẻ kinh nghiệm tổ chức sự kiện. Gợi ý ý tưởng sáng tạo, kịch bản, báo giá và địa điểm lý tưởng.",
+      "special_offers": null,
+      "source_slug": "tin-tuc"
+    },
+    {
+      "event_id": "tin-tuc-2",
+      "name": "Cẩm nang team building",
+      "type": "cẩm nang",
+      "status": "active",
+      "date_start": "2025-11-07",
+      "description": "Tìm hiểu cách tổ chức team building hiệu quả tại Suối Tiên: từ gợi ý hoạt động gắn kết, combo vui chơi, đến địa điểm tổ chức sự kiện – hội nghị chuyên nghiệp cho doanh nghiệp, trường học.",
+      "special_offers": null,
+      "source_slug": "tin-tuc"
+    },
+    {
+      "event_id": "tin-tuc-3",
+      "name": "Cẩm nang Du lịch & Vui chơi",
+      "type": "cẩm nang",
+      "status": "active",
+      "date_start": "2025-11-07",
+      "description": "Khám phá chuyên mục Cẩm nang Du lịch và Vui chơi với các bài viết blog hấp dẫn về điểm đến, khu vui chơi, trải nghiệm văn hóa và kinh nghiệm du lịch thú vị cho mọi lứa tuổi.",
+      "special_offers": null,
+      "source_slug": "tin-tuc"
+    },
+    {
+      "event_id": "SK001",
+      "name": "Tham khảo 10 kiểu setup phòng họp, hội nghị chuyên nghiệp",
+      "type": "cẩm nang",
+      "status": "published",
+      "date_start": "2026-02-23",
+      "description": "Khám phá các kiểu setup phòng họp, hội nghị phổ biến như nhà hát, chữ U, lớp học. Liên hệ Suối Tiên để tổ chức sự kiện chuyên nghiệp và ấn tượng.",
+      "special_offers": null,
+      "source_slug": "cam-nang-to-chuc-su-kien"
+    },
+    {
+      "event_id": "SK002",
+      "name": "Hướng dẫn xây dựng kịch bản tổ chức hội nghị khách hàng",
+      "type": "cẩm nang",
+      "status": "published",
+      "date_start": "2026-02-23",
+      "description": "Hướng dẫn xây dựng kịch bản tổ chức hội nghị khách hàng chi tiết từ A–Z. Khám phá dịch vụ hội nghị trọn gói chuyên nghiệp tại Suối Tiên.",
+      "special_offers": null,
+      "source_slug": "cam-nang-to-chuc-su-kien"
+    },
+    {
+      "event_id": "SK003",
+      "name": "Tham khảo mẫu dự trù kinh phí tổ chức hội nghị",
+      "type": "cẩm nang",
+      "status": "published",
+      "date_start": "2026-02-23",
+      "description": "Mẫu dự trù kinh phí hội nghị chi tiết và ưu đãi hấp dẫn khi tổ chức sự kiện tại Suối Tiên. Liên hệ ngay 1900 636 787 để nhận tư vấn và hỗ trợ chuyên nghiệp.",
+      "special_offers": "Ưu đãi hấp dẫn khi tổ chức sự kiện tại Suối Tiên",
+      "source_slug": "cam-nang-to-chuc-su-kien"
+    },
+    {
+      "event_id": "SK004",
+      "name": "5 công ty tổ chức hội nghị hội thảo chuyên nghiệp tại TP.HCM",
+      "type": "cẩm nang",
+      "status": "published",
+      "date_start": "2026-02-23",
+      "description": "Điểm qua 5 công ty tổ chức hội nghị hội thảo chuyên nghiệp tại TP.HCM chuyên nghiệp và uy tín tại TP.HCM cùng Suối Tiên!",
+      "special_offers": null,
+      "source_slug": "cam-nang-to-chuc-su-kien"
+    },
+    {
+      "event_id": "SK005",
+      "name": "8 bước tổ chức hội nghị chuyên nghiệp, chi tiết từ A - Z",
+      "type": "cẩm nang",
+      "status": "published",
+      "date_start": "2026-02-23",
+      "description": "Quy trình tổ chức hội nghị với 8 bước từ A - Z, giúp sự kiện thành công, tiết kiệm chi phí. Liên hệ Suối Tiên qua 1900 636 787 để nhận tư vấn và báo giá.",
+      "special_offers": null,
+      "source_slug": "cam-nang-to-chuc-su-kien"
+    },
+    {
+      "event_id": "SK006",
+      "name": "Điểm khác biệt của hội nghị và hội thảo là gì?",
+      "type": "cẩm nang",
+      "status": "published",
+      "date_start": "2026-02-23",
+      "description": "Hội nghị và hội thảo là hai hình thức sự kiện khác nhau, nhưng thường được sử dụng kết hợp. Hội nghị là cuộc họp có tổ chức bài bản để tổng kết, rút kinh nghiệm và đưa ra phương hướng hoạt động trong tương lai. Hội thảo là buổi thảo luận, trao đổi ý kiến về một chủ đề cụ thể nhằm làm sáng tỏ vấn đề, chia sẻ kiến thức và đưa ra kiến nghị.",
+      "special_offers": null,
+      "source_slug": "cam-nang-to-chuc-su-kien"
+    },
+    {
+      "event_id": "SK007",
+      "name": "11 trung tâm hội nghị TPHCM chuyên tổ chức sự kiện sang trọng",
+      "type": "cẩm nang",
+      "status": "published",
+      "date_start": "2026-02-23",
+      "description": "Các địa điểm tổ chức hội nghị rất đa dạng, bao gồm các trung tâm hội nghị chuyên nghiệp, khách sạn cao cấp, và các khu vực ngoài trời. Một số địa điểm nổi bật ở TP. Hồ Chí Minh là GEM Center, White Palace, Gala Center, Luxury Palace, InterContinental Saigon, và các khu du lịch như Văn Thánh.",
+      "special_offers": null,
+      "source_slug": "cam-nang-to-chuc-su-kien"
+    },
+    {
+      "event_id": "tuyen-dung-truong-bo-phan-sales-quoc-te",
+      "name": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh thị trường Quốc tế",
+      "type": "tuyen_dung",
+      "status": "open",
+      "date_start": "2026-04-20",
+      "description": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh thị trường Quốc tế",
+      "special_offers": null,
+      "source_slug": "vi-tri-sale",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "tuyen-dung-truong-bo-phan-sales-co-quan-doan-the",
+      "name": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh Cơ quan đoàn thể",
+      "type": "tuyen_dung",
+      "status": "open",
+      "date_start": "2026-04-20",
+      "description": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh Cơ quan đoàn thể",
+      "special_offers": null,
+      "source_slug": "vi-tri-sale",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "tuyen-dung-truong-bo-phan-sales-dllh-truong-hoc",
+      "name": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh DLLH và trường học",
+      "type": "tuyen_dung",
+      "status": "open",
+      "date_start": "2026-04-20",
+      "description": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh DLLH và trường học",
+      "special_offers": null,
+      "source_slug": "vi-tri-sale",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "tuyen-dung-giam-doc-sale",
+      "name": "Tuyển dụng vị trí Giám Đốc Sale",
+      "type": "tuyen_dung",
+      "status": "open",
+      "date_start": "2026-04-20",
+      "description": "Giám đốc Sale",
+      "special_offers": null,
+      "source_slug": "vi-tri-sale",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "friendship-festival-2025",
+      "name": "Friendship Festival 2025",
+      "type": "Lễ hội",
+      "status": "Sắp diễn ra",
+      "date_start": "2025-10-12",
+      "description": "Friendship Festival 2025 tại Suối Tiên với chương trình nghệ thuật, diễu hành văn hóa, hoạt động Handflowers, ẩm thực đa quốc gia, show Sơn Tinh - Thủy Tinh, Gala nghệ thuật và nhiều trải nghiệm văn hóa, thiên nhiên.",
+      "special_offers": "Vé chỉ 180.000 VNĐ",
+      "source_slug": "di-metro-den-suoi-tien-hoa-minh-cung-su-kien-hot-nhat-thang-10",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "suoi-tien-outdoor-event-venue",
+      "name": "Suối Tiên - Khu Du Lịch Văn Hóa Suối Tiên",
+      "type": "địa điểm tổ chức sự kiện",
+      "status": "ongoing",
+      "date_start": "2025-11-07",
+      "description": "Khu Du Lịch Văn Hóa Suối Tiên với diện tích hơn 150ha, nằm ngay mặt tiền Xa lộ Hà Nội và ga Metro. Sở hữu nhiều không gian ngoài trời: quảng trường trung tâm, sân khấu ngoài trời, bãi cỏ, hồ nước, Suối Tiên Farm. Kết hợp hài hòa giữa thiên nhiên, văn hóa và khu vui chơi giải trí.",
+      "special_offers": null,
+      "source_slug": "to-chuc-su-kien-ngoai-troi"
+    },
+    {
+      "event_id": "tung-bung-sinh-nhat-30-tuoi-suoi-tien-uu-dai-50-ve-cong-ngay-29",
+      "name": "Tưng bừng sinh nhật 30 tuổi Suối Tiên - Ưu đãi 50% vé cổng ngày 2/9",
+      "type": "Lễ hội",
+      "status": "Sắp diễn ra",
+      "date_start": "2025-08-29",
+      "description": "Mừng Lễ 2/9 và kỷ niệm 30 năm thành lập, Khu Du lịch Suối Tiên tổ chức tuần lễ hội với show nghệ thuật thực cảnh, hoạt động giải trí đêm, và ưu đãi giảm 50% vé cổng cho 3000 khách đầu tiên ngày 2/9.",
+      "special_offers": "Giảm 50% vé cổng ngày 2/9/2025 (từ 7h00-16h00) cho 3000 khách đầu tiên: Trẻ em 40.000đ (gốc 80.000đ), Người lớn 80.000đ (gốc 150.000đ). Mở cửa vui chơi đêm từ 29/8 đến 2/9/2025.",
+      "source_slug": "tung-bung-sinh-nhat-30-tuoi-suoi-tien-uu-dai-50-ve-cong-ngay-29",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "suoi-tien-bao-gia-to-chuc-su-kien-2025",
+      "name": "Báo giá tổ chức sự kiện và giá thuê địa điểm tại Suối Tiên",
+      "type": "Ưu đãi - Báo giá",
+      "status": "ongoing",
+      "date_start": "2025-11-07",
+      "description": "Báo giá tổ chức sự kiện trọn gói và thuê địa điểm tại Khu Du Lịch Văn Hóa Suối Tiên. Bao gồm giá thuê sảnh hội nghị, sân khấu, âm thanh, ánh sáng và các dịch vụ liên quan.",
+      "special_offers": "Thuê sảnh hội nghị nhỏ: 4.000.000 VNĐ/4 giờ\nThuê sảnh hội nghị lớn: 12.000.000 VNĐ/4 giờ\nThuê sân khấu: 10.000.000 VNĐ\nHệ thống âm thanh, ánh sáng, ban nhạc theo gói linh hoạt",
+      "source_slug": "bao-gia-to-chuc-su-kien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "le-29-sinh-nhat-suoi-tien-30-nam-tang-ban-uu-dai-50-ve-cong",
+      "name": "Lễ 2/9 - Sinh Nhật Suối Tiên 30 Năm, Tặng Bạn Ưu Đãi 50% Vé Cổng",
+      "type": "Lễ hội",
+      "status": "upcoming",
+      "date_start": "2025-08-29",
+      "description": "Tuần lễ lễ hội mừng Quốc khánh Việt Nam và sinh nhật Suối Tiên 30 năm từ 29/8 - 2/9/2025 với chuỗi hoạt động triển lãm, show diễu hành, mini triển lãm, mở cửa đêm, chương trình nghệ thuật miễn phí. Đặc biệt ngày 2/9 ưu đãi 50% vé cổng cho 3000 du khách đến sớm nhất và show nghệ thuật đêm tri ân.",
+      "special_offers": "Ưu đãi 50% vé cổng cho 3000 du khách đến sớm nhất (ngày 2/9/2025)",
+      "source_slug": "le-29-sinh-nhat-suoi-tien-30-nam-tang-ban-uu-dai-50-ve-cong",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "chuoi-hoat-dong-hap-dan-tai-le-hoi-trai-cay-nam-bo-2025",
+      "name": "Lễ hội Trái cây Nam Bộ 2025 - Suối Tiên Farm Festival",
+      "type": "Lễ hội",
+      "status": "upcoming",
+      "date_start": "2025-06-01",
+      "description": "Suối Tiên Farm Festival 2025 - Lễ hội trái cây Nam Bộ lần thứ 21 với chủ đề “Làm Nông Giữ Gốc - Dân Tộc Giữ Hồn - Hội Nhập Thời Đại”. Chuỗi hoạt động văn hóa, ẩm thực, nghệ thuật, du lịch kết hợp công nghệ tại Khu du lịch Suối Tiên.",
+      "special_offers": [],
+      "source_slug": "chuoi-hoat-dong-hap-dan-tai-le-hoi-trai-cay-nam-bo-2025",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "16-suoi-tien-tang-ve-cong-tre-em-vao-le-khai-mac-le-hoi-trai-cay-nam-bo-2025",
+      "name": "Suối Tiên Tặng Vé Cổng Trẻ Em Vào Lễ Khai Mạc Lễ Hội Trái Cây Nam Bộ 2025",
+      "type": "Lễ hội",
+      "status": "Sắp diễn ra",
+      "date_start": "2025-06-01",
+      "description": "Suối Tiên Farm Festival - Lễ hội trái cây Nam Bộ 2025 với nhiều hoạt động văn hóa, nghệ thuật, trò chơi dân gian, chợ trái cây và sân khấu biểu diễn đặc sắc.",
+      "special_offers": "Tặng vé cổng cho trẻ em cao từ 1m - 1m4 (01 trẻ đi kèm 01 người lớn) áp dụng ngày 01/06/2025; Giảm 50% vé cổng cho học sinh giỏi/xuất sắc năm học 2024-2025 từ 01/06 - 31/08/2025",
+      "source_slug": "16-suoi-tien-tang-ve-cong-tre-em-vao-le-khai-mac-le-hoi-trai-cay-nam-bo-2025",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "suoitien-lau-phung-o-trai-dua-truong-tho",
+      "name": "Lẩu phụng ô trái dừa trường thọ – Tinh hoa ẩm thực dưỡng sinh tại Du lịch Văn hóa Suối Tiên",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-04-10",
+      "description": "Món Lẩu phụng ô trái dừa trường thọ – một tuyệt phẩm mới ra mắt, hội tụ đầy đủ yếu tố ngon, lành và ý nghĩa phong thủy tốt đẹp.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "top-11-cong-ty-team-building-tphcm-2026",
+      "name": "TOP 11 công ty tổ chức team building chuyên nghiệp tại TP.HCM",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-01-23",
+      "description": "Top 11 công ty tổ chức team building tại TP.HCM: VietPower, Suối Tiên, Du Lịch Việt... Tìm hiểu ưu điểm của từng công ty về kịch bản, chi phí và dịch vụ.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "evt-1",
+      "name": "Lẩu phụng ô trái dừa trường thọ – Tinh hoa ẩm thực dưỡng sinh tại Du lịch Văn hóa Suối Tiên",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-04-10",
+      "description": "Món Lẩu phụng ô trái dừa trường thọ – một tuyệt phẩm mới ra mắt, hội tụ đầy đủ yếu tố ngon, lành và ý nghĩa phong thủy tốt đẹp.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "evt-2",
+      "name": "Giáng sinh ngày mấy? Những hoạt động thú vị dịp lễ Giáng sinh",
+      "type": "Lễ hội",
+      "status": "upcoming",
+      "date_start": "2025-12-24",
+      "description": "Giáng Sinh diễn ra vào đêm 24 và ngày 25/12 hằng năm. Gợi ý địa điểm vui chơi, check-in và tận hưởng mùa lễ hội.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "evt-3",
+      "name": "16 khu vui chơi quận 9 hấp dẫn không thể bỏ qua",
+      "type": "Ưu đãi",
+      "status": "ongoing",
+      "date_start": "2025-12-16",
+      "description": "Tổng hợp 16 khu vui chơi quận 9 hấp dẫn như: Khu du lịch Suối Tiên, Đầm sen Tam Đa, Bảo tàng Áo Dài, Chùa Châu Đốc 3,...",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien"
+    },
+    {
+      "event_id": "evt-4",
+      "name": "Tổng hợp 10 khu du lịch Việt Nam văn hóa và trải nghiệm độc đáo",
+      "type": "Sự kiện",
+      "status": "ongoing",
+      "date_start": "2025-12-19",
+      "description": "Tổng hợp 10 khu du lịch Việt Nam văn hóa và trải nghiệm độc đáo",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien"
+    },
+    {
+      "event_id": "evt-5",
+      "name": "Review tuyến Metro số 1 Bến Thành - Suối Tiên chi tiết từ A - Z",
+      "type": "Sự kiện",
+      "status": "ongoing",
+      "date_start": "2025-12-16",
+      "description": "Trải nghiệm tuyến Metro Bến Thành - Suối Tiên với lộ trình chi tiết, tiện ích hiện đại và nhiều điều thú vị về tuyến đường sắt đô thị đầu tiên tại TP.HCM.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien"
+    },
+    {
+      "event_id": "evt-6",
+      "name": "Du lịch văn hóa là gì? 10 địa điểm du lịch văn hóa",
+      "type": "Sự kiện",
+      "status": "ongoing",
+      "date_start": "2025-12-16",
+      "description": "Top 10 địa điểm du lịch văn hóa đặc sắc ở Việt Nam: Khu du lịch Văn hóa Suối Tiên, Phố cổ Hội An, Ninh Bình, Vịnh Hạ Long, Sa Pa,...",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "friendship_festival_2025",
+      "name": "Friendship Festival 2025",
+      "type": "Lễ hội",
+      "status": "Sắp diễn ra",
+      "date_start": "2025-10-12",
+      "description": "Friendship Festival 2025 tại Suối Tiên với chương trình nghệ thuật, diễu hành văn hóa, hoạt động Handflowers, ẩm thực đa quốc gia, show Sơn Tinh - Thủy Tinh, Gala nghệ thuật và nhiều trải nghiệm văn hóa, thiên nhiên.",
+      "special_offers": "Vé chỉ 180.000 VNĐ",
+      "source_slug": "di-metro-den-suoi-tien-hoa-minh-cung-su-kien-hot-nhat-thang-10",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "suoi-tien-chinh-thuc-mo-cua-dem-2025",
+      "name": "Suối Tiên Chính Thức Mở Cửa Đêm - Lễ Hội Chưa Từng Có",
+      "type": "Lễ hội",
+      "status": "Sắp diễn ra",
+      "date_start": "2025-08-29",
+      "description": "Suối Tiên mở cửa đêm lần đầu tiên nhân kỷ niệm 30 năm thành lập (16h00 – 22h00). Chuỗi hoạt động đặc sắc: câu cá sấu về đêm, khám phá 18 tầng địa ngục, Vương quốc Thiên Tài Tương Lai, ẩm thực đêm, sân khấu Sơn Tinh - Thủy Tinh và pháo hoa.",
+      "special_offers": null,
+      "source_slug": "suoi-tien-chinh-thuc-mo-cua-dem-mang-den-trai-nghiem-le-hoi-chua-tung-co",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "to-chuc-su-kien-tron-goi-2025",
+      "name": "Dịch vụ Tổ chức Sự kiện Trọn gói tại Khu Du Lịch Văn Hóa Suối Tiên",
+      "type": "Dịch vụ",
+      "status": "ongoing",
+      "date_start": "2025-11-07",
+      "description": "Dịch vụ tổ chức sự kiện trọn gói chuyên nghiệp tại TP.HCM bao gồm tiệc cưới, sinh nhật, thôi nôi, tiệc tri ân, hội nghị, lễ khai trương và các sự kiện văn hóa tại Khu Du Lịch Văn Hóa Suối Tiên.",
+      "special_offers": "Tổ chức sự kiện trọn gói từ A-Z: ý tưởng, thiết kế, thi công sân khấu, backdrop, âm thanh ánh sáng, booth trải nghiệm và vận hành sự kiện.",
+      "source_slug": "to-chuc-su-kien-tron-goi"
+    },
+    {
+      "event_id": "top13-donvi-tochuc-sukien-tphcm-2025",
+      "name": "Top 13 đơn vị tổ chức sự kiện uy tín nhất TP.HCM",
+      "type": "bài viết",
+      "status": "published",
+      "date_start": "2025-11-07",
+      "description": "Danh sách 13 đơn vị tổ chức sự kiện uy tín nhất tại TP.HCM năm 2025, nổi bật với Khu Du Lịch Văn Hóa Suối Tiên và Công ty Á Châu Event.",
+      "special_offers": null,
+      "source_slug": "don-vi-to-chuc-su-kien"
+    },
+    {
+      "event_id": "khu-du-lich-van-hoa-suoi-tien",
+      "name": "Khu Du Lịch Văn Hóa Suối Tiên",
+      "type": "đơn vị tổ chức sự kiện",
+      "status": "active",
+      "date_start": null,
+      "description": "Điểm đến nổi tiếng tại TP.HCM với không gian văn hóa và giải trí rộng hơn 105ha, lý tưởng cho hội nghị, hội thảo, team building và lễ hội lớn.",
+      "special_offers": null,
+      "source_slug": "don-vi-to-chuc-su-kien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "a-chau-event",
+      "name": "Á Châu Event",
+      "type": "công ty tổ chức sự kiện",
+      "status": "active",
+      "date_start": "2008-01-01",
+      "description": "Đơn vị tổ chức sự kiện chuyên nghiệp tại TP.HCM với hơn 15 năm kinh nghiệm, chuyên tổ chức sự kiện trọn gói, hội nghị, hội thảo, lễ khai trương, team building và cung cấp dịch vụ nhân sự, thiết bị sự kiện.",
+      "special_offers": null,
+      "source_slug": "don-vi-to-chuc-su-kien"
+    },
+    {
+      "event_id": "to-chuc-su-kien-tong-ket-cuoi-nam",
+      "name": "Tổ chức sự kiện tổng kết cuối năm - Year End Party",
+      "type": "Sự kiện doanh nghiệp",
+      "status": "upcoming",
+      "date_start": "2025-11-07",
+      "description": "Tổ chức sự kiện tổng kết cuối năm (Year End Party) tại Khu du lịch văn hóa Suối Tiên. Sự kiện nhằm tổng kết chặng đường một năm, tri ân nhân sự, vinh danh cá nhân/tập thể xuất sắc, tăng cường gắn kết nội bộ và xây dựng văn hóa doanh nghiệp.",
+      "special_offers": null,
+      "source_slug": "to-chuc-su-kien-tong-ket-cuoi-nam"
+    },
+    {
+      "event_id": "evt-7",
+      "name": "TOP 11 công ty tổ chức team building chuyên nghiệp tại TP.HCM",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-01-23",
+      "description": "Top 11 công ty tổ chức team building tại TP.HCM: VietPower, Suối Tiên, Du Lịch Việt... Tìm hiểu ưu điểm của từng công ty về kịch bản, chi phí và dịch vụ.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "evt-8",
+      "name": "Top 33 trò chơi team building gắn kết tập thể mới nhất 2026",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-01-21",
+      "description": "Trò chơi team building là các hoạt động tập thể với các hình thức quen thuộc như trò khởi động, trò chơi trong nhà và trò chơi ngoài trời. Suối Tiên gợi ý 33 trò chơi teambuilding dành cho doanh nghiệp.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "suoitien-1",
+      "name": "Quốc khánh 2/9, Suối Tiên tặng 2.000 vé cổng cho du khách",
+      "type": "Ưu đãi",
+      "status": "upcoming",
+      "date_start": "2026-09-02",
+      "description": "Dịp Quốc khánh năm nay, Khu Du lịch Văn hóa Suối Tiên (TP.HCM) tặng 2.000 vé cổng cho du khách mặc áo cờ đỏ sao vàng, cùng chuỗi hoạt động nghệ thuật - giải trí sôi động.",
+      "special_offers": "Tặng 2.000 vé cổng cho du khách mặc áo cờ đỏ sao vàng",
+      "source_slug": "uu-dai-va-su-kien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "suoitien-2",
+      "name": "ĐÓN MÙA THU, TRỌN NIỀM VUI CÙNG 2 COMBO ƯU ĐÃI SIÊU HỜI TẠI SUỐI TIÊN",
+      "type": "Ưu đãi",
+      "status": "upcoming",
+      "date_start": "2026-08-10",
+      "description": "Tháng 8 này, đi Suối Tiên – chọn combo là vui trọn hành trình! Hai Combo Mùa Thu với nhiều trải nghiệm hấp dẫn với chi phí tiết kiệm tối ưu.",
+      "special_offers": "2 Combo Mùa Thu ưu đãi siêu hời",
+      "source_slug": "uu-dai-va-su-kien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "suoitien-3",
+      "name": "CHUNG KẾT CUỘC THI VẼ TRANH “MẮT SÁNG TỰ DO - EM VẼ RÕ NÉT HÈ”",
+      "type": "Sự kiện",
+      "status": "completed",
+      "date_start": "2026-08-08",
+      "description": "Vòng chung kết và lễ trao giải cuộc thi vẽ tranh dành cho thiếu nhi “Mắt sáng tự do - Em vẽ rõ nét hè” diễn ra tại Khu du lịch văn hóa Suối Tiên.",
+      "special_offers": null,
+      "source_slug": "uu-dai-va-su-kien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "suoitien-4",
+      "name": "SUỐI TIÊN MỞ KHÓA MENU “QUẨY” BANH NÓC CHO NGÀY VUI CHƠI TRỌN VẸN",
+      "type": "Ưu đãi",
+      "status": "upcoming",
+      "date_start": "2026-07-28",
+      "description": "Suối Tiên mang đến những ưu đãi và trải nghiệm mới với hành trình khám phá từ vui chơi dưới nước, trò chơi giải trí đến các chương trình nghệ thuật.",
+      "special_offers": "Menu “Quẩy” banh nóc - Ưu đãi vui chơi trọn vẹn",
+      "source_slug": "uu-dai-va-su-kien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "suoitien-5",
+      "name": "TOUCHFES MIZU BOMB 2026: Suối Tiên mang văn hóa Nhật Bản đến gần hơn với du khách Việt",
+      "type": "Lễ hội",
+      "status": "completed",
+      "date_start": "2026-07-10",
+      "description": "Chương trình TOUCHFES MIZU BOMB 2026 diễn ra trong 3 ngày 10, 11 và 12/07, mang văn hóa Nhật Bản đến với du khách tại Suối Tiên.",
+      "special_offers": null,
+      "source_slug": "uu-dai-va-su-kien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "suoitien-6",
+      "name": "SĂN VÉ DU HÀNH “TẾT XUYÊN KHÔNG” - SỐNG DẬY",
+      "type": "Sự kiện",
+      "status": "upcoming",
+      "date_start": "2026-01-01",
+      "description": "Săn vé du hành Tết Xuyên Không tại Suối Tiên.",
+      "special_offers": null,
+      "source_slug": "uu-dai-va-su-kien",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": null,
+      "name": "Tổ chức sự kiện tại Khu du lịch Suối Tiên - Diamond Palace",
+      "type": "promotion",
+      "status": "upcoming",
+      "date_start": "2025-11-07",
+      "description": "Mục đích và Quy trình tổ chức sự kiện chi tiết, chuyên nghiệp tại Khu du lịch Suối Tiên với Diamond Palace - không gian sang trọng phù hợp hội nghị, gala, lễ kỷ niệm.",
+      "special_offers": "Giải pháp tổ chức sự kiện toàn diện với cơ sở vật chất hiện đại và dịch vụ chuyên nghiệp",
+      "source_slug": "to-chuc-su-kien"
+    },
+    {
+      "event_id": "top-16-khu-vui-choi-quan-9",
+      "name": "16 khu vui chơi quận 9 hấp dẫn không thể bỏ qua",
+      "type": "Cẩm nang",
+      "status": "ongoing",
+      "date_start": "2025-12-16",
+      "description": "Tổng hợp 16 khu vui chơi quận 9 hấp dẫn như: Khu du lịch Suối Tiên, Đầm sen Tam Đa, Bảo tàng Áo Dài, Chùa Châu Đốc 3,...",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "top-10-du-lich-van-hoa-viet-nam",
+      "name": "Tổng hợp 10 khu du lịch Việt Nam văn hóa và trải nghiệm độc đáo",
+      "type": "Cẩm nang",
+      "status": "ongoing",
+      "date_start": "2025-12-19",
+      "description": "Tổng hợp 10 khu du lịch Việt Nam văn hóa và trải nghiệm độc đáo",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "review-metro-so-1",
+      "name": "Review tuyến Metro số 1 Bến Thành - Suối Tiên chi tiết từ A - Z",
+      "type": "Cẩm nang",
+      "status": "ongoing",
+      "date_start": "2025-12-16",
+      "description": "Trải nghiệm tuyến Metro Bến Thành - Suối Tiên với lộ trình chi tiết, tiện ích hiện đại và nhiều điều thú vị về tuyến đường sắt đô thị đầu tiên tại TP.HCM.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "top-10-du-lich-van-hoa",
+      "name": "Du lịch văn hóa là gì? 10 địa điểm du lịch văn hóa",
+      "type": "Cẩm nang",
+      "status": "ongoing",
+      "date_start": "2025-12-16",
+      "description": "Top 10 địa điểm du lịch văn hóa đặc sắc ở Việt Nam: Khu du lịch Văn hóa Suối Tiên, Phố cổ Hội An, Ninh Bình, Vịnh Hạ Long, Sa Pa,...",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien"
+    },
+    {
+      "event_id": "top-11-cong-ty-team-building",
+      "name": "TOP 11 công ty tổ chức team building chuyên nghiệp tại TP.HCM",
+      "type": "Cẩm nang",
+      "status": "upcoming",
+      "date_start": "2026-01-23",
+      "description": "Top 11 công ty tổ chức team building tại TP.HCM: VietPower, Suối Tiên, Du Lịch Việt... Tìm hiểu ưu điểm của từng công ty về kịch bản, chi phí và dịch vụ.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "duplicate"
+    },
+    {
+      "event_id": "top-33-tro-choi-team-building",
+      "name": "Top 33 trò chơi team building gắn kết tập thể mới nhất 2026",
+      "type": "Cẩm nang",
+      "status": "upcoming",
+      "date_start": "2026-01-21",
+      "description": "Suối Tiên gợi ý 33 trò chơi team building dành cho doanh nghiệp.",
+      "special_offers": null,
+      "source_slug": "tin-tuc-thu-vien",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "sale-position-1",
+      "name": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh thị trường Quốc tế",
+      "type": "tuyen_dung",
+      "status": "open",
+      "date_start": "2026-04-20",
+      "description": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh thị trường Quốc tế",
+      "special_offers": null,
+      "source_slug": "vi-tri-sale",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "sale-position-2",
+      "name": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh Cơ quan đoàn thể",
+      "type": "tuyen_dung",
+      "status": "open",
+      "date_start": "2026-04-20",
+      "description": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh Cơ quan đoàn thể",
+      "special_offers": null,
+      "source_slug": "vi-tri-sale",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "sale-position-3",
+      "name": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh DLLH và trường học",
+      "type": "tuyen_dung",
+      "status": "open",
+      "date_start": "2026-04-20",
+      "description": "Tuyển dụng vị trí Trưởng bộ phận Sales kênh DLLH và trường học",
+      "special_offers": null,
+      "source_slug": "vi-tri-sale",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "sale-position-4",
+      "name": "Tuyển dụng vị trí Giám Đốc Sale",
+      "type": "tuyen_dung",
+      "status": "open",
+      "date_start": "2026-04-20",
+      "description": "Tuyển dụng vị trí Giám Đốc Sale",
+      "special_offers": null,
+      "source_slug": "vi-tri-sale",
+      "is_active": false,
+      "expired_by": "content_lifecycle"
+    },
+    {
+      "event_id": "diamond-palace-suoi-tien",
+      "name": "Diamond Palace – Nhà hàng tổ chức sự kiện & hội nghị cao cấp tại Suối Tiên",
+      "type": "Nhà hàng tổ chức sự kiện",
+      "status": "ongoing",
+      "date_start": "2025-11-07",
+      "description": "Nhà hàng tổ chức sự kiện và trung tâm hội nghị cao cấp tọa lạc trong Khu Du lịch Văn hóa Suối Tiên. Không gian sang trọng, lộng lẫy, phù hợp tổ chức tiệc cưới, hội nghị, tiệc tất niên.",
+      "special_offers": null,
+      "source_slug": "nha-hang-to-chuc-su-kien"
     }
   ],
   "teambuilding": [
